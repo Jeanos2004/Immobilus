@@ -31,10 +31,35 @@ class User extends Authenticatable
 
     /**
      * Relation avec les propriétés (pour les agents)
+     * Un agent peut avoir plusieurs propriétés à vendre/louer
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function properties()
     {
         return $this->hasMany(Property::class, 'agent_id', 'id');
+    }
+    
+    /**
+     * Relation avec les propriétés favorites
+     * Un utilisateur peut avoir plusieurs propriétés favorites
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+    
+    /**
+     * Relation directe avec les propriétés favorites
+     * Permet d'accéder directement aux propriétés favorites sans passer par le modèle Favorite
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function favoriteProperties()
+    {
+        return $this->belongsToMany(Property::class, 'favorites', 'user_id', 'property_id')->withTimestamps();
     }
 
     /**

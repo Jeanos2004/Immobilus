@@ -49,6 +49,8 @@
                                 <td>
                                     <a href="{{ route('edit.property', $item->id) }}" class="btn btn-inverse-warning" title="Modifier"><i data-feather="edit"></i></a>
                                     
+                                    <a href="{{ route('property.multi.image', $item->id) }}" class="btn btn-inverse-info" title="Gérer les images"><i data-feather="image"></i></a>
+                                    
                                     <a href="{{ route('delete.property', $item->id) }}" id="delete" class="btn btn-inverse-danger" title="Supprimer"><i data-feather="trash-2"></i></a>
                                     
                                     @if($item->status == 1)

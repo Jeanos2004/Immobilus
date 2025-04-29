@@ -25,7 +25,18 @@
                 @auth
                     <div class="sign-box">
                         <a href="{{ route('dashboard') }}"><i class="fas fa-user"></i>{{ __('messages.dashboard') }}</a>
-                        <a href="{{ route('user.logout') }}"><i class="fas fa-user"></i>{{ __('messages.logout') }}</a>
+                        <a href="{{ route('user.wishlist') }}"><i class="fas fa-heart"></i>Mes favoris</a>
+                        <a href="{{ route('user.inbox') }}"><i class="fas fa-envelope"></i>Messagerie</a>
+                        <a href="{{ route('all.notifications') }}">
+                            <i class="fas fa-bell"></i>Notifications
+                            @php
+                                $notificationCount = auth()->user()->unreadNotifications()->count();
+                            @endphp
+                            @if($notificationCount > 0)
+                                <span class="badge badge-pill badge-danger" style="font-size: 0.6em; position: relative; top: -8px; left: -5px;">{{ $notificationCount }}</span>
+                            @endif
+                        </a>
+                        <a href="{{ route('user.logout') }}"><i class="fas fa-sign-out-alt"></i>{{ __('messages.logout') }}</a>
                     </div>
                 @else
                     <div class="sign-box">
