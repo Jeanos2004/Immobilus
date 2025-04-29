@@ -1,7 +1,7 @@
 <nav class="sidebar">
     <div class="sidebar-header">
       <a href="#" class="sidebar-brand">
-        Sqr<span>Eloquent</span>
+        Immo<span>bilus</span>
       </a>
       <div class="sidebar-toggler not-active">
         <span></span>
@@ -18,7 +18,7 @@
             <span class="link-title">Dashboard</span>
           </a>
         </li>
-        <li class="nav-item nav-category">RealEstate</li>
+        <li class="nav-item nav-category">Immobilus</li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
             <i class="link-icon" data-feather="mail"></i>

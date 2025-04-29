@@ -10,6 +10,11 @@
                 </ul>
             </div>
             <div class="right-column pull-right">
+                <!-- Sélecteur de langue -->
+                <div class="language-selector" style="display: inline-block; margin-right: 15px;">
+                    <a href="{{ route('lang.switch', 'fr') }}" style="margin-right: 10px; color: {{ app()->getLocale() == 'fr' ? '#2dbe6c' : '#a19a9a' }};">FR</a>
+                    <a href="{{ route('lang.switch', 'en') }}" style="color: {{ app()->getLocale() == 'en' ? '#2dbe6c' : '#a19a9a' }};">EN</a>
+                </div>
                 <ul class="social-links clearfix">
                     <li><a href="index.html"><i class="fab fa-facebook-f"></i></a></li>
                     <li><a href="index.html"><i class="fab fa-twitter"></i></a></li>
@@ -19,12 +24,12 @@
                 </ul>
                 @auth
                     <div class="sign-box">
-                        <a href="{{ route('dashboard') }}"><i class="fas fa-user"></i>Dashboard</a>
-                        <a href="{{ route('user.logout') }}"><i class="fas fa-user"></i>Logout</a>
+                        <a href="{{ route('dashboard') }}"><i class="fas fa-user"></i>{{ __('messages.dashboard') }}</a>
+                        <a href="{{ route('user.logout') }}"><i class="fas fa-user"></i>{{ __('messages.logout') }}</a>
                     </div>
                 @else
                     <div class="sign-box">
-                        <a href="{{ route('login') }}"><i class="fas fa-user"></i>Sign In</a>
+                        <a href="{{ route('login') }}"><i class="fas fa-user"></i>{{ __('messages.login') }}</a>
                     </div>
                 @endauth
             </div>
@@ -35,7 +40,7 @@
     <div class="outer-box">
     <div class="main-box">
     <div class="logo-box">
-        <figure class="logo"><a href="index.html"><img src="{{ asset('frontend/assets') }}/images/logo.png" alt=""></a></figure>
+        <figure class="logo"><a href="/"><img src="{{ asset('frontend/assets') }}/images/logo.png" alt="Immobilus"></a></figure>
     </div>
     <div class="menu-area clearfix">
         <!--Mobile Navigation Toggler-->
@@ -152,7 +157,7 @@
         </nav>
     </div>
     <div class="btn-box">
-        <a href="index.html" class="theme-btn btn-one"><span>+</span>Add Listing</a>
+        <a href="index.html" class="theme-btn btn-one"><span>+</span>{{ __('messages.add_listing') }}</a>
     </div>
     </div>
     </div>
@@ -163,7 +168,7 @@
         <div class="outer-box">
             <div class="main-box">
                 <div class="logo-box">
-                    <figure class="logo"><a href="index.html"><img src="{{ asset('frontend/assets') }}/images/logo.png" alt=""></a></figure>
+                    <figure class="logo"><a href="/"><img src="{{ asset('frontend/assets') }}/images/logo.png" alt="Immobilus"></a></figure>
                 </div>
                 <div class="menu-area clearfix">
                     <nav class="main-menu clearfix">
@@ -171,7 +176,7 @@
                     </nav>
                 </div>
                 <div class="btn-box">
-                    <a href="index.html" class="theme-btn btn-one"><span>+</span>Add Listing</a>
+                    <a href="index.html" class="theme-btn btn-one"><span>+</span>{{ __('messages.add_listing') }}</a>
                 </div>
             </div>
         </div>

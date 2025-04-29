@@ -30,6 +30,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * Relation avec les propriétés (pour les agents)
+     */
+    public function properties()
+    {
+        return $this->hasMany(Property::class, 'agent_id', 'id');
+    }
+
+    /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
