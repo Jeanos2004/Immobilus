@@ -7,7 +7,7 @@
             <div class="card-body">
                 <h6 class="card-title">Add Amenities</h6>
 
-                <form action="{{ route('store.type') }}" method="POST" class="forms-sample">
+                <form action="{{ route('store.amenitie') }}" method="POST" class="forms-sample">
                     @csrf
                     <div class="mb-3">
                         <label for="exampleInputUsername1" class="form-label">Amenities Name</label>

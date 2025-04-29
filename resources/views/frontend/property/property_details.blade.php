@@ -51,10 +51,14 @@
                     </div>
                 </div>
                 <ul class="other-option pull-right clearfix">
-                    <li><a href="#"><i class="icon-37"></i></a></li>
-                    <li><a href="#"><i class="icon-38"></i></a></li>
-                    <li><a href="#"><i class="icon-12"></i></a></li>
-                    <li><a href="#"><i class="icon-13"></i></a></li>
+                    <li><a href="#" onclick="window.print()"><i class="icon-37"></i></a></li>
+                    <li><a href="#" onclick="shareProperty()"><i class="icon-38"></i></a></li>
+                    <li>
+                        <!-- Bouton pour ajouter/retirer des favoris -->
+                        <a href="#" class="wishlist-btn" id="wishlistBtn" data-property-id="{{ $property->id }}">
+                            <i class="icon-12" id="wishlistIcon"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -62,10 +66,35 @@
             <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                 <div class="property-details-content">
                     <div class="carousel-inner">
-                        <div class="single-item-carousel owl-carousel owl-theme owl-dots-none">
-                            <figure class="image-box"><img src="{{ asset($property->property_thumbnail) }}" alt=""></figure>
+                        <div class="single-item-carousel owl-carousel owl-theme owl-nav-none owl-dot-style-one">
+                            <!-- Image principale -->
+                            <figure class="image-box"><img src="{{ asset($property->property_thumbnail) }}" alt="{{ $property->property_name }}" style="width:100%; height:500px; object-fit:cover;"></figure>
+                            
+                            <!-- Images de la galerie -->
+                            @foreach($property->propertyImages as $img)
+                            <figure class="image-box"><img src="{{ asset($img->photo_name) }}" alt="{{ $property->property_name }} - Image {{ $loop->iteration }}" style="width:100%; height:500px; object-fit:cover;"></figure>
+                            @endforeach
                         </div>
                     </div>
+                    
+                    <!-- Miniatures des images (galerie en bas) -->
+                    @if(count($property->propertyImages) > 0)
+                    <div class="thumb-box clearfix mt-3">
+                        <div class="row">
+                            <!-- Miniature de l'image principale -->
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-6 thumb-item">
+                                <img src="{{ asset($property->property_thumbnail) }}" alt="{{ $property->property_name }}" style="width:100%; height:100px; object-fit:cover; cursor:pointer; border-radius:5px;" onclick="showImage(0)">
+                            </div>
+                            
+                            <!-- Miniatures des images de la galerie -->
+                            @foreach($property->propertyImages as $key => $img)
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-6 thumb-item">
+                                <img src="{{ asset($img->photo_name) }}" alt="{{ $property->property_name }} - Image {{ $loop->iteration }}" style="width:100%; height:100px; object-fit:cover; cursor:pointer; border-radius:5px;" onclick="showImage({{ $key + 1 }})">
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
                     <div class="discription-box content-widget">
                         <div class="title-box">
                             <h4>Description</h4>
@@ -249,6 +278,185 @@
                         </div>
                     </div>
                     
+                    <!-- Section des avis -->
+                    <div class="review-box content-widget">
+                        <div class="title-box">
+                            <h4>Avis et évaluations</h4>
+                        </div>
+                        <div class="review-inner">
+                            <!-- Affichage des avis existants -->
+                            @php
+                                $reviews = App\Models\PropertyReview::where('property_id', $property->id)
+                                            ->where('status', 'approved')
+                                            ->with('user')
+                                            ->latest()
+                                            ->get();
+                                
+                                $reviewCount = $reviews->count();
+                                $averageRating = $reviewCount > 0 ? $reviews->avg('rating') : 0;
+                                $roundedRating = round($averageRating);
+                            @endphp
+                            
+                            <div class="rating-summary clearfix mb-4">
+                                <div class="overall-rating pull-left">
+                                    <h2>{{ number_format($averageRating, 1) }} <span>/5</span></h2>
+                                    <ul class="rating clearfix">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            @if($i <= $roundedRating)
+                                                <li><i class="icon-39"></i></li>
+                                            @else
+                                                <li><i class="icon-40"></i></li>
+                                            @endif
+                                        @endfor
+                                    </ul>
+                                    <span class="total-reviews">{{ $reviewCount }} avis</span>
+                                </div>
+                                <div class="rating-progress pull-right">
+                                    @php
+                                        $fiveStars = $reviewCount > 0 ? ($reviews->where('rating', 5)->count() / $reviewCount) * 100 : 0;
+                                        $fourStars = $reviewCount > 0 ? ($reviews->where('rating', 4)->count() / $reviewCount) * 100 : 0;
+                                        $threeStars = $reviewCount > 0 ? ($reviews->where('rating', 3)->count() / $reviewCount) * 100 : 0;
+                                        $twoStars = $reviewCount > 0 ? ($reviews->where('rating', 2)->count() / $reviewCount) * 100 : 0;
+                                        $oneStar = $reviewCount > 0 ? ($reviews->where('rating', 1)->count() / $reviewCount) * 100 : 0;
+                                    @endphp
+                                    <div class="progress-item">
+                                        <span>5 étoiles</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ $fiveStars }}%" aria-valuenow="{{ $fiveStars }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <span>{{ $reviews->where('rating', 5)->count() }}</span>
+                                    </div>
+                                    <div class="progress-item">
+                                        <span>4 étoiles</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ $fourStars }}%" aria-valuenow="{{ $fourStars }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <span>{{ $reviews->where('rating', 4)->count() }}</span>
+                                    </div>
+                                    <div class="progress-item">
+                                        <span>3 étoiles</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ $threeStars }}%" aria-valuenow="{{ $threeStars }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <span>{{ $reviews->where('rating', 3)->count() }}</span>
+                                    </div>
+                                    <div class="progress-item">
+                                        <span>2 étoiles</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ $twoStars }}%" aria-valuenow="{{ $twoStars }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <span>{{ $reviews->where('rating', 2)->count() }}</span>
+                                    </div>
+                                    <div class="progress-item">
+                                        <span>1 étoile</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ $oneStar }}%" aria-valuenow="{{ $oneStar }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <span>{{ $reviews->where('rating', 1)->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Liste des avis -->
+                            <div class="review-list">
+                                @if($reviewCount > 0)
+                                    @foreach($reviews as $review)
+                                    <div class="review-block">
+                                        <div class="review-header clearfix">
+                                            <div class="reviewer-info pull-left">
+                                                <figure class="reviewer-thumb">
+                                                    <img src="{{ !empty($review->user->photo) ? asset($review->user->photo) : url('upload/no_image.jpg') }}" alt="{{ $review->user->name }}">
+                                                </figure>
+                                                <div class="reviewer-name">
+                                                    <h5>{{ $review->user->name }}</h5>
+                                                    <span>{{ $review->created_at->format('d/m/Y') }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="rating-box pull-right">
+                                                <ul class="rating clearfix">
+                                                    @for($i = 1; $i <= 5; $i++)
+                                                        @if($i <= $review->rating)
+                                                            <li><i class="icon-39"></i></li>
+                                                        @else
+                                                            <li><i class="icon-40"></i></li>
+                                                        @endif
+                                                    @endfor
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="review-content">
+                                            <p>{{ $review->comment }}</p>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                @else
+                                    <div class="alert alert-info">
+                                        <p>Aucun avis n'a encore été laissé pour cette propriété. Soyez le premier à donner votre avis !</p>
+                                    </div>
+                                @endif
+                            </div>
+                            
+                            <!-- Formulaire pour laisser un avis -->
+                            <div class="review-form mt-5">
+                                <h4>Laisser un avis</h4>
+                                
+                                @auth
+                                    @php
+                                        $userReview = App\Models\PropertyReview::where('property_id', $property->id)
+                                                        ->where('user_id', Auth::id())
+                                                        ->first();
+                                    @endphp
+                                    
+                                    <form action="{{ route('store.review') }}" method="post" class="mt-3">
+                                        @csrf
+                                        <input type="hidden" name="property_id" value="{{ $property->id }}">
+                                        
+                                        <div class="form-group mb-3">
+                                            <label>Votre note</label>
+                                            <div class="rating-input">
+                                                <div class="rating-group">
+                                                    <input type="radio" name="rating" value="1" id="rating-1" {{ $userReview && $userReview->rating == 1 ? 'checked' : '' }} required>
+                                                    <label for="rating-1"><i class="icon-39"></i></label>
+                                                    
+                                                    <input type="radio" name="rating" value="2" id="rating-2" {{ $userReview && $userReview->rating == 2 ? 'checked' : '' }}>
+                                                    <label for="rating-2"><i class="icon-39"></i></label>
+                                                    
+                                                    <input type="radio" name="rating" value="3" id="rating-3" {{ $userReview && $userReview->rating == 3 ? 'checked' : '' }}>
+                                                    <label for="rating-3"><i class="icon-39"></i></label>
+                                                    
+                                                    <input type="radio" name="rating" value="4" id="rating-4" {{ $userReview && $userReview->rating == 4 ? 'checked' : '' }}>
+                                                    <label for="rating-4"><i class="icon-39"></i></label>
+                                                    
+                                                    <input type="radio" name="rating" value="5" id="rating-5" {{ $userReview && $userReview->rating == 5 ? 'checked' : '' }}>
+                                                    <label for="rating-5"><i class="icon-39"></i></label>
+                                                </div>
+                                            </div>
+                                            @error('rating')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        
+                                        <div class="form-group mb-3">
+                                            <label>Votre commentaire</label>
+                                            <textarea name="comment" class="form-control" rows="5" required>{{ $userReview ? $userReview->comment : '' }}</textarea>
+                                            @error('comment')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <button type="submit" class="theme-btn btn-one">{{ $userReview ? 'Mettre à jour mon avis' : 'Soumettre mon avis' }}</button>
+                                        </div>
+                                    </form>
+                                @else
+                                    <div class="alert alert-warning mt-3">
+                                        <p>Vous devez être connecté pour laisser un avis. <a href="{{ route('login') }}" class="text-primary">Connectez-vous ici</a>.</p>
+                                    </div>
+                                @endauth
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="similar-properties content-widget">
                         <div class="title-box">
                             <h4>Propriétés similaires</h4>
@@ -308,24 +516,53 @@
                         <div class="form-title">
                             <h4>Contacter l'agent</h4>
                         </div>
-                        <form action="#" method="post" class="default-form">
+                        
+                        @auth
+                        <form action="{{ route('send.message') }}" method="post" class="default-form">
+                            @csrf
+                            <input type="hidden" name="property_id" value="{{ $property->id }}">
+                            <input type="hidden" name="agent_id" value="{{ $property->agent_id }}">
+                            
                             <div class="form-group">
-                                <input type="text" name="name" placeholder="Votre nom" required="">
+                                <input type="text" name="name" value="{{ Auth::user()->name }}" disabled>
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" placeholder="Votre email" required="">
+                                <input type="email" name="email" value="{{ Auth::user()->email }}" disabled>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="phone" placeholder="Téléphone" required="">
+                                <input type="text" name="subject" placeholder="Sujet" required>
+                                @error('subject')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <textarea name="message" placeholder="Message"></textarea>
+                                <textarea name="message" placeholder="Message" required></textarea>
+                                @error('message')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group message-btn">
                                 <button type="submit" class="theme-btn btn-one">Envoyer le message</button>
                             </div>
                         </form>
+                        @else
+                        <div class="alert alert-warning">
+                            <p>Vous devez être connecté pour contacter l'agent. <a href="{{ route('login') }}" class="text-primary">Connectez-vous ici</a>.</p>
+                        </div>
+                        @endif
                     </div>
+                    
+                    <!-- Widget de prise de rendez-vous -->
+                    <div class="form-widget sidebar-widget">
+                        <div class="form-title">
+                            <h4>Visiter cette propriété</h4>
+                        </div>
+                        <div class="text-center py-4">
+                            <p>Planifiez une visite avec l'agent pour découvrir cette propriété.</p>
+                            <a href="{{ route('book.appointment', $property->id) }}" class="theme-btn btn-one w-100">Prendre rendez-vous</a>
+                        </div>
+                    </div>
+                    
                     <div class="calculator-widget sidebar-widget">
                         <div class="calculator-title">
                             <h4>Calculateur de prêt</h4>
@@ -367,4 +604,122 @@
 </section>
 <!-- property-details end -->
 
+@endsection
+
+@section('scripts')
+<script>
+    // Fonction pour afficher une image spécifique dans le carrousel
+    function showImage(index) {
+        // Récupérer le carrousel
+        var owl = $('.single-item-carousel');
+        
+        // Aller à l'image spécifiée
+        owl.trigger('to.owl.carousel', [index, 300]);
+    }
+    
+    // Fonction pour partager la propriété
+    function shareProperty() {
+        if (navigator.share) {
+            navigator.share({
+                title: "{{ $property->property_name }}",
+                text: "Découvrez cette propriété sur Immobilus",
+                url: window.location.href
+            })
+            .catch(error => console.log('Erreur de partage', error));
+        } else {
+            // Fallback pour les navigateurs qui ne supportent pas l'API Web Share
+            alert("Copiez ce lien pour partager : " + window.location.href);
+        }
+        return false;
+    }
+    
+    // Initialiser le carrousel et les fonctionnalités une fois que la page est chargée
+    $(document).ready(function() {
+        // Vérifier si le carrousel est déjà initialisé
+        if (!$('.single-item-carousel').hasClass('owl-loaded')) {
+            // Initialiser le carrousel avec les options appropriées
+            $('.single-item-carousel').owlCarousel({
+                loop: true,
+                margin: 0,
+                nav: true,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                smartSpeed: 1000,
+                navText: [ '<span class="fas fa-arrow-left"></span>', '<span class="fas fa-arrow-right"></span>' ],
+                responsive: {
+                    0: { items: 1 },
+                    600: { items: 1 },
+                    800: { items: 1 },
+                    1024: { items: 1 },
+                    1200: { items: 1 }
+                }
+            });
+        }
+        
+        // Gérer le clic sur le bouton de favoris
+        $('#wishlistBtn').on('click', function(e) {
+            e.preventDefault();
+            
+            // Récupérer l'ID de la propriété
+            var propertyId = $(this).data('property-id');
+            
+            // Envoyer la requête AJAX
+            $.ajax({
+                url: "{{ route('add.to.wishlist') }}",
+                type: "POST",
+                data: {
+                    property_id: propertyId,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        // Afficher un message de succès
+                        toastr.success(response.message);
+                        
+                        // Mettre à jour l'apparence du bouton
+                        if (response.message.includes('ajoutée')) {
+                            $('#wishlistIcon').css('color', '#ff5a5f');
+                        } else {
+                            $('#wishlistIcon').css('color', '');
+                        }
+                    } else {
+                        // Rediriger vers la page de connexion si nécessaire
+                        if (response.message.includes('connecter')) {
+                            window.location.href = "{{ route('login') }}";
+                        } else {
+                            toastr.error(response.message);
+                        }
+                    }
+                },
+                error: function(xhr) {
+                    // Gérer les erreurs
+                    if (xhr.status === 401) {
+                        // Rediriger vers la page de connexion si non authentifié
+                        window.location.href = "{{ route('login') }}";
+                    } else {
+                        toastr.error('Une erreur est survenue. Veuillez réessayer.');
+                    }
+                }
+            });
+        });
+        
+        // Vérifier si la propriété est déjà dans les favoris
+        @auth
+        $.ajax({
+            url: "{{ route('add.to.wishlist') }}",
+            type: "POST",
+            data: {
+                property_id: "{{ $property->id }}",
+                _token: "{{ csrf_token() }}",
+                check_only: true
+            },
+            success: function(response) {
+                if (response.in_wishlist) {
+                    $('#wishlistIcon').css('color', '#ff5a5f');
+                }
+            }
+        });
+        @endauth
+    });
+</script>
 @endsection
