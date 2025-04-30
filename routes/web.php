@@ -58,6 +58,16 @@ Route::controller(\App\Http\Controllers\Frontend\WishlistController::class)->gro
 Route::controller(\App\Http\Controllers\Frontend\ReviewController::class)->group(function(){
     // Soumettre un avis (nécessite authentification)
     Route::post('/store-review', 'StoreReview')->name('store.review')->middleware('auth');
+    
+    // Répondre à un avis (agents et admins uniquement)
+    Route::post('/reply-to-review', 'StoreReviewReply')->name('store.review.reply')->middleware('auth');
+    Route::get('/delete-review-reply/{id}', 'DeleteReviewReply')->name('delete.review.reply')->middleware('auth');
+    
+    // Voter sur un avis (utile/non utile)
+    Route::post('/vote-review', 'VoteReview')->name('vote.review')->middleware('auth');
+    
+    // Signaler un avis inapproprié
+    Route::post('/report-review', 'ReportReview')->name('report.review')->middleware('auth');
 });
 
 // Routes pour les rendez-vous (frontend)
@@ -231,6 +241,10 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
         Route::get('/review/reject/{id}', 'ChangeReviewStatus')->name('review.reject');
         // Supprimer un avis
         Route::get('/review/delete/{id}', 'DeleteReview')->name('review.delete');
+        
+        // Gestion des signalements d'avis
+        Route::get('/review/reports', 'AdminAllReports')->name('admin.review.reports');
+        Route::get('/review/report/{id}/status/{status}', 'ChangeReportStatus')->name('admin.report.status');
     });
     
     // Gestion des messages pour l'administration
