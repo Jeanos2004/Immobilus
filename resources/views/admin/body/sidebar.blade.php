@@ -184,6 +184,34 @@
           </div>
         </li>
         
+        <!-- Gestion des utilisateurs -->
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#userManagement" role="button" aria-expanded="false" aria-controls="userManagement">
+            <i class="link-icon" data-feather="users"></i>
+            <span class="link-title">Gestion des utilisateurs</span>
+            <i class="link-arrow" data-feather="chevron-down"></i>
+          </a>
+          <div class="collapse" id="userManagement">
+            <ul class="nav sub-menu">
+              <li class="nav-item">
+                <a href="{{ route('all.users') }}" class="nav-link">Tous les utilisateurs</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('all.admins') }}" class="nav-link">Administrateurs</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('all.agents') }}" class="nav-link">Agents immobiliers</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('all.customers') }}" class="nav-link">Clients</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('add.user') }}" class="nav-link">Ajouter un utilisateur</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        
         <!-- Fonctionnalités à venir -->
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#comingSoon" role="button" aria-expanded="false" aria-controls="comingSoon">

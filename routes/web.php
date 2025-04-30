@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use \App\Http\Controllers\Backend\MultiImageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\PropertyController;
+use \App\Http\Controllers\Backend\UserManagementController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -249,5 +250,64 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
     // Statistiques des rendez-vous (admin)
     Route::get('/appointment/statistics', [\App\Http\Controllers\Backend\AppointmentStatsController::class, 'index'])->name('appointment.statistics');
+    
+    // Gestion des utilisateurs (admin)
+    Route::controller(UserManagementController::class)->group(function(){
+        // Liste des utilisateurs
+        Route::get('/all/users', 'AllUsers')->name('all.users');
+        Route::get('/all/admins', 'AllAdmins')->name('all.admins');
+        Route::get('/all/agents', 'AllAgents')->name('all.agents');
+        Route::get('/all/customers', 'AllCustomers')->name('all.customers');
+        
+        // Ajout d'utilisateur
+        Route::get('/add/user', 'AddUser')->name('add.user');
+        Route::post('/store/user', 'StoreUser')->name('store.user');
+        
+        // Modification d'utilisateur
+        Route::get('/edit/user/{id}', 'EditUser')->name('edit.user');
+        Route::post('/update/user/{id}', 'UpdateUser')->name('update.user');
+        
+        // Détails d'utilisateur
+        Route::get('/view/user/{id}', 'ViewUser')->name('view.user');
+        
+        // Suppression d'utilisateur
+        Route::get('/delete/user/{id}', 'DeleteUser')->name('delete.user');
+        
+        // Changement de statut (actif/inactif)
+        Route::get('/change/status/user/{id}', 'ChangeUserStatus')->name('change.status.user');
+        
+        // Changement de rôle
+        Route::post('/change/role/user/{id}', 'ChangeUserRole')->name('change.role.user');
+    });
 
 }); // End Group Admin Middleware
+
+Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+
+// Start Group Agent Middleware
+Route::middleware(['auth', 'role:agent'])->group(function(){
+    Route::get('/agent/dashboard', [AgentController::class, 'AgentDashboard'])->name('agent.dashboard');
+    
+    // Routes pour la messagerie agent
+    Route::controller(\App\Http\Controllers\Frontend\MessageController::class)->group(function(){
+        // Boîte de réception
+        Route::get('/agent/inbox', 'AgentInbox')->name('agent.inbox');
+        // Messages envoyés
+        Route::get('/agent/sent', 'AgentSent')->name('agent.sent');
+        // Voir un message
+        Route::get('/agent/message/view/{id}', 'AgentViewMessage')->name('agent.message.view');
+        // Répondre à un message
+        Route::post('/agent/message/reply', 'AgentReplyMessage')->name('agent.message.reply');
+        // Supprimer un message
+        Route::get('/agent/message/delete/{id}', 'AgentDeleteMessage')->name('agent.message.delete');
+    });
+    
+    // Routes pour les rendez-vous (agent)
+    Route::controller(\App\Http\Controllers\Frontend\AppointmentController::class)->group(function(){
+        // Liste des rendez-vous de l'agent
+        Route::get('/agent/appointments', 'AgentAppointments')->name('agent.appointments');
+        // Changer le statut d'un rendez-vous
+        Route::get('/agent/appointment/status/{id}/{status}', 'AgentChangeStatus')->name('agent.appointment.status');
+    });
+
+}); // End Group Agent Middleware
