@@ -77,27 +77,7 @@
           </div>
         </li>
         
-        <!-- Gestion des utilisateurs -->
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#users" role="button" aria-expanded="false" aria-controls="users">
-            <i class="link-icon" data-feather="users"></i>
-            <span class="link-title">Utilisateurs</span>
-            <i class="link-arrow" data-feather="chevron-down"></i>
-          </a>
-          <div class="collapse" id="users">
-            <ul class="nav sub-menu">
-              <li class="nav-item">
-                <a href="#" class="nav-link">Administrateurs</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">Agents</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">Utilisateurs</a>
-              </li>
-            </ul>
-          </div>
-        </li>
+        
 
         <!-- Avis et notes -->
         <li class="nav-item">

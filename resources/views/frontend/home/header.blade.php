@@ -100,6 +100,8 @@
                             <li><a href="property-details-2.html">Property Details 02</a></li>
                             <li><a href="property-details-3.html">Property Details 03</a></li>
                             <li><a href="property-details-4.html">Property Details 04</a></li>
+                            <li><a href="{{ route('property.map') }}">Carte interactive</a></li>
+                            <li><a href="{{ route('recommendations') }}">Recommandations personnalisées</a></li>
                         </ul>
                     </li>
                     <li class="dropdown"><a href="index.html"><span>Pages</span></a>

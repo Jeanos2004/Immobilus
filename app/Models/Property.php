@@ -37,6 +37,16 @@ class Property extends Model
     {
         return $this->belongsTo(User::class, 'agent_id', 'id');
     }
+    
+    /**
+     * Alias de la relation user() pour plus de clarté dans le code
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function agent()
+    {
+        return $this->user();
+    }
 
     /**
      * Relation avec les aménités (many-to-many)

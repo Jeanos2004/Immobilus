@@ -29,6 +29,9 @@
 <link href="{{ asset('frontend/assets') }}/css/responsive.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 
+<!-- Styles spécifiques aux pages -->
+@yield('head')
+
 </head>
 
 
@@ -107,6 +110,9 @@
 			}
 		@endif 
 	</script>
+
+    <!-- Scripts spécifiques aux pages -->
+    @yield('scripts')
 
 </body><!-- End of .page_wrapper -->
 </html>

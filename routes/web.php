@@ -31,6 +31,19 @@ Route::controller(\App\Http\Controllers\Frontend\PropertyController::class)->gro
     Route::get('/agent/properties/{id}', 'AgentProperties')->name('agent.properties');
 });
 
+// Routes pour la carte interactive
+Route::controller(\App\Http\Controllers\Frontend\MapController::class)->group(function(){
+    Route::get('/properties/map', 'index')->name('property.map');
+    Route::post('/properties/map/search-area', 'searchByArea')->name('property.map.search.area');
+    Route::post('/properties/map/search-address', 'searchByAddress')->name('property.map.search.address');
+});
+
+// Routes pour les recommandations
+Route::controller(\App\Http\Controllers\Frontend\RecommendationController::class)->group(function(){
+    Route::get('/recommendations', 'index')->name('recommendations');
+    Route::post('/track-property-view', 'trackPropertyView')->name('track.property.view');
+});
+
 // Routes pour les favoris (wishlist)
 Route::controller(\App\Http\Controllers\Frontend\WishlistController::class)->group(function(){
     // Ajouter/Supprimer des favoris (AJAX)

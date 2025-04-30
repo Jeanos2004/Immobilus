@@ -1,11 +1,6 @@
 @extends('admin.admin_dashboard')
 @section('content')
 
-<!-- Message de débogage -->
-<div class="alert alert-warning">
-    <h4>Test d'affichage</h4>
-    <p>Si vous voyez ce message, la vue se charge correctement.</p>
-</div>
 
 <div class="page-content">
     <div class="row">

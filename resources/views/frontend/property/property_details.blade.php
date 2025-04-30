@@ -635,6 +635,17 @@
     
     // Initialiser le carrousel et les fonctionnalités une fois que la page est chargée
     $(document).ready(function() {
+        // Enregistrer la vue de cette propriété pour les recommandations
+        $.ajax({
+            url: "{{ route('track.property.view') }}",
+            type: "POST",
+            data: {
+                property_id: {{ $property->id }},
+                _token: "{{ csrf_token() }}"
+            },
+            dataType: "json"
+        });
+        
         // Vérifier si le carrousel est déjà initialisé
         if (!$('.single-item-carousel').hasClass('owl-loaded')) {
             // Initialiser le carrousel avec les options appropriées
