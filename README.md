@@ -1,66 +1,245 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Immobilus - Plateforme Immobilière
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="public/frontend/assets/images/logo.png" alt="Immobilus Logo" width="200">
 </p>
 
-## About Laravel
+## Cahier des Charges
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. Présentation du Projet
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Immobilus est une plateforme immobilière complète permettant la mise en relation entre agents immobiliers et clients potentiels. L'application offre une expérience utilisateur intuitive et des fonctionnalités avancées pour la recherche, la gestion et la visite de biens immobiliers.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 2. Objectifs
 
-## Learning Laravel
+- Créer une plateforme immobilière moderne et réactive
+- Faciliter la recherche de biens immobiliers selon divers critères
+- Permettre aux agents de gérer efficacement leurs annonces et leurs rendez-vous
+- Offrir aux administrateurs une vue d'ensemble et des outils de gestion complets
+- Améliorer l'expérience utilisateur grâce à des fonctionnalités interactives
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 3. Public Cible
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Utilisateurs réguliers** : Personnes à la recherche d'un bien immobilier
+- **Agents immobiliers** : Professionnels proposant des biens à la vente ou à la location
+- **Administrateurs** : Gestionnaires de la plateforme
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 4. Architecture Technique
 
-## Laravel Sponsors
+- **Framework** : Laravel 10.x
+- **Base de données** : MySQL
+- **Frontend** : Blade, Bootstrap, JavaScript, jQuery
+- **Authentification** : Système multi-rôles (admin, agent, utilisateur)
+- **Langues** : Français (principal), anglais (secondaire)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 5. Fonctionnalités Implémentées
 
-### Premium Partners
+#### 5.1 Système d'Authentification et Gestion des Utilisateurs
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- Inscription et connexion des utilisateurs
+- Système de rôles (admin, agent, utilisateur)
+- Gestion des profils utilisateurs
+- Récupération de mot de passe
 
-## Contributing
+#### 5.2 Gestion des Propriétés
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Création, modification et suppression d'annonces immobilières
+- Catégorisation par types de propriétés
+- Gestion des aménités (caractéristiques des biens)
+- Système d'images multiples pour chaque propriété
+- Statuts des propriétés (disponible, vendu, loué)
 
-## Code of Conduct
+#### 5.3 Recherche et Filtrage
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Recherche par mots-clés
+- Filtrage par type de propriété, prix, surface, nombre de chambres
+- Filtrage par aménités
+- Tri des résultats (prix croissant/décroissant, date, etc.)
 
-## Security Vulnerabilities
+#### 5.4 Système de Favoris
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Ajout/suppression de propriétés aux favoris
+- Liste des favoris par utilisateur
+- Gestion des favoris dans le tableau de bord utilisateur
 
-## License
+#### 5.5 Système de Messagerie
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Contact direct avec les agents immobiliers
+- Historique des conversations
+- Notifications de nouveaux messages
+- Système de réponses (fil de discussion)
+
+#### 5.6 Système de Rendez-vous
+
+- Prise de rendez-vous pour visiter une propriété
+- Gestion des rendez-vous côté agent (confirmation, annulation, etc.)
+- Gestion des rendez-vous côté administrateur
+- Historique des rendez-vous pour les utilisateurs
+- Différents statuts de rendez-vous (en attente, confirmé, annulé, terminé)
+
+#### 5.7 Système de Notifications
+
+- Notifications par email
+- Notifications dans l'interface utilisateur
+- Notifications pour les changements de statut des rendez-vous
+- Notifications pour les nouveaux messages
+
+#### 5.8 Tableaux de Bord et Statistiques
+
+- Tableau de bord administrateur avec statistiques globales
+- Tableau de bord agent avec statistiques personnalisées
+- Statistiques détaillées sur les rendez-vous
+- Graphiques interactifs pour visualiser les données
+
+#### 5.9 Système d'Avis et Évaluations
+
+- Avis sur les propriétés
+- Modération des avis par l'administrateur
+- Affichage des avis sur les pages de propriétés
+
+### 6. Fonctionnalités à Développer
+
+#### 6.1 Gestion Avancée des Utilisateurs
+
+- Interface d'administration complète pour la gestion des utilisateurs
+- Système de vérification des agents immobiliers
+- Badges et niveaux pour les utilisateurs actifs
+
+#### 6.2 Recherche Géographique
+
+- Intégration d'une carte interactive
+- Recherche par zone géographique
+- Affichage des propriétés sur une carte
+- Calcul de distances et points d'intérêt à proximité
+
+#### 6.3 Système de Recommandations
+
+- Recommandations de propriétés basées sur l'historique de recherche
+- Propriétés similaires sur les pages de détail
+- Alertes email pour les nouvelles propriétés correspondant aux critères
+
+#### 6.4 Système de Paiement
+
+- Paiement en ligne pour les services premium
+- Mise en avant d'annonces pour les agents
+- Abonnements pour les agents immobiliers
+
+#### 6.5 Application Mobile
+
+- Version mobile responsive
+- Application native (future évolution)
+- Notifications push
+
+### 7. Structure de la Base de Données
+
+- **users** : Informations des utilisateurs et authentification
+- **properties** : Détails des biens immobiliers
+- **property_types** : Types de propriétés (appartement, maison, etc.)
+- **amenities** : Aménités disponibles (piscine, jardin, etc.)
+- **property_amenities** : Table pivot pour la relation many-to-many
+- **property_images** : Images associées aux propriétés
+- **favorites** : Propriétés favorites des utilisateurs
+- **property_reviews** : Avis sur les propriétés
+- **messages** : Système de messagerie entre utilisateurs
+- **appointments** : Rendez-vous pour visiter les propriétés
+- **notifications** : Notifications système pour les utilisateurs
+
+### 8. Interfaces Principales
+
+#### 8.1 Frontend
+
+- Page d'accueil avec mise en avant des propriétés
+- Page de recherche avec filtres
+- Page de détail des propriétés
+- Tableau de bord utilisateur
+- Tableau de bord agent
+- Système de messagerie
+- Gestion des rendez-vous
+- Gestion des favoris
+
+#### 8.2 Backend (Administration)
+
+- Tableau de bord administrateur
+- Gestion des propriétés
+- Gestion des types de propriétés
+- Gestion des aménités
+- Gestion des utilisateurs
+- Gestion des rendez-vous
+- Statistiques et rapports
+- Modération des avis
+
+### 9. Sécurité et Performance
+
+- Authentification sécurisée
+- Protection CSRF
+- Validation des données
+- Optimisation des requêtes SQL
+- Mise en cache des données fréquemment utilisées
+- Protection contre les injections SQL et XSS
+
+### 10. Déploiement et Maintenance
+
+- Environnement de développement, test et production
+- Gestion des versions avec Git
+- Sauvegarde régulière de la base de données
+- Mises à jour de sécurité
+- Surveillance des performances
+
+## Installation et Configuration
+
+### Prérequis
+
+- PHP >= 8.1
+- Composer
+- MySQL ou MariaDB
+- Node.js et NPM (pour les assets)
+
+### Installation
+
+1. Cloner le dépôt
+   ```bash
+   git clone https://github.com/Jeanos2004/Immobilus.git
+   ```
+
+2. Installer les dépendances
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. Configurer l'environnement
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. Configurer la base de données dans le fichier .env
+
+5. Exécuter les migrations et les seeders
+   ```bash
+   php artisan migrate --seed
+   ```
+
+6. Compiler les assets
+   ```bash
+   npm run dev
+   ```
+
+7. Lancer le serveur
+   ```bash
+   php artisan serve
+   ```
+
+### Comptes par défaut
+
+- **Admin**: admin@immobilus.com / password
+- **Agent**: agent@immobilus.com / password
+- **Utilisateur**: user@immobilus.com / password
+
+## Licence
+
+Ce projet est sous licence propriétaire. Tous droits réservés.
+
+## Contact
+
+Pour toute question ou suggestion, veuillez contacter l'équipe de développement à l'adresse contact@immobilus.com.
