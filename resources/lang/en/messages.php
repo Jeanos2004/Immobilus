@@ -68,6 +68,17 @@ return [
     'what_they_say' => 'What They Say About Us',
     'no_testimonials' => 'No testimonials available at the moment. Check back soon to see what our clients have to say.',
     'real_estate_agency' => 'Real Estate Agency',
+    
+    // Section "Reasons To Choose Us"
+    'why_choose_us' => 'Why Choose Us?',
+    'reasons_to_choose_us' => 'Reasons To Choose Us',
+    'excellent_reputation' => 'Excellent Reputation',
+    'excellent_reputation_desc' => 'Our agency is recognized for its professionalism and integrity in all real estate transactions.',
+    'best_local_agents' => 'Best Local Agents',
+    'best_local_agents_desc' => 'Our agents have perfect knowledge of the local market and are dedicated to finding the ideal property for you.',
+    'personalized_service' => 'Personalized Service',
+    'personalized_service_desc' => 'We offer a tailored service adapted to your specific needs for an optimal real estate experience.',
+    'all_categories' => 'All Categories',
     'property_grid_full' => 'Property Grid Full View',
     'agency_list' => 'Agency List',
     'agency_grid' => 'Agency Grid',

@@ -68,6 +68,17 @@ return [
     'what_they_say' => 'Ce qu\'ils disent de nous',
     'no_testimonials' => 'Aucun témoignage disponible pour le moment. Revenez bientôt pour découvrir les avis de nos clients.',
     'real_estate_agency' => 'Agence immobilière',
+    
+    // Section "Reasons To Choose Us"
+    'why_choose_us' => 'Pourquoi nous choisir ?',
+    'reasons_to_choose_us' => 'Les raisons de nous choisir',
+    'excellent_reputation' => 'Excellente réputation',
+    'excellent_reputation_desc' => 'Notre agence est reconnue pour son professionnalisme et son intégrité dans toutes ses transactions immobilières.',
+    'best_local_agents' => 'Les meilleurs agents locaux',
+    'best_local_agents_desc' => 'Nos agents connaissent parfaitement le marché local et sont dédiés à trouver la propriété idéale pour vous.',
+    'personalized_service' => 'Service personnalisé',
+    'personalized_service_desc' => 'Nous offrons un service sur mesure adapté à vos besoins spécifiques pour une expérience immobilière optimale.',
+    'all_categories' => 'Toutes les catégories',
     'property_grid_full' => 'Grille des propriétés (vue complète)',
     'agency_list' => 'Liste des agences',
     'agency_grid' => 'Grille des agences',
