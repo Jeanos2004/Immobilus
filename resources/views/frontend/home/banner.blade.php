@@ -2,15 +2,15 @@
     <div class="auto-container">
         <div class="inner-container">
             <div class="content-box centred">
-                <h2>Create Lasting Wealth Through Realshed</h2>
-                <p>Amet consectetur adipisicing elit sed do eiusmod.</p>
+                <h2>Trouvez le bien immobilier de vos rêves avec Immobilus</h2>
+                <p>La référence pour acheter, vendre ou louer votre bien immobilier en toute confiance</p>
             </div>
             <div class="search-field">
                 <div class="tabs-box">
                     <div class="tab-btn-box">
                         <ul class="tab-btns tab-buttons centred clearfix">
-                            <li class="tab-btn active-btn" data-tab="#tab-1">BUY</li>
-                            <li class="tab-btn" data-tab="#tab-2">RENT</li>
+                            <li class="tab-btn active-btn" data-tab="#tab-1">ACHETER</li>
+                            <li class="tab-btn" data-tab="#tab-2">LOUER</li>
                         </ul>
                     </div>
                     <div class="tabs-content info-group">

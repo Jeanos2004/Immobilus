@@ -5,6 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <title>Immobilus</title>
 
@@ -87,6 +88,9 @@
     <script src="{{ asset('frontend/assets') }}/js/jQuery.style.switcher.min.js"></script>
     <script src="{{ asset('frontend/assets') }}/js/jquery-ui.js"></script>
     <script src="{{ asset('frontend/assets') }}/js/nav-tool.js"></script>
+    <script src="{{ asset('frontend/assets') }}/js/custom-nav.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('frontend/assets') }}/js/favorites.js"></script>
 
     <!-- main-js -->
     <script src="{{ asset('frontend/assets') }}/js/script.js"></script>

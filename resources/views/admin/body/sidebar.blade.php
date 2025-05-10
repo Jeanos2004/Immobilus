@@ -101,17 +101,33 @@
           </div>
         </li>
         
-        <!-- Messagerie -->
+        <!-- Messagerie interne -->
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#messages" role="button" aria-expanded="false" aria-controls="messages">
             <i class="link-icon" data-feather="message-square"></i>
-            <span class="link-title">Messagerie</span>
+            <span class="link-title">Messagerie interne</span>
             <i class="link-arrow" data-feather="chevron-down"></i>
           </a>
           <div class="collapse" id="messages">
             <ul class="nav sub-menu">
               <li class="nav-item">
-                <a href="{{ route('admin.all.messages') }}" class="nav-link">Tous les messages</a>
+                <a href="{{ route('admin.all.messages') }}" class="nav-link">Messages internes</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        
+        <!-- Messages de contact -->
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#contactMessages" role="button" aria-expanded="false" aria-controls="contactMessages">
+            <i class="link-icon" data-feather="mail"></i>
+            <span class="link-title">Messages de contact</span>
+            <i class="link-arrow" data-feather="chevron-down"></i>
+          </a>
+          <div class="collapse" id="contactMessages">
+            <ul class="nav sub-menu">
+              <li class="nav-item">
+                <a href="{{ route('all.messages') }}" class="nav-link">Tous les messages</a>
               </li>
             </ul>
           </div>

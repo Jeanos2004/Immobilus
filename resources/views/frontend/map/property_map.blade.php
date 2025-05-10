@@ -1,130 +1,179 @@
 @extends('frontend.frontend_dashboard')
 
+@section('title')
+Carte interactive des propriétés | Immobilus
+@endsection
+
 @section('head')
 <!-- Leaflet CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 <!-- MarkerCluster CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<!-- Animate.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 @endsection
 
 @section('content')
 
-<div class="page-title-area page-title-bg1">
-    <div class="container">
-        <div class="page-title-content">
-            <h2>Recherche géographique de propriétés</h2>
-            <ul>
+<section class="page-title-two bg-color-1 centred">
+    <div class="pattern-layer">
+        <div class="pattern-1" style="background-image: url({{ asset('frontend/assets/images/shape/shape-9.png') }});"></div>
+        <div class="pattern-2" style="background-image: url({{ asset('frontend/assets/images/shape/shape-10.png') }});"></div>
+    </div>
+    <div class="auto-container">
+        <div class="content-box clearfix">
+            <h1>Carte interactive des propriétés</h1>
+            <ul class="bread-crumb clearfix">
                 <li><a href="{{ url('/') }}">Accueil</a></li>
                 <li>Carte interactive</li>
             </ul>
         </div>
     </div>
-</div>
+</section>
 
-<section class="property-area ptb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="widget-area" id="secondary">
-                    <div class="widget widget_filter">
-                        <h3 class="widget-title">Filtres</h3>
-                        <form id="mapFilterForm">
-                            <div class="form-group">
-                                <label>Type de propriété</label>
-                                <select class="form-control" name="property_type" id="property_type">
-                                    <option value="">Tous les types</option>
-                                    @foreach($propertyTypes as $type)
-                                        <option value="{{ $type->id }}">{{ $type->type_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+<section class="property-page-section property-list sec-pad">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
+                <div class="default-sidebar property-sidebar">
+                    <div class="filter-widget sidebar-widget">
+                        <div class="widget-title">
+                            <h5><i class="fas fa-filter"></i> Filtres</h5>
+                        </div>
+                        <div class="widget-content">
+                            <form id="mapFilterForm" class="filter-form">
+                                <div class="form-group">
+                                    <label><i class="fas fa-home"></i> Type de propriété</label>
+                                    <div class="select-box">
+                                        <select class="form-control wide" name="property_type" id="property_type">
+                                            <option value="">Tous les types</option>
+                                            @foreach($propertyTypes as $type)
+                                                <option value="{{ $type->id }}">{{ $type->type_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Statut</label>
-                                <select class="form-control" name="status" id="property_status">
-                                    <option value="">Tous</option>
-                                    <option value="rent">Location</option>
-                                    <option value="sale">Vente</option>
-                                </select>
-                            </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-tag"></i> Statut</label>
+                                    <div class="select-box">
+                                        <select class="form-control wide" name="status" id="property_status">
+                                            <option value="">Tous</option>
+                                            <option value="rent">Location</option>
+                                            <option value="sale">Vente</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Prix minimum</label>
-                                <input type="number" class="form-control" name="min_price" id="min_price" placeholder="Prix minimum">
-                            </div>
+                                <div class="price-filters">
+                                    <label><i class="fas fa-euro-sign"></i> Fourchette de prix</label>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <div class="field-input">
+                                                    <input type="number" class="form-control" name="min_price" id="min_price" placeholder="Prix min">
+                                                    <i class="fas fa-euro-sign"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <div class="field-input">
+                                                    <input type="number" class="form-control" name="max_price" id="max_price" placeholder="Prix max">
+                                                    <i class="fas fa-euro-sign"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Prix maximum</label>
-                                <input type="number" class="form-control" name="max_price" id="max_price" placeholder="Prix maximum">
-                            </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-bed"></i> Chambres (min)</label>
+                                    <div class="select-box">
+                                        <select class="form-control wide" name="bedrooms" id="bedrooms">
+                                            <option value="">Indifférent</option>
+                                            <option value="1">1+</option>
+                                            <option value="2">2+</option>
+                                            <option value="3">3+</option>
+                                            <option value="4">4+</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Chambres (min)</label>
-                                <select class="form-control" name="bedrooms" id="bedrooms">
-                                    <option value="">Indifférent</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                    <option value="5">5+</option>
-                                </select>
-                            </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-bath"></i> Salles de bain (min)</label>
+                                    <div class="select-box">
+                                        <select class="form-control wide" name="bathrooms" id="bathrooms">
+                                            <option value="">Indifférent</option>
+                                            <option value="1">1+</option>
+                                            <option value="2">2+</option>
+                                            <option value="3">3+</option>
+                                            <option value="4">4+</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Salles de bain (min)</label>
-                                <select class="form-control" name="bathrooms" id="bathrooms">
-                                    <option value="">Indifférent</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                </select>
-                            </div>
+                                <hr>
+
+                                <div class="address-search-box">
+                                    <div class="widget-title mt-4">
+                                        <h5><i class="fas fa-search-location"></i> Recherche par adresse</h5>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Adresse</label>
+                                        <div class="field-input">
+                                            <input type="text" class="form-control" id="address_search" placeholder="Entrez une adresse">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Rayon de recherche: <span id="radius_value" class="text-primary">10 km</span></label>
+                                        <input type="range" class="form-control-range custom-range" id="radius" min="1" max="50" value="10">
+                                        <div class="range-labels d-flex justify-content-between">
+                                            <small>1 km</small>
+                                            <small>25 km</small>
+                                            <small>50 km</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mt-4">
+                                        <button type="button" id="searchByAddressBtn" class="theme-btn btn-one w-100">
+                                            <i class="fas fa-search"></i> Rechercher par adresse
+                                        </button>
+                                    </div>
+                                </div>
 
                             <hr>
 
-                            <div class="form-group">
-                                <label>Recherche par adresse</label>
-                                <input type="text" class="form-control" id="address_search" placeholder="Entrez une adresse">
-                            </div>
+                            <div class="action-buttons d-flex justify-content-between mt-4">
+                                <button type="button" id="applyFiltersBtn" class="theme-btn btn-one flex-grow-1 me-2">
+                                    <i class="fas fa-filter"></i> Appliquer
+                                </button>
 
-                            <div class="form-group">
-                                <label>Rayon (km)</label>
-                                <input type="range" class="form-control-range" id="radius" min="1" max="50" value="10">
-                                <span id="radius_value">10 km</span>
-                            </div>
-
-                            <div class="form-group mt-3">
-                                <button type="button" id="searchByAddressBtn" class="btn btn-primary btn-block">Rechercher par adresse</button>
-                            </div>
-
-                            <hr>
-
-                            <div class="form-group">
-                                <button type="button" id="resetMapBtn" class="btn btn-secondary btn-block">Réinitialiser la carte</button>
+                                <button type="button" id="resetMapBtn" class="theme-btn btn-two flex-grow-1">
+                                    <i class="fas fa-redo"></i> Réinitialiser
+                                </button>
                             </div>
                         </form>
                     </div>
+                </div>
 
-                    <div class="widget widget_properties">
-                        <h3 class="widget-title">Propriétés trouvées (<span id="property_count">{{ count($mapData) }}</span>)</h3>
-                        <div id="property_list" class="property-list-container">
-                            @foreach($properties as $property)
-                                @if(!empty($property->latitude) && !empty($property->longitude))
-                                <div class="property-item" data-id="{{ $property->id }}">
-                                    <div class="single-property-box">
-                                        <div class="property-item-thumb">
-                                            <a href="{{ route('property.details', [$property->id, $property->property_slug]) }}">
-                                                <img src="{{ asset($property->property_thumbnail) }}" alt="{{ $property->property_name }}">
-                                            </a>
-                                            <div class="property-badge">
-                                                @if($property->property_status == 'rent')
-                                                    <span class="rent">À louer</span>
-                                                @else
-                                                    <span class="sale">À vendre</span>
-                                                @endif
-                                            </div>
+                <div class="category-widget sidebar-widget">
+                    <div class="widget-title">
+                        <h5><i class="fas fa-list"></i> Propriétés trouvées (<span id="property_count" class="text-primary">{{ count($mapData) }}</span>)</h5>
+                    </div>
+                    <div id="property_list" class="property-list-container custom-scrollbar">
+                        @foreach($properties as $property)
+                            @if(!empty($property->latitude) && !empty($property->longitude))
+                            <div class="property-item animate__animated animate__fadeIn" data-id="{{ $property->id }}">
+                                <div class="property-image">
+                                    <img src="{{ asset($property->property_thumbnail) }}" alt="{{ $property->property_name }}">
+                                    <span class="property-badge">{{ $property->property_status }}</span>
                                         </div>
                                         <div class="property-item-content">
                                             <div class="price">
@@ -153,9 +202,18 @@
                 </div>
             </div>
 
-            <div class="col-lg-8">
-                <div class="map-container">
-                    <div id="property-map" style="height: 700px;"></div>
+            <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+                <div class="map-outer">
+                    <div class="map-canvas">
+                        <div id="property-map" style="height: 700px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);"></div>
+                    </div>
+                    <div class="map-controls">
+                        <div class="control-panel">
+                            <button id="zoomInBtn" class="control-btn"><i class="fas fa-plus"></i></button>
+                            <button id="zoomOutBtn" class="control-btn"><i class="fas fa-minus"></i></button>
+                            <button id="recenterBtn" class="control-btn"><i class="fas fa-location-arrow"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -180,7 +238,15 @@
         // Vérifier si jQuery est disponible
         if (typeof jQuery !== 'undefined') {
         // Initialisation de la carte
-        var map = L.map('property-map').setView([46.603354, 1.888334], 6); // Centre sur la France
+        var map = L.map('property-map', {
+            zoomControl: false // Désactiver les contrôles de zoom par défaut
+        }).setView([46.603354, 1.888334], 6); // Centre sur la France
+        
+        // Sauvegarder la vue initiale pour le recentrage
+        var initialView = {
+            center: [46.603354, 1.888334],
+            zoom: 6
+        };
 
         // Ajout du fond de carte OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -342,22 +408,20 @@
                 
                 // Popup avec les informations de la propriété
                 var popupContent = `
-                    <div class="property-popup">
-                        <div class="property-image">
+                    <div class="popup-property">
+                        <div class="popup-image">
                             <img src="{{ asset('') }}${property.thumbnail}" alt="${property.name}" style="width: 100%; max-height: 150px; object-fit: cover;">
                         </div>
-                        <div class="property-info">
-                            <h5>${property.name}</h5>
-                            <p><i class="bx bx-map"></i> ${property.address}</p>
-                            <p><strong>Prix:</strong> ${property.status === 'rent' ? property.price + ' € / mois' : property.price + ' €'}</p>
-                            <p><strong>Type:</strong> ${property.type}</p>
-                            <div class="property-features">
-                                <span><i class="bx bx-bed"></i> ${property.bedrooms} chambres</span>
-                                <span><i class="bx bx-bath"></i> ${property.bathrooms} SDB</span>
-                                <span><i class="bx bx-area"></i> ${property.size} m²</span>
+                        <div class="popup-content">
+                            <h4 class="popup-title">${property.name}</h4>
+                            <div class="popup-meta">
+                                <span><i class="fas fa-bed"></i> ${property.bedrooms}</span>
+                                <span><i class="fas fa-bath"></i> ${property.bathrooms}</span>
+                                <span><i class="fas fa-ruler-combined"></i> ${property.size} m²</span>
                             </div>
-                            ${property.distance ? '<p><strong>Distance:</strong> ' + property.distance + '</p>' : ''}
-                            <a href="${property.url}" class="btn btn-sm btn-primary mt-2">Voir les détails</a>
+                            <div class="popup-price">${property.status === 'rent' ? property.price + ' € / mois' : property.price + ' €'}</div>
+                            ${property.distance ? '<p class="distance-info"><i class="fas fa-map-marker-alt"></i> Distance: ' + property.distance + '</p>' : ''}
+                            <a href="${property.url}" class="theme-btn btn-two btn-sm w-100 mt-2">Voir détails</a>
                         </div>
                     </div>
                 `;
@@ -519,6 +583,19 @@
                     layer.openPopup();
                 }
             });
+        });
+        
+        // Contrôles de la carte personnalisés
+        $('#zoomInBtn').on('click', function() {
+            map.zoomIn();
+        });
+        
+        $('#zoomOutBtn').on('click', function() {
+            map.zoomOut();
+        });
+        
+        $('#recenterBtn').on('click', function() {
+            map.setView(initialView.center, initialView.zoom);
         });
         }
     });

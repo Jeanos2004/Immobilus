@@ -16,11 +16,11 @@
                     <a href="{{ route('lang.switch', 'en') }}" style="color: {{ app()->getLocale() == 'en' ? '#2dbe6c' : '#a19a9a' }};">EN</a>
                 </div>
                 <ul class="social-links clearfix">
-                    <li><a href="index.html"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="index.html"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="index.html"><i class="fab fa-pinterest-p"></i></a></li>
-                    <li><a href="index.html"><i class="fab fa-google-plus-g"></i></a></li>
-                    <li><a href="index.html"><i class="fab fa-vimeo-v"></i></a></li>
+                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
                 </ul>
                 @auth
                     <div class="sign-box">
@@ -63,48 +63,29 @@
         <nav class="main-menu navbar-expand-md navbar-light">
             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                 <ul class="navigation clearfix">
-                    <li class="current dropdown"><a href="index.html"><span>Home</span></a>
+                    <li class="{{ Request::is('/') ? 'current' : '' }}"><a href="{{ route('homepage') }}"><span>{{ __('messages.home') }}</span></a>
                         <ul>
-                            <li><a href="index.html">Main Home</a></li>
-                            <li><a href="index-2.html">Home Modern</a></li>
-                            <li><a href="index-3.html">Home Map</a></li>
-                            <li><a href="index-4.html">Home Half Map</a></li>
-                            <li><a href="index-5.html">Home Agent</a></li>
-                            <li><a href="index-onepage.html">OnePage Home</a></li>
-                            <li><a href="index-rtl.html">RTL Home</a></li>
-                            <li class="dropdown"><a href="index.html">Header Style</a>
-                                <ul>
-                                    <li><a href="index.html">Header Style 01</a></li>
-                                    <li><a href="index-2.html">Header Style 02</a></li>
-                                    <li><a href="index-3.html">Header Style 03</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="{{ route('homepage') }}">{{ __('messages.main_home') }}</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown"><a href="index.html"><span>Listing</span></a>
+                    <li class="dropdown {{ Request::is('agents*') ? 'current' : '' }}"><a href="#"><span>{{ __('messages.agents') }}</span></a>
                         <ul>
-                            <li><a href="agents-list.html">Agents List</a></li>
-                            <li><a href="agents-grid.html">Agents Grid</a></li>
-                            <li><a href="agents-details.html">Agent Details</a></li>
+                            <li><a href="{{ route('agents.list') }}">{{ __('messages.agents_list') }}</a></li>
+                            <li><a href="{{ route('agents.grid') }}">{{ __('messages.agents_grid') }}</a></li>
+                            <li><a href="{{ route('agents.list') }}">{{ __('messages.agent_details') }}</a></li>
                         </ul>
                     </li> 
-                    <li class="dropdown"><a href="index.html"><span>Property</span></a>
+                    <li class="dropdown {{ Request::is('property*') ? 'current' : '' }}"><a href="#"><span>{{ __('messages.properties') }}</span></a>
                         <ul>
-                            <li><a href="property-list.html">Property List</a></li>
-                            <li><a href="property-grid.html">Property Grid</a></li>
-                            <li><a href="property-list-2.html">Property List Full View</a></li>
-                            <li><a href="property-grid-2.html">Property Grid Full View</a></li>
-                            <li><a href="property-list-3.html">Property List Half View</a></li>
-                            <li><a href="property-grid-3.html">Property Grid Half View</a></li>
-                            <li><a href="property-details.html">Property Details 01</a></li>
-                            <li><a href="property-details-2.html">Property Details 02</a></li>
-                            <li><a href="property-details-3.html">Property Details 03</a></li>
-                            <li><a href="property-details-4.html">Property Details 04</a></li>
+                            <li><a href="{{ route('property.list') }}">{{ __('messages.property_list') }}</a></li>
+                            <li><a href="{{ route('property.grid') }}">{{ __('messages.property_grid') }}</a></li>
+                            <li><a href="{{ route('property.list') }}">{{ __('messages.property_list_full') }}</a></li>
+                            <li><a href="{{ route('property.grid') }}">{{ __('messages.property_grid_full') }}</a></li>
                             <li><a href="{{ route('property.map') }}">Carte interactive</a></li>
                             <li><a href="{{ route('recommendations') }}">Recommandations personnalisées</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown"><a href="index.html"><span>Pages</span></a>
+                    <li class="dropdown"><a href="#"><span>{{ __('messages.pages') }}</span></a>
                         <div class="megamenu">
                             <div class="row clearfix">
                                 <div class="col-xl-4 column">
@@ -128,9 +109,9 @@
                                         <li><a href="signin.html">Sign In</a></li>
                                         <li><a href="signup.html">Sign Up</a></li>
                                         <li><a href="error.html">404</a></li>
-                                        <li><a href="agents-list.html">Agents List</a></li>
-                                        <li><a href="agents-grid.html">Agents Grid</a></li>
-                                        <li><a href="agents-details.html">Agent Details</a></li>
+                                        <li><a href="{{ route('agents.list') }}">{{ __('messages.agents_list') }}</a></li>
+                                        <li><a href="{{ route('agents.grid') }}">{{ __('messages.agents_grid') }}</a></li>
+                                        <li><a href="{{ route('agents.list') }}">{{ __('messages.agent_details') }}</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-xl-4 column">
@@ -149,28 +130,25 @@
                             </div>                                        
                         </div>
                     </li> 
-                    <li class="dropdown"><a href="index.html"><span>Agency</span></a>
+                    <li class="dropdown {{ Request::is('agency*') ? 'current' : '' }}"><a href="#"><span>{{ __('messages.agency') }}</span></a>
                         <ul>
-                            <li><a href="agency-list.html">Agency List</a></li>
-                            <li><a href="agency-grid.html">Agency Grid</a></li>
-                            <li><a href="agency-details.html">Agency Details</a></li>
+                            <li><a href="{{ route('property.list') }}">{{ __('messages.agency_list') }}</a></li>
+                            <li><a href="{{ route('property.grid') }}">{{ __('messages.agency_grid') }}</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown"><a href="index.html"><span>Blog</span></a>
+                    <li class="dropdown {{ Request::is('blog*') ? 'current' : '' }}"><a href="#"><span>{{ __('messages.blog') }}</span></a>
                         <ul>
-                            <li><a href="blog-1.html">Blog 01</a></li>
-                            <li><a href="blog-2.html">Blog 02</a></li>
-                            <li><a href="blog-3.html">Blog 03</a></li>
-                            <li><a href="blog-details.html">Blog Details</a></li>
+                            <li><a href="{{ route('homepage') }}">{{ __('messages.blog_list') }}</a></li>
+                            <li><a href="{{ route('homepage') }}">{{ __('messages.blog_details') }}</a></li>
                         </ul>
                     </li>  
-                    <li><a href="contact.html"><span>Contact</span></a></li>   
+                    <li class="{{ Request::is('contact') ? 'current' : '' }}"><a href="{{ route('contact') }}"><span>{{ __('messages.contact') }}</span></a></li>   
                 </ul>
             </div>
         </nav>
     </div>
     <div class="btn-box">
-        <a href="index.html" class="theme-btn btn-one"><span>+</span>{{ __('messages.add_listing') }}</a>
+        <a href="{{ auth()->check() && auth()->user()->role == 'agent' ? route('agent.dashboard') : route('login') }}" class="theme-btn btn-one"><span>+</span>{{ __('messages.add_listing') }}</a>
     </div>
     </div>
     </div>
@@ -189,7 +167,7 @@
                     </nav>
                 </div>
                 <div class="btn-box">
-                    <a href="index.html" class="theme-btn btn-one"><span>+</span>{{ __('messages.add_listing') }}</a>
+                    <a href="{{ auth()->check() && auth()->user()->role == 'agent' ? route('agent.dashboard') : route('login') }}" class="theme-btn btn-one"><span>+</span>{{ __('messages.add_listing') }}</a>
                 </div>
             </div>
         </div>

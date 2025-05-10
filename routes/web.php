@@ -19,7 +19,18 @@ use \App\Http\Controllers\Backend\UserManagementController;
 Route::get('/language/{locale}', [LanguageController::class, 'switchLang'])->name('lang.switch');
 
 // User Frontend All Routes
-Route::get('/', [UserController::class, 'Index']);
+Route::get('/', [UserController::class, 'Index'])->name('homepage');
+
+// Routes pour les agents (frontend)
+Route::controller(\App\Http\Controllers\Frontend\AgentController::class)->group(function(){
+    Route::get('/agents', 'AgentsList')->name('agents.list');
+    Route::get('/agents/grid', 'AgentsGrid')->name('agents.grid');
+    Route::get('/agent/details/{id}', 'AgentDetails')->name('agents.details');
+});
+
+// Routes pour la page de contact
+Route::get('/contact', [UserController::class, 'Contact'])->name('contact');
+Route::post('/contact/submit', [\App\Http\Controllers\Frontend\ContactController::class, 'submitContactForm'])->name('contact.submit');
 
 // Routes pour les propriétés (frontend)
 Route::controller(\App\Http\Controllers\Frontend\PropertyController::class)->group(function(){
@@ -266,7 +277,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
         // Rendez-vous confirmés
         Route::get('/confirmed/appointments', 'ConfirmedAppointments')->name('confirmed.appointments');
         // Rendez-vous annulés
-        Route::get('/cancelled/appointments', 'CancelledAppointments')->name('cancelled.appointments');
+        Route::get('/canceled/appointments', 'CanceledAppointments')->name('canceled.appointments');
         // Rendez-vous terminés
         Route::get('/completed/appointments', 'CompletedAppointments')->name('completed.appointments');
         // Changer le statut d'un rendez-vous
@@ -277,6 +288,13 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
     // Statistiques des rendez-vous (admin)
     Route::get('/appointment/statistics', [\App\Http\Controllers\Backend\AppointmentStatsController::class, 'index'])->name('appointment.statistics');
+    
+    // Routes pour la gestion des messages de contact
+    Route::controller(\App\Http\Controllers\Backend\ContactMessageController::class)->group(function(){
+        Route::get('/all/messages', 'AllMessages')->name('all.messages');
+        Route::get('/message/view/{id}', 'ViewMessage')->name('admin.message.view');
+        Route::get('/message/delete/{id}', 'DeleteMessage')->name('admin.message.delete');
+    });
     
     // Gestion des utilisateurs (admin)
     Route::controller(UserManagementController::class)->group(function(){

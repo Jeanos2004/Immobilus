@@ -10,7 +10,37 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function Index(){
-        return view('frontend.index');
+        // Charger les types de propriétés pour le formulaire de recherche
+        $propertyTypes = \App\Models\PropertyType::orderBy('type_name', 'ASC')->get();
+        
+        // Charger les propriétés en vedette (actives et marquées comme featured)
+        $featuredProperties = \App\Models\Property::with('type', 'user')
+            ->where('status', 1)
+            ->where('featured', 1)
+            ->orderBy('id', 'DESC')
+            ->limit(6)
+            ->get();
+            
+        // Charger les propriétés récentes
+        $recentProperties = \App\Models\Property::with('type', 'user')
+            ->where('status', 1)
+            ->orderBy('id', 'DESC')
+            ->limit(3)
+            ->get();
+            
+        // Charger les agents immobiliers
+        $agents = \App\Models\User::where('status', 'active')
+            ->where('role', 'agent')
+            ->orderBy('id', 'DESC')
+            ->limit(4)
+            ->get();
+            
+        return view('frontend.index', compact(
+            'propertyTypes',
+            'featuredProperties',
+            'recentProperties',
+            'agents'
+        ));
     }
 
     public function UserProfile(){
@@ -94,5 +124,9 @@ class UserController extends Controller
             'alert-type' => 'success'
         );
         return back()->with($notification);
+    }
+    
+    public function Contact(){
+        return view('frontend.contact');
     }
 }
