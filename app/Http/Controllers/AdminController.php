@@ -52,7 +52,7 @@ class AdminController extends Controller
             
             $file = $request->photo;
             $delete_form = public_path('uploads/admin_images/'. $profileData->photo);
-            unlink($delete_form);
+            //unlink($delete_form);
             $extension = $file->extension();
             $file_name = uniqid().'.'. $extension;
 
