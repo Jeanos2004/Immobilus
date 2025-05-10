@@ -17,49 +17,50 @@
                         <div class="tab active-tab" id="tab-1">
                             <div class="inner-box">
                                 <div class="top-search">
-                                    <form action="index.html" method="post" class="search-form">
+                                    <form action="{{ route('property.search') }}" method="GET" class="search-form">
+                                        <input type="hidden" name="status" value="à vendre">
                                         <div class="row clearfix">
                                             <div class="col-lg-4 col-md-12 col-sm-12 column">
                                                 <div class="form-group">
-                                                    <label>Search Property</label>
+                                                    <label>{{ __('messages.search_property') }}</label>
                                                     <div class="field-input">
                                                         <i class="fas fa-search"></i>
-                                                        <input type="search" name="search-field" placeholder="Search by Property, Location or Landmark..." required="">
+                                                        <input type="search" name="search" placeholder="{{ __('messages.search_placeholder') }}">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6 col-sm-12 column">
                                                 <div class="form-group">
-                                                    <label>Location</label>
+                                                    <label>{{ __('messages.property_type') }}</label>
                                                     <div class="select-box">
-                                                        <i class="far fa-compass"></i>
-                                                        <select class="wide">
-                                                            <option data-display="Input location">Input location</option>
-                                                            <option value="1">New York</option>
-                                                            <option value="2">California</option>
-                                                            <option value="3">London</option>
-                                                            <option value="4">Maxico</option>
+                                                        <i class="far fa-building"></i>
+                                                        <select class="wide" name="ptype_id">
+                                                            <option value="">{{ __('messages.all_types') }}</option>
+                                                            @foreach($propertyTypes as $type)
+                                                            <option value="{{ $type->id }}">{{ $type->type_name }}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6 col-sm-12 column">
                                                 <div class="form-group">
-                                                    <label>Property Type</label>
+                                                    <label>{{ __('messages.bedrooms') }}</label>
                                                     <div class="select-box">
-                                                        <select class="wide">
-                                                            <option data-display="All Type">All Type</option>
-                                                            <option value="1">Laxury</option>
-                                                            <option value="2">Classic</option>
-                                                            <option value="3">Modern</option>
-                                                            <option value="4">New</option>
+                                                        <select class="wide" name="bedrooms">
+                                                            <option value="">{{ __('messages.any') }}</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5+</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="search-btn">
-                                            <button type="submit"><i class="fas fa-search"></i>Search</button>
+                                            <button type="submit"><i class="fas fa-search"></i> {{ __('messages.search') }}</button>
                                         </div>
                                     </form>
                                 </div>
@@ -184,49 +185,50 @@
                         <div class="tab" id="tab-2">
                             <div class="inner-box">
                                 <div class="top-search">
-                                    <form action="index.html" method="post" class="search-form">
+                                    <form action="{{ route('property.search') }}" method="GET" class="search-form">
+                                        <input type="hidden" name="status" value="à louer">
                                         <div class="row clearfix">
                                             <div class="col-lg-4 col-md-12 col-sm-12 column">
                                                 <div class="form-group">
-                                                    <label>Search Property</label>
+                                                    <label>{{ __('messages.search_property') }}</label>
                                                     <div class="field-input">
                                                         <i class="fas fa-search"></i>
-                                                        <input type="search" name="search-field" placeholder="Search by Property, Location or Landmark..." required="">
+                                                        <input type="search" name="search" placeholder="{{ __('messages.search_placeholder') }}">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6 col-sm-12 column">
                                                 <div class="form-group">
-                                                    <label>Location</label>
+                                                    <label>{{ __('messages.property_type') }}</label>
                                                     <div class="select-box">
-                                                        <i class="far fa-compass"></i>
-                                                        <select class="wide">
-                                                            <option data-display="Input location">Input location</option>
-                                                            <option value="1">New York</option>
-                                                            <option value="2">California</option>
-                                                            <option value="3">London</option>
-                                                            <option value="4">Maxico</option>
+                                                        <i class="far fa-building"></i>
+                                                        <select class="wide" name="ptype_id">
+                                                            <option value="">{{ __('messages.all_types') }}</option>
+                                                            @foreach($propertyTypes as $type)
+                                                            <option value="{{ $type->id }}">{{ $type->type_name }}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6 col-sm-12 column">
                                                 <div class="form-group">
-                                                    <label>Property Type</label>
+                                                    <label>{{ __('messages.price_range') }}</label>
                                                     <div class="select-box">
-                                                        <select class="wide">
-                                                            <option data-display="All Type">All Type</option>
-                                                            <option value="1">Laxury</option>
-                                                            <option value="2">Classic</option>
-                                                            <option value="3">Modern</option>
-                                                            <option value="4">New</option>
+                                                        <select class="wide" name="price_range">
+                                                            <option value="">{{ __('messages.any_price') }}</option>
+                                                            <option value="0-500">0€ - 500€ / mois</option>
+                                                            <option value="500-1000">500€ - 1 000€ / mois</option>
+                                                            <option value="1000-1500">1 000€ - 1 500€ / mois</option>
+                                                            <option value="1500-2000">1 500€ - 2 000€ / mois</option>
+                                                            <option value="2000-0">Plus de 2 000€ / mois</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="search-btn">
-                                            <button type="submit"><i class="fas fa-search"></i>Search</button>
+                                            <button type="submit"><i class="fas fa-search"></i> {{ __('messages.search') }}</button>
                                         </div>
                                     </form>
                                 </div>
