@@ -133,6 +133,25 @@
           </div>
         </li>
         
+        <!-- Témoignages -->
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#testimonials" role="button" aria-expanded="false" aria-controls="testimonials">
+            <i class="link-icon" data-feather="message-circle"></i>
+            <span class="link-title">Témoignages</span>
+            <i class="link-arrow" data-feather="chevron-down"></i>
+          </a>
+          <div class="collapse" id="testimonials">
+            <ul class="nav sub-menu">
+              <li class="nav-item">
+                <a href="{{ route('all.testimonials') }}" class="nav-link">Tous les témoignages</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('add.testimonial') }}" class="nav-link">Ajouter un témoignage</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        
         <!-- Favoris -->
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#favorites" role="button" aria-expanded="false" aria-controls="favorites">

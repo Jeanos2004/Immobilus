@@ -29,6 +29,9 @@ class DatabaseSeeder extends Seeder
             // 4. Images de propriétés (dépend des propriétés)
             PropertyImagesTableSeeder::class,
             
+            // 5. Témoignages clients
+            TestimonialsSeeder::class,
+            
             // 5. Favoris et avis (dépendent des propriétés et des utilisateurs)
             FavoritesTableSeeder::class,
             PropertyReviewsTableSeeder::class,

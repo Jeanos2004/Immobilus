@@ -289,6 +289,17 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     // Statistiques des rendez-vous (admin)
     Route::get('/appointment/statistics', [\App\Http\Controllers\Backend\AppointmentStatsController::class, 'index'])->name('appointment.statistics');
     
+    // Gestion des témoignages
+    Route::controller(\App\Http\Controllers\Backend\TestimonialController::class)->group(function(){
+        Route::get('/all/testimonials', 'AllTestimonials')->name('all.testimonials');
+        Route::get('/add/testimonial', 'AddTestimonial')->name('add.testimonial');
+        Route::post('/store/testimonial', 'StoreTestimonial')->name('store.testimonial');
+        Route::get('/edit/testimonial/{id}', 'EditTestimonial')->name('edit.testimonial');
+        Route::post('/update/testimonial', 'UpdateTestimonial')->name('update.testimonial');
+        Route::get('/delete/testimonial/{id}', 'DeleteTestimonial')->name('delete.testimonial');
+        Route::get('/testimonial/status/{id}', 'ChangeTestimonialStatus')->name('testimonial.status');
+    });
+    
     // Routes pour la gestion des messages de contact
     Route::controller(\App\Http\Controllers\Backend\ContactMessageController::class)->group(function(){
         Route::get('/all/messages', 'AllMessages')->name('all.messages');
