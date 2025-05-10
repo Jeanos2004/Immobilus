@@ -49,6 +49,7 @@ return [
     'starting_from' => 'À partir de',
     'main_home' => 'Accueil Principal',
     'property_list_full' => 'Liste des propriétés (vue complète)',
+    'all_categories' => 'Toutes les catégories',
     'property_grid_full' => 'Grille des propriétés (vue complète)',
     'agency_list' => 'Liste des agences',
     'agency_grid' => 'Grille des agences',

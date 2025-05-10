@@ -49,6 +49,7 @@ return [
     'starting_from' => 'Starting From',
     'main_home' => 'Main Home',
     'property_list_full' => 'Property List Full View',
+    'all_categories' => 'All Categories',
     'property_grid_full' => 'Property Grid Full View',
     'agency_list' => 'Agency List',
     'agency_grid' => 'Agency Grid',
