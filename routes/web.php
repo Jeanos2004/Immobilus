@@ -37,6 +37,15 @@ Route::controller(\App\Http\Controllers\Frontend\PageController::class)->group(f
     Route::get('/mortgage-calculator', 'mortgageCalculator')->name('mortgage.calculator');
 });
 
+// Routes pour le blog
+Route::controller(\App\Http\Controllers\Frontend\BlogController::class)->group(function(){
+    Route::get('/blog', 'index')->name('blog');
+    Route::get('/blog/{slug}', 'show')->name('blog.show');
+    Route::get('/blog/category/{slug}', 'category')->name('blog.category');
+    Route::get('/blog/search', 'search')->name('blog.search');
+    Route::post('/blog/comment', 'addComment')->name('blog.comment')->middleware('auth');
+});
+
 // Routes pour la page de contact
 Route::get('/contact', [UserController::class, 'Contact'])->name('contact');
 Route::post('/contact/submit', [\App\Http\Controllers\Frontend\ContactController::class, 'submitContactForm'])->name('contact.submit');
@@ -169,6 +178,13 @@ Route::middleware(['auth', 'role:agent'])->group(function () {
     
     // Statistiques des rendez-vous (agent)
     Route::get('/agent/appointment/statistics', [\App\Http\Controllers\Backend\AppointmentStatsController::class, 'agentStats'])->name('agent.appointment.statistics');
+});
+
+// Routes pour la newsletter
+Route::controller(\App\Http\Controllers\Frontend\NewsletterController::class)->group(function(){
+    Route::get('/newsletter', 'index')->name('newsletter.subscribe');
+    Route::post('/newsletter/subscribe', 'subscribe')->name('newsletter.store');
+    Route::get('/newsletter/unsubscribe/{token}', 'unsubscribe')->name('newsletter.unsubscribe');
 });
 
 // Routes pour les notifications (accessibles à tous les utilisateurs authentifiés)
@@ -323,6 +339,35 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
         // Rendez-vous confirmés
         Route::get('/confirmed/appointments', 'ConfirmedAppointments')->name('confirmed.appointments');
         // Rendez-vous annulés
+    });
+    
+    // Routes pour le blog (admin)
+    Route::controller(\App\Http\Controllers\Backend\BlogController::class)->group(function(){
+        // Articles
+        Route::get('/blog', 'index')->name('admin.blog.index');
+        Route::get('/blog/create', 'create')->name('admin.blog.create');
+        Route::post('/blog/store', 'store')->name('admin.blog.store');
+        Route::get('/blog/{id}', 'show')->name('admin.blog.show');
+        Route::get('/blog/{id}/edit', 'edit')->name('admin.blog.edit');
+        Route::put('/blog/{id}', 'update')->name('admin.blog.update');
+        Route::delete('/blog/{id}', 'destroy')->name('admin.blog.destroy');
+        
+        // Catégories
+        Route::get('/blog/categories', 'categories')->name('admin.blog.categories');
+        Route::get('/blog/category/create', 'createCategory')->name('admin.blog.category.create');
+        Route::post('/blog/category/store', 'storeCategory')->name('admin.blog.category.store');
+        Route::get('/blog/category/{id}/edit', 'editCategory')->name('admin.blog.category.edit');
+        Route::put('/blog/category/{id}', 'updateCategory')->name('admin.blog.category.update');
+        Route::delete('/blog/category/{id}', 'destroyCategory')->name('admin.blog.category.destroy');
+        
+        // Commentaires
+        Route::get('/blog/comments', 'comments')->name('admin.blog.comments');
+        Route::put('/blog/comment/{id}/toggle', 'toggleCommentStatus')->name('admin.blog.comment.toggle');
+        Route::delete('/blog/comment/{id}', 'destroyComment')->name('admin.blog.comment.destroy');
+    });
+    
+    // Suite des routes pour les rendez-vous
+    Route::controller(\App\Http\Controllers\Backend\AppointmentController::class)->group(function(){
         Route::get('/canceled/appointments', 'CanceledAppointments')->name('canceled.appointments');
         // Rendez-vous terminés
         Route::get('/completed/appointments', 'CompletedAppointments')->name('completed.appointments');
