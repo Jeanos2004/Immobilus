@@ -127,14 +127,14 @@
                                 <div class="col-xl-4 column">
                                     <ul>
                                         <li><h4>{{ __('Ressources') }}</h4></li>
-                                        <li><a href="{{ route('blog') }}">{{ __('Blog immobilier') }}</a></li>
-                                        <li><a href="{{ route('blog.category', 'conseils') }}">{{ __('Conseils d\'achat') }}</a></li>
-                                        <li><a href="{{ route('blog.category', 'financement') }}">{{ __('Financement') }}</a></li>
-                                        <li><a href="{{ route('blog.category', 'renovation') }}">{{ __('Rénovation') }}</a></li>
+                                        <li><a href="{{ route('homepage') }}">{{ __('Blog immobilier') }}</a></li>
+                                        <li><a href="{{ route('homepage') }}">{{ __('Conseils d\'achat') }}</a></li>
+                                        <li><a href="{{ route('homepage') }}">{{ __('Financement') }}</a></li>
+                                        <li><a href="{{ route('homepage') }}">{{ __('Rénovation') }}</a></li>
                                         <li><a href="{{ route('property.map') }}">{{ __('Carte des propriétés') }}</a></li>
                                         <li><a href="{{ route('recommendations') }}">{{ __('Recommandations') }}</a></li>
                                         <li><a href="{{ route('contact') }}">{{ __('Contact') }}</a></li>
-                                        <li><a href="{{ route('newsletter.subscribe') }}">{{ __('Newsletter') }}</a></li>
+                                        <li><a href="{{ route('homepage') }}">{{ __('Newsletter') }}</a></li>
                                     </ul>
                                 </div>                                   
                             </div>                                        
@@ -146,7 +146,7 @@
                             <li><a href="{{ route('property.grid') }}">{{ __('messages.agency_grid') }}</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown {{ Request::is('blog*') ? 'current' : '' }}"><a href="#"><span>{{ __('messages.blog') }}</span></a>
+                    <li class="dropdown {{ Request::is('blog*') ? 'current' : '' }}"><a href="{{ route('homepage') }}"><span>{{ __('messages.blog') }}</span></a>
                         <ul>
                             <li><a href="{{ route('homepage') }}">{{ __('messages.blog_list') }}</a></li>
                             <li><a href="{{ route('homepage') }}">{{ __('messages.blog_details') }}</a></li>
