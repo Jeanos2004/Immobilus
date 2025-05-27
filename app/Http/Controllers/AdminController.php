@@ -10,7 +10,54 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     public function AdminDashboard(){
-        return view('admin.index');
+        // Récupérer les statistiques pour le tableau de bord
+        $totalProperties = \App\Models\Property::count();
+        $totalAgents = \App\Models\User::where('role', 'agent')->count();
+        $totalUsers = \App\Models\User::where('role', 'user')->count();
+        $totalTestimonials = \App\Models\Testimonial::count();
+        $totalAppointments = \App\Models\Appointment::count() ?? 0;
+        $pendingAppointments = \App\Models\Appointment::where('status', 'pending')->count() ?? 0;
+        $totalPropertyTypes = \App\Models\PropertyType::count();
+        $totalAmenities = \App\Models\Amenities::count();
+        
+        // Récupérer les propriétés récentes
+        $recentProperties = \App\Models\Property::with(['type', 'user'])
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+            
+        // Récupérer les agents les plus actifs (avec le plus de propriétés)
+        $topAgents = \App\Models\User::withCount('properties')
+            ->where('role', 'agent')
+            ->orderBy('properties_count', 'desc')
+            ->limit(5)
+            ->get();
+            
+        // Récupérer les rendez-vous récents
+        $recentAppointments = \App\Models\Appointment::with(['property', 'user'])
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get() ?? collect([]);
+            
+        // Récupérer les types de propriétés avec le nombre de propriétés par type
+        $propertyTypeStats = \App\Models\PropertyType::withCount('properties')
+            ->orderBy('properties_count', 'desc')
+            ->get();
+            
+        return view('admin.index', compact(
+            'totalProperties', 
+            'totalAgents', 
+            'totalUsers', 
+            'totalTestimonials',
+            'totalAppointments',
+            'pendingAppointments',
+            'totalPropertyTypes',
+            'totalAmenities',
+            'recentProperties',
+            'topAgents',
+            'recentAppointments',
+            'propertyTypeStats'
+        ));
 
     } // End Method
 

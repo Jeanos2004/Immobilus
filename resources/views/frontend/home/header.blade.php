@@ -100,41 +100,41 @@
                             <div class="row clearfix">
                                 <div class="col-xl-4 column">
                                     <ul>
-                                        <li><h4>Pages</h4></li>
-                                        <li><a href="about.html">About Us</a></li>
-                                        <li><a href="services.html">Our Services</a></li>
-                                        <li><a href="faq.html">Faq's Page</a></li>
-                                        <li><a href="pricing.html">Pricing Table</a></li>
-                                        <li><a href="compare-roperties.html">Compare Properties</a></li>
-                                        <li><a href="categories.html">Categories Page</a></li>
-                                        <li><a href="career.html">Career Opportunity</a></li>
-                                        <li><a href="testimonials.html">Testimonials</a></li>
+                                        <li><h4>{{ __('Pages') }}</h4></li>
+                                        <li><a href="{{ route('about.us') }}">{{ __('À propos de nous') }}</a></li>
+                                        <li><a href="{{ route('faq') }}">{{ __('FAQ') }}</a></li>
+                                        <li><a href="{{ route('privacy.policy') }}">{{ __('Politique de confidentialité') }}</a></li>
+                                        <li><a href="{{ route('terms.service') }}">{{ __('Conditions d\'utilisation') }}</a></li>
+                                        <li><a href="{{ route('compare.properties') }}">{{ __('Comparer des propriétés') }}</a></li>
+                                        <li><a href="{{ route('mortgage.calculator') }}">{{ __('Calculatrice de prêt') }}</a></li>
+                                        <li><a href="{{ route('gallery') }}">{{ __('Galerie') }}</a></li>
+                                        <li><a href="{{ route('testimonials') }}">{{ __('Témoignages') }}</a>
                                     </ul>
                                 </div>
                                 <div class="col-xl-4 column">
                                     <ul>
-                                        <li><h4>Pages</h4></li>
-                                        <li><a href="gallery.html">Our Gallery</a></li>
-                                        <li><a href="profile.html">My Profile</a></li>
-                                        <li><a href="signin.html">Sign In</a></li>
-                                        <li><a href="signup.html">Sign Up</a></li>
-                                        <li><a href="error.html">404</a></li>
-                                        <li><a href="{{ route('agents.list') }}">{{ __('messages.agents_list') }}</a></li>
-                                        <li><a href="{{ route('agents.grid') }}">{{ __('messages.agents_grid') }}</a></li>
-                                        <li><a href="{{ route('agents.list') }}">{{ __('messages.agent_details') }}</a></li>
+                                        <li><h4>{{ __('Utilisateur') }}</h4></li>
+                                        <li><a href="{{ route('dashboard') }}">{{ __('Tableau de bord') }}</a></li>
+                                        <li><a href="{{ route('user.profile') }}">{{ __('Mon profil') }}</a></li>
+                                        <li><a href="{{ route('user.wishlist') }}">{{ __('Mes favoris') }}</a></li>
+                                        <li><a href="{{ route('user.appointments') }}">{{ __('Mes rendez-vous') }}</a></li>
+                                        <li><a href="{{ route('user.inbox') }}">{{ __('Messagerie') }}</a></li>
+                                        <li><a href="{{ route('all.notifications') }}">{{ __('Notifications') }}</a></li>
+                                        <li><a href="{{ route('login') }}">{{ __('Connexion') }}</a></li>
+                                        <li><a href="{{ route('register') }}">{{ __('Inscription') }}</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-xl-4 column">
                                     <ul>
-                                        <li><h4>Pages</h4></li>
-                                        <li><a href="blog-1.html">Blog 01</a></li>
-                                        <li><a href="blog-2.html">Blog 02</a></li>
-                                        <li><a href="blog-3.html">Blog 03</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                        <li><a href="agency-list.html">Agency List</a></li>
-                                        <li><a href="agency-grid.html">Agency Grid</a></li>
-                                        <li><a href="agency-details.html">Agency Details</a></li>
-                                        <li><a href="contact.html">Contact Us</a></li>
+                                        <li><h4>{{ __('Ressources') }}</h4></li>
+                                        <li><a href="{{ route('blog') }}">{{ __('Blog immobilier') }}</a></li>
+                                        <li><a href="{{ route('blog.category', 'conseils') }}">{{ __('Conseils d\'achat') }}</a></li>
+                                        <li><a href="{{ route('blog.category', 'financement') }}">{{ __('Financement') }}</a></li>
+                                        <li><a href="{{ route('blog.category', 'renovation') }}">{{ __('Rénovation') }}</a></li>
+                                        <li><a href="{{ route('property.map') }}">{{ __('Carte des propriétés') }}</a></li>
+                                        <li><a href="{{ route('recommendations') }}">{{ __('Recommandations') }}</a></li>
+                                        <li><a href="{{ route('contact') }}">{{ __('Contact') }}</a></li>
+                                        <li><a href="{{ route('newsletter.subscribe') }}">{{ __('Newsletter') }}</a></li>
                                     </ul>
                                 </div>                                   
                             </div>                                        

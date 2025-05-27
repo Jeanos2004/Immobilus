@@ -1,21 +1,25 @@
 @extends('admin.admin_dashboard')
+@php
+    use Illuminate\Support\Str;
+@endphp
 @section('content')
 <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
     <div>
-      <h4 class="mb-3 mb-md-0">Welcome to Dashboard</h4>
+      <h4 class="mb-3 mb-md-0">Bienvenue sur le tableau de bord Immobilus</h4>
+      <p class="text-muted">Vue d'ensemble de votre plateforme immobilière</p>
     </div>
     <div class="d-flex align-items-center flex-wrap text-nowrap">
       <div class="input-group flatpickr wd-200 me-2 mb-2 mb-md-0" id="dashboardDate">
         <span class="input-group-text input-group-addon bg-transparent border-primary" data-toggle><i data-feather="calendar" class="text-primary"></i></span>
-        <input type="text" class="form-control bg-transparent border-primary" placeholder="Select date" data-input>
+        <input type="text" class="form-control bg-transparent border-primary" placeholder="Sélectionner une date" data-input>
       </div>
       <button type="button" class="btn btn-outline-primary btn-icon-text me-2 mb-2 mb-md-0">
         <i class="btn-icon-prepend" data-feather="printer"></i>
-        Print
+        Imprimer
       </button>
       <button type="button" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
         <i class="btn-icon-prepend" data-feather="download-cloud"></i>
-        Download Report
+        Télécharger le rapport
       </button>
     </div>
   </div>
@@ -23,106 +27,225 @@
   <div class="row">
     <div class="col-12 col-xl-12 stretch-card">
       <div class="row flex-grow-1">
-        <div class="col-md-4 grid-margin stretch-card">
+        <div class="col-md-3 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-baseline">
-                <h6 class="card-title mb-0">New Customers</h6>
+                <h6 class="card-title mb-0">Propriétés</h6>
                 <div class="dropdown mb-2">
                   <a type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('all.property') }}"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">Voir tout</span></a>
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-6 col-md-12 col-xl-5">
-                  <h3 class="mb-2">3,897</h3>
+                <div class="col-12">
+                  <h3 class="mb-2">{{ $totalProperties }}</h3>
                   <div class="d-flex align-items-baseline">
-                    <p class="text-success">
-                      <span>+3.3%</span>
-                      <i data-feather="arrow-up" class="icon-sm mb-1"></i>
+                    <p class="text-primary">
+                      <span>Total des propriétés</span>
+                      <i data-feather="home" class="icon-sm mb-1"></i>
                     </p>
                   </div>
-                </div>
-                <div class="col-6 col-md-12 col-xl-7">
-                  <div id="customersChart" class="mt-md-3 mt-xl-0"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4 grid-margin stretch-card">
+        <div class="col-md-3 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-baseline">
-                <h6 class="card-title mb-0">New Orders</h6>
+                <h6 class="card-title mb-0">Agents</h6>
                 <div class="dropdown mb-2">
                   <a type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('all.agents') }}"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">Voir tout</span></a>
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-6 col-md-12 col-xl-5">
-                  <h3 class="mb-2">35,084</h3>
+                <div class="col-12">
+                  <h3 class="mb-2">{{ $totalAgents }}</h3>
                   <div class="d-flex align-items-baseline">
-                    <p class="text-danger">
-                      <span>-2.8%</span>
-                      <i data-feather="arrow-down" class="icon-sm mb-1"></i>
+                    <p class="text-success">
+                      <span>Agents immobiliers</span>
+                      <i data-feather="users" class="icon-sm mb-1"></i>
                     </p>
                   </div>
-                </div>
-                <div class="col-6 col-md-12 col-xl-7">
-                  <div id="ordersChart" class="mt-md-3 mt-xl-0"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4 grid-margin stretch-card">
+        <div class="col-md-3 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-baseline">
-                <h6 class="card-title mb-0">Growth</h6>
+                <h6 class="card-title mb-0">Utilisateurs</h6>
                 <div class="dropdown mb-2">
                   <a type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('all.users') }}"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">Voir tout</span></a>
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-6 col-md-12 col-xl-5">
-                  <h3 class="mb-2">89.87%</h3>
+                <div class="col-12">
+                  <h3 class="mb-2">{{ $totalUsers }}</h3>
                   <div class="d-flex align-items-baseline">
-                    <p class="text-success">
-                      <span>+2.8%</span>
-                      <i data-feather="arrow-up" class="icon-sm mb-1"></i>
+                    <p class="text-info">
+                      <span>Clients inscrits</span>
+                      <i data-feather="user" class="icon-sm mb-1"></i>
                     </p>
                   </div>
                 </div>
-                <div class="col-6 col-md-12 col-xl-7">
-                  <div id="growthChart" class="mt-md-3 mt-xl-0"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Rendez-vous</h6>
+                <div class="dropdown mb-2">
+                  <a type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('all.appointments') }}"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">Voir tout</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <h3 class="mb-2">{{ $totalAppointments }}</h3>
+                  <div class="d-flex align-items-baseline">
+                    <p class="text-warning">
+                      <span>{{ $pendingAppointments }} en attente</span>
+                      <i data-feather="calendar" class="icon-sm mb-1"></i>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- row -->
+  
+  <!-- Deuxième rangée de statistiques -->
+  <div class="row">
+    <div class="col-12 col-xl-12 stretch-card">
+      <div class="row flex-grow-1">
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Types de propriétés</h6>
+                <div class="dropdown mb-2">
+                  <a type="button" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('all.type') }}"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">Voir tout</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <h3 class="mb-2">{{ $totalPropertyTypes }}</h3>
+                  <div class="d-flex align-items-baseline">
+                    <p class="text-secondary">
+                      <span>Catégories</span>
+                      <i data-feather="list" class="icon-sm mb-1"></i>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Commodités</h6>
+                <div class="dropdown mb-2">
+                  <a type="button" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('all.amenitie') }}"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">Voir tout</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <h3 class="mb-2">{{ $totalAmenities }}</h3>
+                  <div class="d-flex align-items-baseline">
+                    <p class="text-danger">
+                      <span>Équipements</span>
+                      <i data-feather="check-square" class="icon-sm mb-1"></i>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Témoignages</h6>
+                <div class="dropdown mb-2">
+                  <a type="button" id="dropdownMenuButton6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton6">
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('all.testimonials') }}"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">Voir tout</span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <h3 class="mb-2">{{ $totalTestimonials }}</h3>
+                  <div class="d-flex align-items-baseline">
+                    <p class="text-success">
+                      <span>Avis clients</span>
+                      <i data-feather="message-square" class="icon-sm mb-1"></i>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card bg-primary text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0 text-white">Immobilus</h6>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <h3 class="mb-2 text-white">Statistiques</h3>
+                  <div class="d-flex align-items-baseline">
+                    <p class="text-white">
+                      <span>Tableau de bord</span>
+                      <i data-feather="activity" class="icon-sm mb-1"></i>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -133,27 +256,107 @@
   </div> <!-- row -->
 
   <div class="row">
-    <div class="col-lg-12 col-xl-12 grid-margin stretch-card">
+    <div class="col-lg-7 col-xl-8 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-baseline mb-2">
-            <h6 class="card-title mb-0">Monthly sales</h6>
+            <h6 class="card-title mb-0">Propriétés récentes</h6>
             <div class="dropdown mb-2">
               <a type="button" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
+                <a class="dropdown-item d-flex align-items-center" href="{{ route('all.property') }}"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">Voir toutes les propriétés</span></a>
               </div>
             </div>
           </div>
-          <p class="text-muted">Sales are activities related to selling or the number of goods or services sold in a given time period.</p>
-          <div id="monthlySalesChart"></div>
+          <p class="text-muted">Les propriétés les plus récemment ajoutées dans le système.</p>
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th class="pt-0">ID</th>
+                  <th class="pt-0">Nom</th>
+                  <th class="pt-0">Type</th>
+                  <th class="pt-0">Prix</th>
+                  <th class="pt-0">Statut</th>
+                  <th class="pt-0">Agent</th>
+                </tr>
+              </thead>
+              <tbody>
+                @forelse($recentProperties as $property)
+                <tr>
+                  <td>{{ $property->id }}</td>
+                  <td>
+                    <a href="{{ route('property.details', [$property->id, Str::slug($property->property_name)]) }}" target="_blank">{{ $property->property_name }}</a>
+                  </td>
+                  <td>{{ $property->type->type_name ?? 'N/A' }}</td>
+                  <td>{{ number_format($property->lowest_price, 0, ',', ' ') }} €</td>
+                  <td>
+                    @if($property->status == 'active')
+                    <span class="badge bg-success">Actif</span>
+                    @else
+                    <span class="badge bg-danger">Inactif</span>
+                    @endif
+                  </td>
+                  <td>{{ $property->user->name ?? 'N/A' }}</td>
+                </tr>
+                @empty
+                <tr>
+                  <td colspan="6" class="text-center">Aucune propriété disponible</td>
+                </tr>
+                @endforelse
+              </tbody>
+            </table>
+          </div>
         </div> 
+      </div>
+    </div>
+    <div class="col-lg-5 col-xl-4 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-baseline mb-2">
+            <h6 class="card-title mb-0">Types de propriétés</h6>
+            <div class="dropdown mb-2">
+              <a type="button" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
+                <a class="dropdown-item d-flex align-items-center" href="{{ route('all.type') }}"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">Gérer les types</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Nombre</th>
+                  <th>%</th>
+                </tr>
+              </thead>
+              <tbody>
+                @php
+                  $totalProps = $totalProperties > 0 ? $totalProperties : 1; // Éviter division par zéro
+                @endphp
+                @forelse($propertyTypeStats as $type)
+                <tr>
+                  <td>{{ $type->type_name }}</td>
+                  <td>{{ $type->properties_count }}</td>
+                  <td>{{ round(($type->properties_count / $totalProps) * 100) }}%</td>
+                </tr>
+                @empty
+                <tr>
+                  <td colspan="3" class="text-center">Aucun type disponible</td>
+                </tr>
+                @endforelse
+              </tbody>
+            </table>
+          </div>
+          <div class="d-grid mt-3">
+            <a href="{{ route('add.type') }}" class="btn btn-primary">Ajouter un type</a>
+          </div>
+        </div>
       </div>
     </div>
   </div> <!-- row -->
@@ -163,81 +366,37 @@
       <div class="card">
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-baseline mb-2">
-            <h6 class="card-title mb-0">Inbox</h6>
+            <h6 class="card-title mb-0">Top Agents</h6>
             <div class="dropdown mb-2">
               <a type="button" id="dropdownMenuButton6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton6">
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
+                <a class="dropdown-item d-flex align-items-center" href="{{ route('all.agents') }}"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">Voir tous les agents</span></a>
               </div>
             </div>
           </div>
           <div class="d-flex flex-column">
-            <a href="javascript:;" class="d-flex align-items-center border-bottom pb-3">
+            @forelse($topAgents as $agent)
+            <a href="{{ route('agents.details', $agent->id) }}" class="d-flex align-items-center border-bottom pb-3 {{ !$loop->last ? 'mb-3' : '' }}">
               <div class="me-3">
-                <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
+                @if($agent->photo)
+                <img src="{{ asset($agent->photo) }}" class="rounded-circle wd-35" alt="agent">
+                @else
+                <img src="{{ asset('upload/no_image.jpg') }}" class="rounded-circle wd-35" alt="agent">
+                @endif
               </div>
               <div class="w-100">
                 <div class="d-flex justify-content-between">
-                  <h6 class="text-body mb-2">Leonardo Payne</h6>
-                  <p class="text-muted tx-12">12.30 PM</p>
+                  <h6 class="text-body mb-2">{{ $agent->name }}</h6>
+                  <p class="text-success tx-12">{{ $agent->properties_count }} propriétés</p>
                 </div>
-                <p class="text-muted tx-13">Hey! there I'm available...</p>
+                <p class="text-muted tx-13">{{ $agent->email }}</p>
               </div>
             </a>
-            <a href="javascript:;" class="d-flex align-items-center border-bottom py-3">
-              <div class="me-3">
-                <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-              </div>
-              <div class="w-100">
-                <div class="d-flex justify-content-between">
-                  <h6 class="text-body mb-2">Carl Henson</h6>
-                  <p class="text-muted tx-12">02.14 AM</p>
-                </div>
-                <p class="text-muted tx-13">I've finished it! See you so..</p>
-              </div>
-            </a>
-            <a href="javascript:;" class="d-flex align-items-center border-bottom py-3">
-              <div class="me-3">
-                <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-              </div>
-              <div class="w-100">
-                <div class="d-flex justify-content-between">
-                  <h6 class="text-body mb-2">Jensen Combs</h6>
-                  <p class="text-muted tx-12">08.22 PM</p>
-                </div>
-                <p class="text-muted tx-13">This template is awesome!</p>
-              </div>
-            </a>
-            <a href="javascript:;" class="d-flex align-items-center border-bottom py-3">
-              <div class="me-3">
-                <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-              </div>
-              <div class="w-100">
-                <div class="d-flex justify-content-between">
-                  <h6 class="text-body mb-2">Amiah Burton</h6>
-                  <p class="text-muted tx-12">05.49 AM</p>
-                </div>
-                <p class="text-muted tx-13">Nice to meet you</p>
-              </div>
-            </a>
-            <a href="javascript:;" class="d-flex align-items-center border-bottom py-3">
-              <div class="me-3">
-                <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-              </div>
-              <div class="w-100">
-                <div class="d-flex justify-content-between">
-                  <h6 class="text-body mb-2">Yaretzi Mayo</h6>
-                  <p class="text-muted tx-12">01.19 AM</p>
-                </div>
-                <p class="text-muted tx-13">Hey! there I'm available...</p>
-              </div>
-            </a>
+            @empty
+            <p class="text-center text-muted">Aucun agent disponible</p>
+            @endforelse
           </div>
         </div>
       </div>
@@ -246,17 +405,13 @@
       <div class="card">
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-baseline mb-2">
-            <h6 class="card-title mb-0">Projects</h6>
+            <h6 class="card-title mb-0">Rendez-vous récents</h6>
             <div class="dropdown mb-2">
               <a type="button" id="dropdownMenuButton7" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton7">
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
+                <a class="dropdown-item d-flex align-items-center" href="{{ route('all.appointments') }}"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">Voir tous les rendez-vous</span></a>
               </div>
             </div>
           </div>
@@ -264,72 +419,49 @@
             <table class="table table-hover mb-0">
               <thead>
                 <tr>
-                  <th class="pt-0">#</th>
-                  <th class="pt-0">Project Name</th>
-                  <th class="pt-0">Start Date</th>
-                  <th class="pt-0">Due Date</th>
-                  <th class="pt-0">Status</th>
-                  <th class="pt-0">Assign</th>
+                  <th class="pt-0">ID</th>
+                  <th class="pt-0">Propriété</th>
+                  <th class="pt-0">Client</th>
+                  <th class="pt-0">Date</th>
+                  <th class="pt-0">Heure</th>
+                  <th class="pt-0">Statut</th>
                 </tr>
               </thead>
               <tbody>
+                @forelse($recentAppointments as $appointment)
                 <tr>
-                  <td>1</td>
-                  <td>NobleUI jQuery</td>
-                  <td>01/01/2022</td>
-                  <td>26/04/2022</td>
-                  <td><span class="badge bg-danger">Released</span></td>
-                  <td>Leonardo Payne</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>NobleUI Angular</td>
-                  <td>01/01/2022</td>
-                  <td>26/04/2022</td>
-                  <td><span class="badge bg-success">Review</span></td>
-                  <td>Carl Henson</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>NobleUI ReactJs</td>
-                  <td>01/05/2022</td>
-                  <td>10/09/2022</td>
-                  <td><span class="badge bg-info">Pending</span></td>
-                  <td>Jensen Combs</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>NobleUI VueJs</td>
-                  <td>01/01/2022</td>
-                  <td>31/11/2022</td>
-                  <td><span class="badge bg-warning">Work in Progress</span>
+                  <td>{{ $appointment->id }}</td>
+                  <td>
+                    @if(isset($appointment->property))
+                    <a href="{{ route('property.details', [$appointment->property->id, Str::slug($appointment->property->property_name)]) }}" target="_blank">{{ $appointment->property->property_name }}</a>
+                    @else
+                    N/A
+                    @endif
                   </td>
-                  <td>Amiah Burton</td>
+                  <td>
+                    @if(isset($appointment->user))
+                    {{ $appointment->user->name }}
+                    @else
+                    N/A
+                    @endif
+                  </td>
+                  <td>{{ $appointment->appointment_date }}</td>
+                  <td>{{ $appointment->appointment_time }}</td>
+                  <td>
+                    @if($appointment->status == 'confirmed')
+                    <span class="badge bg-success">Confirmé</span>
+                    @elseif($appointment->status == 'cancelled')
+                    <span class="badge bg-danger">Annulé</span>
+                    @else
+                    <span class="badge bg-warning">En attente</span>
+                    @endif
+                  </td>
                 </tr>
+                @empty
                 <tr>
-                  <td>5</td>
-                  <td>NobleUI Laravel</td>
-                  <td>01/01/2022</td>
-                  <td>31/12/2022</td>
-                  <td><span class="badge bg-danger">Coming soon</span></td>
-                  <td>Yaretzi Mayo</td>
+                  <td colspan="6" class="text-center">Aucun rendez-vous disponible</td>
                 </tr>
-                <tr>
-                  <td>6</td>
-                  <td>NobleUI NodeJs</td>
-                  <td>01/01/2022</td>
-                  <td>31/12/2022</td>
-                  <td><span class="badge bg-primary">Coming soon</span></td>
-                  <td>Carl Henson</td>
-                </tr>
-                <tr>
-                  <td class="border-bottom">3</td>
-                  <td class="border-bottom">NobleUI EmberJs</td>
-                  <td class="border-bottom">01/05/2022</td>
-                  <td class="border-bottom">10/11/2022</td>
-                  <td class="border-bottom"><span class="badge bg-info">Pending</span></td>
-                  <td class="border-bottom">Jensen Combs</td>
-                </tr>
+                @endforelse
               </tbody>
             </table>
           </div>
