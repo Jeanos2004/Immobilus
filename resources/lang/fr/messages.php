@@ -85,6 +85,51 @@ return [
     'blog_list' => 'Liste des articles',
     'blog_details' => 'Détails de l\'article',
     
+    // Pages statiques
+    'about_us' => 'À propos de nous',
+    'our_story' => 'Notre histoire',
+    'our_mission' => 'Notre mission',
+    'our_vision' => 'Notre vision',
+    'our_values' => 'Nos valeurs',
+    'our_team' => 'Notre équipe',
+    'meet_our_team' => 'Rencontrez notre équipe',
+    'join_our_team' => 'Rejoignez notre équipe',
+    'why_choose_immobilus' => 'Pourquoi choisir Immobilus',
+    'our_stats' => 'Nos statistiques',
+    'properties_count' => 'Propriétés',
+    'agents_count' => 'Agents',
+    'clients_count' => 'Clients',
+    'cities_count' => 'Villes',
+    'years_of_experience' => 'Années d\'expérience',
+    
+    // FAQ
+    'faq' => 'Questions fréquentes',
+    'frequently_asked_questions' => 'Questions fréquemment posées',
+    'general_questions' => 'Questions générales',
+    'buying_questions' => 'Questions sur l\'achat',
+    'selling_questions' => 'Questions sur la vente',
+    'renting_questions' => 'Questions sur la location',
+    
+    // Politique de confidentialité et CGU
+    'privacy_policy' => 'Politique de confidentialité',
+    'terms_of_service' => 'Conditions d\'utilisation',
+    'legal_information' => 'Informations légales',
+    'data_protection' => 'Protection des données',
+    'cookies_policy' => 'Politique des cookies',
+    
+    // Calculatrice de prêt
+    'mortgage_calculator' => 'Calculatrice de prêt',
+    'calculate_your_mortgage' => 'Calculez votre prêt immobilier',
+    'property_price' => 'Prix de la propriété',
+    'down_payment' => 'Apport initial',
+    'loan_term' => 'Durée du prêt',
+    'interest_rate' => 'Taux d\'intérêt',
+    'calculate' => 'Calculer',
+    'monthly_payment' => 'Mensualité',
+    'total_payment' => 'Paiement total',
+    'total_interest' => 'Intérêts totaux',
+    'years' => 'années',
+    
     // Propriétés
     'property_list' => 'Liste des propriétés',
     'property_grid' => 'Grille des propriétés',

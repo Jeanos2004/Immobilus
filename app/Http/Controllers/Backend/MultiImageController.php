@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Property;
 use App\Models\PropertyImage;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 
 class MultiImageController extends Controller
@@ -58,8 +57,8 @@ class MultiImageController extends Controller
                     File::makeDirectory(public_path($uploadPath), 0777, true);
                 }
                 
-                // Redimensionner et sauvegarder l'image
-                Image::make($image)->resize(770, 520)->save(public_path($uploadPath . $imageName));
+                // Sauvegarder l'image sans redimensionnement (temporaire jusqu'à ce que Intervention Image soit correctement configuré)
+                $image->move(public_path($uploadPath), $imageName);
                 
                 // Enregistrer l'image dans la base de données
                 PropertyImage::create([

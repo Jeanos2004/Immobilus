@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
 
 class TestimonialController extends Controller
 {
@@ -53,8 +52,8 @@ class TestimonialController extends Controller
                 File::makeDirectory('upload/testimonials', 0777, true);
             }
             
-            // Redimensionner et sauvegarder l'image
-            Image::make($image)->resize(100, 100)->save($save_url);
+            // Sauvegarder l'image sans redimensionnement (temporaire jusqu'à ce que Intervention Image soit correctement configuré)
+            $image->move('upload/testimonials/', $name_gen);
             $photo_path = $save_url;
         }
 
@@ -118,8 +117,8 @@ class TestimonialController extends Controller
                 File::makeDirectory('upload/testimonials', 0777, true);
             }
             
-            // Redimensionner et sauvegarder l'image
-            Image::make($image)->resize(100, 100)->save($save_url);
+            // Sauvegarder l'image sans redimensionnement (temporaire jusqu'à ce que Intervention Image soit correctement configuré)
+            $image->move('upload/testimonials/', $name_gen);
             $testimonial->photo = $save_url;
         }
 

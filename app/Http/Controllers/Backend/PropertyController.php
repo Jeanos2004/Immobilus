@@ -10,7 +10,6 @@ use App\Models\Amenities;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -79,8 +78,8 @@ class PropertyController extends Controller
         $image = $request->file('property_thumbnail');
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
         
-        // Redimensionnement et sauvegarde de l'image
-        Image::make($image)->resize(370, 250)->save('upload/property/thumbnail/' . $name_gen);
+        // Sauvegarde de l'image sans redimensionnement (temporaire jusqu'à ce que Intervention Image soit correctement configuré)
+        $image->move('upload/property/thumbnail/', $name_gen);
         $save_url = 'upload/property/thumbnail/' . $name_gen;
 
         // Création du slug à partir du nom de la propriété

@@ -1,4 +1,4 @@
-@extends('frontend.dashboard')
+@extends('frontend.frontend_dashboard')
 @section('main')
 
 <div class="page-header">

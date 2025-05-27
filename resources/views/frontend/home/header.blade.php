@@ -26,6 +26,16 @@
                     <div class="sign-box">
                         <a href="{{ route('dashboard') }}"><i class="fas fa-user"></i>{{ __('messages.dashboard') }}</a>
                         <a href="{{ route('user.wishlist') }}"><i class="fas fa-heart"></i>Mes favoris</a>
+                        <a href="{{ route('compare.properties') }}"><i class="fas fa-exchange-alt"></i>Comparer
+                            @php
+                                $compareCount = session()->get('compare_list') ? count(session()->get('compare_list')) : 0;
+                            @endphp
+                            @if($compareCount > 0)
+                                <span class="badge badge-pill badge-primary compare-count" style="font-size: 0.6em; position: relative; top: -8px; left: -5px;">{{ $compareCount }}</span>
+                            @else
+                                <span class="badge badge-pill badge-primary compare-count d-none" style="font-size: 0.6em; position: relative; top: -8px; left: -5px;">0</span>
+                            @endif
+                        </a>
                         <a href="{{ route('user.inbox') }}"><i class="fas fa-envelope"></i>Messagerie</a>
                         <a href="{{ route('all.notifications') }}">
                             <i class="fas fa-bell"></i>Notifications

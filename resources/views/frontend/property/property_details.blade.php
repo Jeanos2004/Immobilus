@@ -59,6 +59,12 @@
                             <i class="icon-12" id="wishlistIcon"></i>
                         </a>
                     </li>
+                    <li>
+                        <!-- Bouton pour ajouter à la comparaison -->
+                        <a href="#" class="add-to-compare" data-id="{{ $property->id }}">
+                            <i class="fas fa-exchange-alt"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

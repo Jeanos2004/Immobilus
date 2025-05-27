@@ -28,6 +28,15 @@ Route::controller(\App\Http\Controllers\Frontend\AgentController::class)->group(
     Route::get('/agent/details/{id}', 'AgentDetails')->name('agents.details');
 });
 
+// Routes pour les pages statiques
+Route::controller(\App\Http\Controllers\Frontend\PageController::class)->group(function(){
+    Route::get('/about', 'about')->name('about');
+    Route::get('/faq', 'faq')->name('faq');
+    Route::get('/privacy-policy', 'privacy')->name('privacy.policy');
+    Route::get('/terms-of-service', 'terms')->name('terms.service');
+    Route::get('/mortgage-calculator', 'mortgageCalculator')->name('mortgage.calculator');
+});
+
 // Routes pour la page de contact
 Route::get('/contact', [UserController::class, 'Contact'])->name('contact');
 Route::post('/contact/submit', [\App\Http\Controllers\Frontend\ContactController::class, 'submitContactForm'])->name('contact.submit');
@@ -40,6 +49,21 @@ Route::controller(\App\Http\Controllers\Frontend\PropertyController::class)->gro
     Route::get('/property/search', 'PropertySearch')->name('property.search');
     Route::get('/property/type/{id}', 'PropertyByType')->name('property.type');
     Route::get('/agent/properties/{id}', 'AgentProperties')->name('agent.properties');
+});
+
+// Routes pour la comparaison de propriétés
+Route::controller(\App\Http\Controllers\Frontend\CompareController::class)->group(function(){
+    Route::get('/compare', 'index')->name('compare.properties');
+    Route::post('/add-to-compare', 'addToCompare')->name('compare.add');
+    Route::post('/remove-from-compare', 'removeFromCompare')->name('compare.remove');
+    Route::get('/clear-compare', 'clearCompare')->name('compare.clear');
+});
+
+// Routes pour la galerie de photos
+Route::controller(\App\Http\Controllers\Frontend\GalleryController::class)->group(function(){
+    Route::get('/gallery', 'index')->name('gallery');
+    Route::get('/gallery/type/{id}', 'filterByType')->name('gallery.type');
+    Route::get('/gallery/image/{id}', 'showImage')->name('gallery.image');
 });
 
 // Routes pour la carte interactive

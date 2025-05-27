@@ -91,6 +91,8 @@
     <script src="{{ asset('frontend/assets') }}/js/custom-nav.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('frontend/assets') }}/js/favorites.js"></script>
+    <script src="{{ asset('frontend/assets') }}/js/compare.js"></script>
+    <script src="{{ asset('frontend/assets') }}/js/social-share.js"></script>
 
     <!-- main-js -->
     <script src="{{ asset('frontend/assets') }}/js/script.js"></script>
