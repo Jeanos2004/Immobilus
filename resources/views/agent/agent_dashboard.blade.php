@@ -1,283 +1,111 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <title>Agent Dashboard - Immobilus</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Immobilus - Plateforme immobilière" name="description" />
-    <meta content="Immobilus" name="author" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico') }}">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="Immobilus - Plateforme immobilière">
+	<meta name="author" content="Immobilus">
+	<meta name="keywords" content="immobilier, agent, propriété, maison, appartement, vente, location">
 
-    <!-- jvectormap -->
-    <link href="{{ asset('backend/assets/libs/jqvmap/jqvmap.min.css') }}" rel="stylesheet" />
+	<title>Immobilus - Espace Agent</title>
 
-    <!-- Bootstrap Css -->
-    <link href="{{ asset('backend/assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="{{ asset('backend/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="{{ asset('backend/assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <!-- End fonts -->
 
-    <!-- DataTables -->
-    <link href="{{ asset('backend/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('backend/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('backend/assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+	<!-- core:css -->
+	<link rel="stylesheet" href="{{ asset('backend/assets') }}/vendors/core/core.css">
+	<!-- endinject -->
 
-    <!-- Responsive datatable examples -->
-    <link href="{{ asset('backend/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet" href="{{ asset('backend/assets') }}/vendors/flatpickr/flatpickr.min.css">
+	<!-- End plugin css for this page -->
 
-    <!-- Toastr CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+	<!-- inject:css -->
+	<link rel="stylesheet" href="{{ asset('backend/assets') }}/fonts/feather-font/css/iconfont.css">
+	<link rel="stylesheet" href="{{ asset('backend/assets') }}/vendors/flag-icon-css/css/flag-icon.min.css">
+	<!-- endinject -->
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  	<!-- Layout styles -->  
+	<link rel="stylesheet" href="{{ asset('backend/assets') }}/css/demo2/style.css">
+  	<!-- End layout styles -->
+
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet" href="{{ asset('backend/assets') }}/vendors/datatables.net-bs5/dataTables.bootstrap5.css">
+	<!-- End plugin css for this page -->
+
+  <link rel="shortcut icon" href="{{ asset('backend/assets') }}/images/favicon.png" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body data-sidebar="dark">
+<body>
+	<div class="main-wrapper">
 
-    <!-- Begin page -->
-    <div id="layout-wrapper">
+		<!-- partial:partials/_sidebar.html -->
+		@include('agent.body.sidebar')
+		<!-- partial -->
+	
+		<div class="page-wrapper">
+					
+			<!-- partial:partials/_navbar.html -->
+			@include('agent.body.header')
+			<!-- partial -->
 
-        <!-- ========== Header ========== -->
-        <header id="page-topbar">
-            <div class="navbar-header">
-                <div class="d-flex">
-                    <!-- LOGO -->
-                    <div class="navbar-brand-box">
-                        <a href="{{ route('agent.dashboard') }}" class="logo logo-dark">
-                            <span class="logo-sm">
-                                <img src="{{ asset('backend/assets/images/logo-sm.png') }}" alt="" height="22">
-                            </span>
-                            <span class="logo-lg">
-                                <img src="{{ asset('backend/assets/images/logo-dark.png') }}" alt="" height="20">
-                            </span>
-                        </a>
+			<div class="page-content">
+                @yield('content')
+			</div>
 
-                        <a href="{{ route('agent.dashboard') }}" class="logo logo-light">
-                            <span class="logo-sm">
-                                <img src="{{ asset('backend/assets/images/logo-sm.png') }}" alt="" height="22">
-                            </span>
-                            <span class="logo-lg">
-                                <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="" height="20">
-                            </span>
-                        </a>
-                    </div>
+			<!-- partial:partials/_footer.html -->
+			@include('agent.body.footer')
+			<!-- partial -->
+		
+		</div>
+	</div>
 
-                    <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
-                        <i class="fa fa-fw fa-bars"></i>
-                    </button>
-                </div>
+	<!-- core:js -->
+	<script src="{{ asset('backend/assets') }}/vendors/core/core.js"></script>
+	<!-- endinject -->
 
-                <div class="d-flex">
-                    <div class="dropdown d-inline-block">
-                        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="rounded-circle header-profile-user" src="{{ (!empty(Auth::user()->photo)) ? url('upload/agent_images/'.Auth::user()->photo) : url('upload/no_image.jpg') }}"
-                                alt="Header Avatar">
-                            <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">{{ Auth::user()->name }}</span>
-                            <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <!-- item-->
-                            <a class="dropdown-item" href="#"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">Profil</span></a>
-                            <a class="dropdown-item" href="#"><i class="uil uil-lock-alt font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">Changer mot de passe</span></a>
-                            <a class="dropdown-item" href="{{ route('agent.inbox') }}"><i class="uil uil-envelope font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">Messagerie</span></a>
-                            <a class="dropdown-item" href="{{ route('user.logout') }}"><i class="uil uil-sign-out-alt font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">Déconnexion</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- ========== Left Sidebar Start ========== -->
-        <div class="vertical-menu">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-            <!-- LOGO -->
-            <div class="navbar-brand-box">
-                <a href="{{ route('agent.dashboard') }}" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src="{{ asset('backend/assets/images/logo-sm.png') }}" alt="" height="22">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="{{ asset('backend/assets/images/logo-dark.png') }}" alt="" height="20">
-                    </span>
-                </a>
+	<!-- Plugin js for this page -->
+  <script src="{{ asset('backend/assets') }}/vendors/flatpickr/flatpickr.min.js"></script>
+  <script src="{{ asset('backend/assets') }}/vendors/apexcharts/apexcharts.min.js"></script>
+	<!-- End plugin js for this page -->
 
-                <a href="{{ route('agent.dashboard') }}" class="logo logo-light">
-                    <span class="logo-sm">
-                        <img src="{{ asset('backend/assets/images/logo-sm.png') }}" alt="" height="22">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="" height="20">
-                    </span>
-                </a>
-            </div>
+	<!-- inject:js -->
+	<script src="{{ asset('backend/assets') }}/vendors/feather-icons/feather.min.js"></script>
+	<script src="{{ asset('backend/assets') }}/js/template.js"></script>
+	<!-- endinject -->
 
-            <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
-                <i class="fa fa-fw fa-bars"></i>
-            </button>
-
-            <div data-simplebar class="sidebar-menu-scroll">
-
-                <!--- Sidemenu -->
-                <div id="sidebar-menu">
-                    <!-- Left Menu Start -->
-                    <ul class="metismenu list-unstyled" id="side-menu">
-                        <li class="menu-title">Menu</li>
-
-                        <li>
-                            <a href="{{ route('agent.dashboard') }}">
-                                <i class="uil-home-alt"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="uil-building"></i>
-                                <span>Propriétés</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('agent.properties.all') }}">Mes propriétés</a></li>
-                                <li><a href="{{ route('agent.property.create') }}">Ajouter une propriété</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="uil-calendar-alt"></i>
-                                <span>Rendez-vous</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('agent.appointments.all') }}">Tous les rendez-vous</a></li>
-                                <li><a href="{{ route('agent.appointments.all') }}?status=pending">En attente</a></li>
-                                <li><a href="{{ route('agent.appointments.all') }}?status=confirmed">Confirmés</a></li>
-                                <li><a href="{{ route('agent.appointments.all') }}?status=completed">Terminés</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="uil-comments-alt"></i>
-                                <span>Messagerie</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('agent.messages') }}">Tous les messages</a></li>
-                                <li><a href="{{ route('agent.inbox') }}">Boîte de réception</a></li>
-                                <li><a href="{{ route('agent.sent') }}">Messages envoyés</a></li>
-                            </ul>
-                        </li>
-                        
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="uil-money-bill"></i>
-                                <span>Paiements</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="#">Historique des paiements</a></li>
-                                <li><a href="#">Paiements en attente</a></li>
-                            </ul>
-                        </li>
-                        
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="uil-chart-line"></i>
-                                <span>Rapports</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="#">Statistiques des propriétés</a></li>
-                                <li><a href="#">Activité des visiteurs</a></li>
-                                <li><a href="#">Performance des annonces</a></li>
-                            </ul>
-                        </li>
-
-                    </ul>
-                </div>
-                <!-- Sidebar -->
-            </div>
-        </div>
-        <!-- Left Sidebar End -->
-
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
-        <div class="main-content">
-
-            @yield('content')
-            
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <script>document.write(new Date().getFullYear())</script> Immobilus.
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="text-sm-end d-none d-sm-block">
-                                Développé avec <i class="mdi mdi-heart text-danger"></i> par Immobilus
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </div>
-        <!-- end main content-->
-
-    </div>
-    <!-- END layout-wrapper -->
-
-    <!-- JAVASCRIPT -->
-    <script src="{{ asset('backend/assets/libs/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/libs/metismenu/metisMenu.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/libs/simplebar/simplebar.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/libs/node-waves/waves.min.js') }}"></script>
-
-    <!-- apexcharts -->
-    <script src="{{ asset('backend/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
-
-    <!-- jquery.vectormap map -->
-    <script src="{{ asset('backend/assets/libs/jqvmap/jquery.vmap.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/libs/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
-
-    <!-- Required datatable js -->
-    <script src="{{ asset('backend/assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-
-    <!-- Responsive examples -->
-    <script src="{{ asset('backend/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-
-    <script src="{{ asset('backend/assets/js/pages/dashboard.init.js') }}"></script>
-
-    <!-- App js -->
-    <script src="{{ asset('backend/assets/js/app.js') }}"></script>
-
-    <!-- Toastr js -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-    <script>
-        @if(Session::has('message'))
-        var type = "{{ Session::get('alert-type','info') }}"
-        switch(type){
-            case 'info':
-            toastr.info(" {{ Session::get('message') }} ");
-            break;
-
-            case 'success':
-            toastr.success(" {{ Session::get('message') }} ");
-            break;
-
-            case 'warning':
-            toastr.warning(" {{ Session::get('message') }} ");
-            break;
-
-            case 'error':
-            toastr.error(" {{ Session::get('message') }} ");
-            break; 
-        }
-        @endif
-    </script>
+	<!-- Custom js for this page -->
+  	<script src="{{ asset('backend/assets') }}/js/dashboard-dark.js"></script>
+	<!-- End custom js for this page -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script>
+		@if(Session::has('message'))
+			var type = "{{ Session::get('alert-type','info') }}"
+			switch(type){
+				case 'info':
+				toastr.info(" {{ Session::get('message') }} ");
+				break;
+				case 'success':
+				toastr.success(" {{ Session::get('message') }} ");
+				break;
+				case 'warning':
+				toastr.warning(" {{ Session::get('message') }} ");
+				break;
+				case 'error':
+				toastr.error(" {{ Session::get('message') }} ");
+				break; 
+			}
+		@endif 
+	</script>
 
     <!-- DataTable Init -->
     <script>

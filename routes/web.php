@@ -212,8 +212,16 @@ Route::middleware(['auth', 'role:agent'])->group(function(){
     // Routes pour les rendez-vous (agent)
     Route::controller(\App\Http\Controllers\Frontend\AppointmentController::class)->group(function(){
         // Liste des rendez-vous de l'agent
-        Route::get('/agent/appointments', 'AgentAppointments')->name('agent.appointments');
-        // Changer le statut d'un rendez-vous
+        Route::get('/agent/appointments', 'AgentAppointments')->name('agent.appointments.all');
+        // Voir les détails d'un rendez-vous
+        Route::get('/agent/appointment/view/{id}', 'AgentViewAppointment')->name('agent.appointment.view');
+        // Confirmer un rendez-vous
+        Route::get('/agent/appointment/confirm/{id}', 'AgentConfirmAppointment')->name('agent.appointment.confirm');
+        // Annuler un rendez-vous
+        Route::get('/agent/appointment/cancel/{id}', 'AgentCancelAppointment')->name('agent.appointment.cancel');
+        // Marquer un rendez-vous comme terminé
+        Route::get('/agent/appointment/complete/{id}', 'AgentCompleteAppointment')->name('agent.appointment.complete');
+        // Changer le statut d'un rendez-vous (méthode générique)
         Route::get('/agent/appointment/status/{id}/{status}', 'AgentChangeStatus')->name('agent.appointment.status');
     });
 
@@ -399,9 +407,36 @@ Route::middleware(['auth', 'role:agent'])->group(function(){
     // Routes pour les rendez-vous (agent)
     Route::controller(\App\Http\Controllers\Frontend\AppointmentController::class)->group(function(){
         // Liste des rendez-vous de l'agent
-        Route::get('/agent/appointments', 'AgentAppointments')->name('agent.appointments');
-        // Changer le statut d'un rendez-vous
+        Route::get('/agent/appointments', 'AgentAppointments')->name('agent.appointments.all');
+        // Voir les détails d'un rendez-vous
+        Route::get('/agent/appointment/view/{id}', 'AgentViewAppointment')->name('agent.appointment.view');
+        // Confirmer un rendez-vous
+        Route::get('/agent/appointment/confirm/{id}', 'AgentConfirmAppointment')->name('agent.appointment.confirm');
+        // Annuler un rendez-vous
+        Route::get('/agent/appointment/cancel/{id}', 'AgentCancelAppointment')->name('agent.appointment.cancel');
+        // Marquer un rendez-vous comme terminé
+        Route::get('/agent/appointment/complete/{id}', 'AgentCompleteAppointment')->name('agent.appointment.complete');
+        // Changer le statut d'un rendez-vous (méthode générique)
         Route::get('/agent/appointment/status/{id}/{status}', 'AgentChangeStatus')->name('agent.appointment.status');
     });
 
-}); // End Group Agent Middleware
+    // Routes pour les propriétés (agent) 
+    Route::controller(\App\Http\Controllers\Frontend\PropertyController::class)->group(function(){
+        // Liste des propriétés de l'agent
+        Route::get('/agent/properties', 'AgentProperties')->name('agent.properties.all');
+        // Ajouter une propriété
+        Route::get('/agent/property/add', 'AgentAddProperty')->name('agent.property.add');
+        // Enregistrer une nouvelle propriété
+        Route::post('/agent/property/store', 'AgentStoreProperty')->name('agent.property.store');
+        // Modifier une propriété
+        Route::get('/agent/property/edit/{id}', 'AgentEditProperty')->name('agent.property.edit');
+        // Mettre à jour une propriété
+        Route::post('/agent/property/update/{id}', 'AgentUpdateProperty')->name('agent.property.update');
+        // Supprimer une propriété
+        Route::get('/agent/property/delete/{id}', 'AgentDeleteProperty')->name('agent.property.delete');
+        // Détails d'une propriété
+        Route::get('/agent/property/view/{id}', 'AgentViewProperty')->name('agent.property.view');
+    });
+
+}); // End Group Agent Middleware 
+

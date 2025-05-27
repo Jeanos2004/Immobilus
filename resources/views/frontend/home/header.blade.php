@@ -101,14 +101,14 @@
                                 <div class="col-xl-4 column">
                                     <ul>
                                         <li><h4>{{ __('Pages') }}</h4></li>
-                                        <li><a href="{{ route('about.us') }}">{{ __('À propos de nous') }}</a></li>
+                                        <li><a href="{{ route('about') }}">{{ __('À propos de nous') }}</a></li>
                                         <li><a href="{{ route('faq') }}">{{ __('FAQ') }}</a></li>
                                         <li><a href="{{ route('privacy.policy') }}">{{ __('Politique de confidentialité') }}</a></li>
                                         <li><a href="{{ route('terms.service') }}">{{ __('Conditions d\'utilisation') }}</a></li>
                                         <li><a href="{{ route('compare.properties') }}">{{ __('Comparer des propriétés') }}</a></li>
                                         <li><a href="{{ route('mortgage.calculator') }}">{{ __('Calculatrice de prêt') }}</a></li>
                                         <li><a href="{{ route('gallery') }}">{{ __('Galerie') }}</a></li>
-                                        <li><a href="{{ route('testimonials') }}">{{ __('Témoignages') }}</a>
+                                        <li><a href="{{ route('all.testimonials') }}">{{ __('Témoignages') }}</a>
                                     </ul>
                                 </div>
                                 <div class="col-xl-4 column">

@@ -186,4 +186,119 @@ class AppointmentController extends Controller
         
         return redirect()->back()->with($notification);
     }
+    
+    /**
+     * Affiche les détails d'un rendez-vous pour l'agent
+     * 
+     * @param int $id ID du rendez-vous
+     * @return \Illuminate\View\View
+     */
+    public function AgentViewAppointment($id)
+    {
+        // Vérifier que le rendez-vous appartient à l'agent connecté
+        $appointment = Appointment::where('agent_id', Auth::id())
+                                ->with(['user', 'property'])
+                                ->findOrFail($id);
+        
+        return view('agent.appointments.view_appointment', compact('appointment'));
+    }
+    
+    /**
+     * Confirme un rendez-vous (pour l'agent)
+     * 
+     * @param int $id ID du rendez-vous
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function AgentConfirmAppointment($id)
+    {
+        // Vérifier que le rendez-vous appartient à l'agent connecté
+        $appointment = Appointment::where('agent_id', Auth::id())
+                                ->with(['user', 'property'])
+                                ->findOrFail($id);
+        
+        $oldStatus = $appointment->status;
+        $appointment->status = 'confirmed';
+        $appointment->save();
+        
+        // Envoyer une notification à l'utilisateur
+        try {
+            $appointment->user->notify(new \App\Notifications\AppointmentStatusChanged($appointment, $oldStatus));
+        } catch (\Exception $e) {
+            // Log l'erreur mais continuer l'exécution
+            \Log::error('Erreur lors de l\'envoi de la notification: ' . $e->getMessage());
+        }
+        
+        $notification = [
+            'message' => 'Rendez-vous confirmé avec succès',
+            'alert-type' => 'success'
+        ];
+        
+        return redirect()->back()->with($notification);
+    }
+    
+    /**
+     * Annule un rendez-vous (pour l'agent)
+     * 
+     * @param int $id ID du rendez-vous
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function AgentCancelAppointment($id)
+    {
+        // Vérifier que le rendez-vous appartient à l'agent connecté
+        $appointment = Appointment::where('agent_id', Auth::id())
+                                ->with(['user', 'property'])
+                                ->findOrFail($id);
+        
+        $oldStatus = $appointment->status;
+        $appointment->status = 'cancelled';
+        $appointment->save();
+        
+        // Envoyer une notification à l'utilisateur
+        try {
+            $appointment->user->notify(new \App\Notifications\AppointmentStatusChanged($appointment, $oldStatus));
+        } catch (\Exception $e) {
+            // Log l'erreur mais continuer l'exécution
+            \Log::error('Erreur lors de l\'envoi de la notification: ' . $e->getMessage());
+        }
+        
+        $notification = [
+            'message' => 'Rendez-vous annulé avec succès',
+            'alert-type' => 'success'
+        ];
+        
+        return redirect()->back()->with($notification);
+    }
+    
+    /**
+     * Marque un rendez-vous comme terminé (pour l'agent)
+     * 
+     * @param int $id ID du rendez-vous
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function AgentCompleteAppointment($id)
+    {
+        // Vérifier que le rendez-vous appartient à l'agent connecté
+        $appointment = Appointment::where('agent_id', Auth::id())
+                                ->with(['user', 'property'])
+                                ->findOrFail($id);
+        
+        $oldStatus = $appointment->status;
+        $appointment->status = 'completed';
+        $appointment->save();
+        
+        // Envoyer une notification à l'utilisateur
+        try {
+            $appointment->user->notify(new \App\Notifications\AppointmentStatusChanged($appointment, $oldStatus));
+        } catch (\Exception $e) {
+            // Log l'erreur mais continuer l'exécution
+            \Log::error('Erreur lors de l\'envoi de la notification: ' . $e->getMessage());
+        }
+        
+        $notification = [
+            'message' => 'Rendez-vous marqué comme terminé avec succès',
+            'alert-type' => 'success'
+        ];
+        
+        return redirect()->back()->with($notification);
+    }
 }

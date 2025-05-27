@@ -8,13 +8,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">{{ __('Détails du rendez-vous') }}</h4>
+                    <h4 class="mb-sm-0">{{ __('agent.appointment_details') }}</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="{{ route('agent.dashboard') }}">{{ __('Tableau de bord') }}</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('agent.appointments.all') }}">{{ __('Rendez-vous') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('Détails') }}</li>
+                            <li class="breadcrumb-item"><a href="{{ route('agent.dashboard') }}">{{ __('agent.dashboard') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('agent.appointments.all') }}">{{ __('agent.appointments') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('agent.details') }}</li>
                         </ol>
                     </div>
 
@@ -27,25 +27,25 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header bg-transparent border-bottom d-flex">
-                        <h5 class="card-title mb-0">{{ __('Rendez-vous') }} #{{ $appointment->id }}</h5>
+                        <h5 class="card-title mb-0">{{ __('agent.appointments') }} #{{ $appointment->id }}</h5>
                         <div class="ms-auto">
                             @if($appointment->status == 'pending')
                                 <a href="{{ route('agent.appointment.confirm', $appointment->id) }}" class="btn btn-success btn-sm me-1">
-                                    <i class="ri-check-line me-1"></i> {{ __('Confirmer') }}
+                                    <i class="ri-check-line me-1"></i> {{ __('agent.confirm') }}
                                 </a>
-                                <a href="{{ route('agent.appointment.cancel', $appointment->id) }}" class="btn btn-danger btn-sm me-1" onclick="return confirm('{{ __('Êtes-vous sûr de vouloir annuler ce rendez-vous ?') }}')">
-                                    <i class="ri-close-line me-1"></i> {{ __('Annuler') }}
+                                <a href="{{ route('agent.appointment.cancel', $appointment->id) }}" class="btn btn-danger btn-sm me-1" onclick="return confirm('{{ __('agent.confirm_cancel_appointment') }}')">
+                                    <i class="ri-close-line me-1"></i> {{ __('agent.cancel') }}
                                 </a>
                             @endif
                             
                             @if($appointment->status == 'confirmed')
                                 <a href="{{ route('agent.appointment.complete', $appointment->id) }}" class="btn btn-primary btn-sm me-1">
-                                    <i class="ri-check-double-line me-1"></i> {{ __('Marquer comme terminé') }}
+                                    <i class="ri-check-double-line me-1"></i> {{ __('agent.mark_as_completed') }}
                                 </a>
                             @endif
                             
                             <a href="{{ route('agent.appointments.all') }}" class="btn btn-secondary btn-sm">
-                                <i class="ri-arrow-left-line me-1"></i> {{ __('Retour') }}
+                                <i class="ri-arrow-left-line me-1"></i> {{ __('agent.back') }}
                             </a>
                         </div>
                     </div>
@@ -54,49 +54,49 @@
                             <div class="col-xl-6">
                                 <div class="card border shadow-none">
                                     <div class="card-header bg-transparent border-bottom">
-                                        <h5 class="card-title mb-0">{{ __('Informations du rendez-vous') }}</h5>
+                                        <h5 class="card-title mb-0">{{ __('agent.appointment_information') }}</h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
                                             <table class="table table-nowrap mb-0">
                                                 <tbody>
                                                     <tr>
-                                                        <th scope="row">{{ __('Statut') }}</th>
+                                                        <th scope="row">{{ __('agent.status') }}</th>
                                                         <td>
                                                             @if($appointment->status == 'confirmed')
-                                                                <span class="badge badge-soft-success">{{ __('Confirmé') }}</span>
+                                                                <span class="badge badge-soft-success">{{ __('agent.confirmed') }}</span>
                                                             @elseif($appointment->status == 'cancelled')
-                                                                <span class="badge badge-soft-danger">{{ __('Annulé') }}</span>
+                                                                <span class="badge badge-soft-danger">{{ __('agent.cancelled') }}</span>
                                                             @elseif($appointment->status == 'completed')
-                                                                <span class="badge badge-soft-info">{{ __('Terminé') }}</span>
+                                                                <span class="badge badge-soft-info">{{ __('agent.completed') }}</span>
                                                             @else
-                                                                <span class="badge badge-soft-warning">{{ __('En attente') }}</span>
+                                                                <span class="badge badge-soft-warning">{{ __('agent.pending') }}</span>
                                                             @endif
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">{{ __('Date') }}</th>
+                                                        <th scope="row">{{ __('agent.date') }}</th>
                                                         <td>{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d/m/Y') }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">{{ __('Heure') }}</th>
+                                                        <th scope="row">{{ __('agent.time') }}</th>
                                                         <td>{{ $appointment->appointment_time }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">{{ __('Type de visite') }}</th>
+                                                        <th scope="row">{{ __('agent.visit_type') }}</th>
                                                         <td>{{ $appointment->visit_type }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">{{ __('Créé le') }}</th>
+                                                        <th scope="row">{{ __('agent.created_at') }}</th>
                                                         <td>{{ \Carbon\Carbon::parse($appointment->created_at)->format('d/m/Y H:i') }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">{{ __('Dernière mise à jour') }}</th>
+                                                        <th scope="row">{{ __('agent.updated_at') }}</th>
                                                         <td>{{ \Carbon\Carbon::parse($appointment->updated_at)->format('d/m/Y H:i') }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">{{ __('Message') }}</th>
-                                                        <td>{{ $appointment->message ?? __('Aucun message') }}</td>
+                                                        <th scope="row">{{ __('agent.message') }}</th>
+                                                        <td>{{ $appointment->message ?? __('agent.no_message') }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -110,7 +110,7 @@
                                     <div class="col-12">
                                         <div class="card border shadow-none">
                                             <div class="card-header bg-transparent border-bottom">
-                                                <h5 class="card-title mb-0">{{ __('Informations du client') }}</h5>
+                                                <h5 class="card-title mb-0">{{ __('agent.client_information') }}</h5>
                                             </div>
                                             <div class="card-body">
                                                 <div class="d-flex align-items-center mb-3">
@@ -129,15 +129,15 @@
                                                     <table class="table table-nowrap mb-0">
                                                         <tbody>
                                                             <tr>
-                                                                <th scope="row">{{ __('Téléphone') }}</th>
+                                                                <th scope="row">{{ __('agent.phone') }}</th>
                                                                 <td>{{ $appointment->user->phone ?? 'N/A' }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">{{ __('Adresse') }}</th>
+                                                                <th scope="row">{{ __('agent.address') }}</th>
                                                                 <td>{{ $appointment->user->address ?? 'N/A' }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">{{ __('Membre depuis') }}</th>
+                                                                <th scope="row">{{ __('agent.member_since') }}</th>
                                                                 <td>{{ $appointment->user ? \Carbon\Carbon::parse($appointment->user->created_at)->format('d/m/Y') : 'N/A' }}</td>
                                                             </tr>
                                                         </tbody>
@@ -161,7 +161,7 @@
                                     <div class="col-12 mt-4">
                                         <div class="card border shadow-none">
                                             <div class="card-header bg-transparent border-bottom">
-                                                <h5 class="card-title mb-0">{{ __('Propriété concernée') }}</h5>
+                                                <h5 class="card-title mb-0">{{ __('agent.property_concerned') }}</h5>
                                             </div>
                                             <div class="card-body">
                                                 @if($appointment->property)
@@ -177,15 +177,15 @@
                                                         <table class="table table-nowrap mb-0">
                                                             <tbody>
                                                                 <tr>
-                                                                    <th scope="row">{{ __('Type') }}</th>
+                                                                    <th scope="row">{{ __('agent.type') }}</th>
                                                                     <td>{{ $appointment->property->type->type_name ?? 'N/A' }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th scope="row">{{ __('Statut') }}</th>
-                                                                    <td>{{ $appointment->property->property_status == 'rent' ? __('À louer') : __('À vendre') }}</td>
+                                                                    <th scope="row">{{ __('agent.status') }}</th>
+                                                                    <td>{{ $appointment->property->property_status == 'rent' ? __('agent.for_rent') : __('agent.for_sale') }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th scope="row">{{ __('Prix') }}</th>
+                                                                    <th scope="row">{{ __('agent.price') }}</th>
                                                                     <td>{{ number_format($appointment->property->lowest_price, 0, ',', ' ') }} €</td>
                                                                 </tr>
                                                                 <tr>
