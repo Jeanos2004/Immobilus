@@ -29,6 +29,9 @@ class DatabaseSeeder extends Seeder
             // 4. Images de propriétés (dépend des propriétés)
             PropertyImagesTableSeeder::class,
             
+            // 5. Plans de paiement
+            PaymentPlanSeeder::class,
+            
             // 5. Témoignages clients
             TestimonialsSeeder::class,
             

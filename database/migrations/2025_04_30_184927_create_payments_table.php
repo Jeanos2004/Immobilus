@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('property_id')->constrained('properties')->onDelete('cascade');
             $table->foreignId('appointment_id')->nullable()->constrained('appointments')->onDelete('set null');
+            $table->foreignId('payment_plan_id')->nullable()->constrained('payment_plans')->onDelete('set null');
             $table->string('payment_type'); // reservation, acompte, location, achat
             $table->decimal('amount', 10, 2);
             $table->string('currency')->default('EUR');

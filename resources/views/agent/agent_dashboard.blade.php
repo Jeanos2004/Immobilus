@@ -139,8 +139,21 @@
                                 <span>Propriétés</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="#">Mes propriétés</a></li>
-                                <li><a href="#">Ajouter une propriété</a></li>
+                                <li><a href="{{ route('agent.properties.all') }}">Mes propriétés</a></li>
+                                <li><a href="{{ route('agent.property.create') }}">Ajouter une propriété</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="uil-calendar-alt"></i>
+                                <span>Rendez-vous</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('agent.appointments.all') }}">Tous les rendez-vous</a></li>
+                                <li><a href="{{ route('agent.appointments.all') }}?status=pending">En attente</a></li>
+                                <li><a href="{{ route('agent.appointments.all') }}?status=confirmed">Confirmés</a></li>
+                                <li><a href="{{ route('agent.appointments.all') }}?status=completed">Terminés</a></li>
                             </ul>
                         </li>
 
@@ -150,8 +163,32 @@
                                 <span>Messagerie</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('agent.messages') }}">Tous les messages</a></li>
                                 <li><a href="{{ route('agent.inbox') }}">Boîte de réception</a></li>
                                 <li><a href="{{ route('agent.sent') }}">Messages envoyés</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="uil-money-bill"></i>
+                                <span>Paiements</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="#">Historique des paiements</a></li>
+                                <li><a href="#">Paiements en attente</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="uil-chart-line"></i>
+                                <span>Rapports</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="#">Statistiques des propriétés</a></li>
+                                <li><a href="#">Activité des visiteurs</a></li>
+                                <li><a href="#">Performance des annonces</a></li>
                             </ul>
                         </li>
 
@@ -167,18 +204,17 @@
         <!-- ============================================================== -->
         <div class="main-content">
 
-            @yield('agent')
-            <!-- End Page-content -->
-
+            @yield('content')
+            
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <script>document.write(new Date().getFullYear())</script> © Immobilus.
+                            <script>document.write(new Date().getFullYear())</script> Immobilus.
                         </div>
                         <div class="col-sm-6">
                             <div class="text-sm-end d-none d-sm-block">
-                                Développé avec <i class="mdi mdi-heart text-danger"></i> par <a href="#" target="_blank" class="text-reset">Immobilus Team</a>
+                                Développé avec <i class="mdi mdi-heart text-danger"></i> par Immobilus
                             </div>
                         </div>
                     </div>

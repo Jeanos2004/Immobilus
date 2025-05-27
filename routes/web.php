@@ -41,6 +41,20 @@ Route::controller(\App\Http\Controllers\Frontend\PageController::class)->group(f
 Route::get('/contact', [UserController::class, 'Contact'])->name('contact');
 Route::post('/contact/submit', [\App\Http\Controllers\Frontend\ContactController::class, 'submitContactForm'])->name('contact.submit');
 
+// Routes pour les paiements
+Route::controller(\App\Http\Controllers\Frontend\PaymentController::class)->group(function(){
+    Route::get('/payment/checkout/{id}', 'checkout')->name('payment.checkout');
+    Route::post('/payment/process', 'processPayment')->name('payment.process');
+    Route::get('/payment/success', 'success')->name('payment.success');
+    Route::get('/payment/failed', 'failed')->name('payment.failed');
+    
+    // Routes protégées par authentification
+    Route::middleware(['auth'])->group(function(){
+        Route::get('/payment/history', 'history')->name('payment.history');
+        Route::post('/payment/refund/request', 'requestRefund')->name('payment.refund.request');
+    });
+});
+
 // Routes pour les propriétés (frontend)
 Route::controller(\App\Http\Controllers\Frontend\PropertyController::class)->group(function(){
     Route::get('/properties', 'PropertyList')->name('property.list');
