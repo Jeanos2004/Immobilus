@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         .social-share-buttons .btn-whatsapp {
-            background-color: #25d366;
+            background-color:rgb(63, 37, 211);
         }
         
         .social-share-buttons .btn-email {
@@ -131,12 +131,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         .btn-copy {
-            background-color: #2dbe6c;
+            background-color: #6571ff;
             color: white;
         }
         
         .btn-success {
-            background-color: #28a745;
+            background-color: #6571ff;
         }
     `;
     document.head.appendChild(style);

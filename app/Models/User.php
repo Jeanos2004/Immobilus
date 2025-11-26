@@ -61,6 +61,28 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Property::class, 'favorites', 'user_id', 'property_id')->withTimestamps();
     }
+    
+    /**
+     * Relation avec les rendez-vous où l'utilisateur est l'agent
+     * Un agent peut avoir plusieurs rendez-vous
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function agentAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'agent_id', 'id');
+    }
+    
+    /**
+     * Relation avec les rendez-vous où l'utilisateur est le client
+     * Un utilisateur peut avoir plusieurs rendez-vous
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'user_id', 'id');
+    }
 
     /**
      * The attributes that should be cast.

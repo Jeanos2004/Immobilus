@@ -61,17 +61,75 @@ class AdminController extends Controller
 
     } // End Method
 
+    /**
+     * Renvoie uniquement le tableau des propriétés récentes (pour rafraîchissement AJAX)
+     */
+    public function RecentPropertiesPartial()
+    {
+        $recentProperties = \App\Models\Property::with(['type', 'user'])
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        return view('admin.partials.recent_properties_rows', compact('recentProperties'));
+    }
+
+    /**
+     * Télécharge un rapport CSV simple avec les principales statistiques du dashboard.
+     */
+    public function DownloadDashboardReport()
+    {
+        // Récupérer les mêmes statistiques que sur le dashboard
+        $totalProperties     = \App\Models\Property::count();
+        $totalAgents         = \App\Models\User::where('role', 'agent')->count();
+        $totalUsers          = \App\Models\User::where('role', 'user')->count();
+        $totalTestimonials   = \App\Models\Testimonial::count();
+        $totalAppointments   = \App\Models\Appointment::count() ?? 0;
+        $pendingAppointments = \App\Models\Appointment::where('status', 'pending')->count() ?? 0;
+        $totalPropertyTypes  = \App\Models\PropertyType::count();
+        $totalAmenities      = \App\Models\Amenities::count();
+
+        $rows = [
+            ['Métrique', 'Valeur'],
+            ['Total des propriétés', $totalProperties],
+            ['Total des agents', $totalAgents],
+            ['Total des utilisateurs', $totalUsers],
+            ['Total des témoignages', $totalTestimonials],
+            ['Total des rendez-vous', $totalAppointments],
+            ['Rendez-vous en attente', $pendingAppointments],
+            ['Types de propriétés', $totalPropertyTypes],
+            ['Aménités', $totalAmenities],
+        ];
+
+        $callback = function () use ($rows) {
+            $fh = fopen('php://output', 'w');
+            // BOM UTF-8 pour bonne ouverture dans Excel
+            fprintf($fh, chr(0xEF).chr(0xBB).chr(0xBF));
+            foreach ($rows as $row) {
+                fputcsv($fh, $row, ';');
+            }
+            fclose($fh);
+        };
+
+        $filename = 'rapport-dashboard-immobilus-'.now()->format('Y-m-d_H-i-s').'.csv';
+
+        return response()->streamDownload($callback, $filename, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+        ]);
+    }
+
     public function AdminLogout(Request $request){
         Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        $notification = array(
-            'message' => "Admin Logout Successfully",
-            'alert-type' => 'success'
-        );
+        $notification = [
+            'message' => "Déconnexion administrateur réussie",
+            'alert-type' => 'success',
+        ];
 
-        return redirect('/admin/login')->with($notification);
+        // Redirige vers la page de connexion principale (frontend)
+        return redirect()->route('login')->with($notification);
     } // End Method
 
     public function AdminLogin(){

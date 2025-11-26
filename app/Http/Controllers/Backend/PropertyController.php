@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
+use Intervention\Image\Facades\Image;
 
+use App\Models\Property;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Property;
 use App\Models\PropertyType;
 use App\Models\Amenities;
 use App\Models\User;

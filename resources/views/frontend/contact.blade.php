@@ -5,10 +5,10 @@
 <section class="page-title centred">
     <div class="title-outer">
         <div class="content-box">
-            <h1>{{ __('messages.contact') }}</h1>
+            <h1>Contact</h1>
             <ul class="bread-crumb clearfix">
-                <li><a href="{{ route('homepage') }}">{{ __('messages.home') }}</a></li>
-                <li>{{ __('messages.contact') }}</li>
+                <li><a href="{{ route('homepage') }}">Accueil</a></li>
+                <li>Contact</li>
             </ul>
         </div>
     </div>
@@ -19,15 +19,15 @@
 <section class="contact-info-section sec-pad">
     <div class="auto-container">
         <div class="sec-title centred">
-            <h5>{{ __('messages.contact_us') }}</h5>
-            <h2>{{ __('messages.get_in_touch') }}</h2>
+            <h5>Contactez-nous</h5>
+            <h2>Entrez en contact avec l'équipe Immobilus</h2>
         </div>
         <div class="row clearfix">
             <div class="col-lg-4 col-md-6 col-sm-12 info-block">
                 <div class="info-block-one">
                     <div class="inner-box">
                         <div class="icon-box"><i class="icon-32"></i></div>
-                        <h4>{{ __('messages.email_address') }}</h4>
+                        <h4>Adresse e-mail</h4>
                         <p><a href="mailto:info@immobilus.com">info@immobilus.com</a></p>
                         <p><a href="mailto:support@immobilus.com">support@immobilus.com</a></p>
                     </div>
@@ -37,7 +37,7 @@
                 <div class="info-block-one">
                     <div class="inner-box">
                         <div class="icon-box"><i class="icon-33"></i></div>
-                        <h4>{{ __('messages.phone_number') }}</h4>
+                        <h4>Numéro de téléphone</h4>
                         <p><a href="tel:+33123456789">+33 1 23 45 67 89</a></p>
                         <p><a href="tel:+33987654321">+33 9 87 65 43 21</a></p>
                     </div>
@@ -47,7 +47,7 @@
                 <div class="info-block-one">
                     <div class="inner-box">
                         <div class="icon-box"><i class="icon-34"></i></div>
-                        <h4>{{ __('messages.office_address') }}</h4>
+                        <h4>Adresse du bureau</h4>
                         <p>123 Avenue des Champs-Élysées, 75008 Paris, France</p>
                     </div>
                 </div>
@@ -63,31 +63,31 @@
         <div class="row align-items-center clearfix">
             <div class="col-lg-6 col-md-12 col-sm-12 content-column">
                 <div class="content-box">
-                    <div class="sec-title">
-                        <h5>{{ __('messages.contact') }}</h5>
-                        <h2>{{ __('messages.contact_us_title') }}</h2>
+                        <div class="sec-title">
+                            <h5>Contact</h5>
+                            <h2>Envoyez-nous un message</h2>
                     </div>
                     <div class="form-inner">
                         <form method="post" action="{{ route('contact.submit') }}" id="contact-form" class="default-form">
                             @csrf
                             <div class="row clearfix">
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="text" name="name" placeholder="{{ __('messages.your_name') }}" required>
+                                    <input type="text" name="name" placeholder="Votre nom" required>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="email" name="email" placeholder="{{ __('messages.your_email') }}" required>
+                                    <input type="email" name="email" placeholder="Votre e-mail" required>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="text" name="phone" placeholder="{{ __('messages.phone') }}" required>
+                                    <input type="text" name="phone" placeholder="Votre téléphone" required>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="text" name="subject" placeholder="{{ __('messages.subject') }}" required>
+                                    <input type="text" name="subject" placeholder="Sujet" required>
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                    <textarea name="message" placeholder="{{ __('messages.message') }}"></textarea>
+                                    <textarea name="message" placeholder="Votre message"></textarea>
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
-                                    <button class="theme-btn btn-one" type="submit" name="submit-form">{{ __('messages.send_message') }}</button>
+                                    <button class="theme-btn btn-one" type="submit" name="submit-form">Envoyer le message</button>
                                 </div>
                             </div>
                         </form>

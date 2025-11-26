@@ -111,42 +111,7 @@
           <div class="collapse" id="messages">
             <ul class="nav sub-menu">
               <li class="nav-item">
-                <a href="{{ route('all.messages') }}" class="nav-link">Tous les messages</a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        
-        <!-- Messages de contact -->
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#contactMessages" role="button" aria-expanded="false" aria-controls="contactMessages">
-            <i class="link-icon" data-feather="mail"></i>
-            <span class="link-title">Messages de contact</span>
-            <i class="link-arrow" data-feather="chevron-down"></i>
-          </a>
-          <div class="collapse" id="contactMessages">
-            <ul class="nav sub-menu">
-              <li class="nav-item">
-                <a href="{{ route('all.messages') }}" class="nav-link">Tous les messages</a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        
-        <!-- Témoignages -->
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#testimonials" role="button" aria-expanded="false" aria-controls="testimonials">
-            <i class="link-icon" data-feather="message-circle"></i>
-            <span class="link-title">Témoignages</span>
-            <i class="link-arrow" data-feather="chevron-down"></i>
-          </a>
-          <div class="collapse" id="testimonials">
-            <ul class="nav sub-menu">
-              <li class="nav-item">
-                <a href="{{ route('all.testimonials') }}" class="nav-link">Tous les témoignages</a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('add.testimonial') }}" class="nav-link">Ajouter un témoignage</a>
+                <a href="{{ route('admin.all.messages') }}" class="nav-link">Tous les messages</a>
               </li>
             </ul>
           </div>
@@ -162,7 +127,7 @@
           <div class="collapse" id="favorites">
             <ul class="nav sub-menu">
               <li class="nav-item">
-                <a href="{{ route('user.wishlist') }}" class="nav-link">Liste des favoris</a>
+                <a href="{{ route('admin.favorites') }}" class="nav-link">Toutes les propriétés favorites</a>
               </li>
             </ul>
           </div>
@@ -228,33 +193,6 @@
         </li>
         
         <!-- Fonctionnalités à venir -->
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#comingSoon" role="button" aria-expanded="false" aria-controls="comingSoon">
-            <i class="link-icon" data-feather="clock"></i>
-            <span class="link-title">Prochainement</span>
-            <i class="link-arrow" data-feather="chevron-down"></i>
-          </a>
-          <div class="collapse" id="comingSoon">
-            <ul class="nav sub-menu">
-              <li class="nav-item">
-                <a href="#" class="nav-link">Statistiques</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">Rapports</a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="link-icon" data-feather="calendar"></i>
-            <span class="link-title">Calendrier</span>
-          </a>
-        </li>
-        
-        
-        
       </ul>
     </div>
   </nav>

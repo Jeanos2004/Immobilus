@@ -79,7 +79,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('message.view', $message->id) }}">
+                                            <a href="{{ url('message/view/'.$message->id) }}">
                                                 {{ Str::limit($message->subject, 30) }}
                                                 @if(!$message->read)
                                                 <span class="badge bg-danger">Nouveau</span>
@@ -88,8 +88,7 @@
                                         </td>
                                         <td>{{ $message->created_at->format('d/m/Y H:i') }}</td>
                                         <td>
-                                            <a href="{{ route('message.view', $message->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
-                                            <a href="{{ route('message.delete', $message->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce message ?')"><i class="fas fa-trash"></i></a>
+                                            <a href="{{ url('message/view/'.$message->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach

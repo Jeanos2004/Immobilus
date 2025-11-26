@@ -37,7 +37,7 @@
                     </li>
                 @endforeach
             </ul>
-            <div class="more-btn mt-4"><a href="{{ route('property.list') }}" class="theme-btn btn-one">{{ __('messages.all_categories') }}</a></div>
+            <div class="more-btn mt-4"><a href="{{ route('property.list') }}" class="theme-btn btn-one">Voir toutes les catégories</a></div>
         </div>
     </div>
 </section>

@@ -91,4 +91,15 @@ class Property extends Model
     {
         return $this->belongsToMany(User::class, 'favorites', 'property_id', 'user_id')->withTimestamps();
     }
+    
+    /**
+     * Relation avec les rendez-vous pour cette propriété
+     * Une propriété peut avoir plusieurs rendez-vous de visite
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 }

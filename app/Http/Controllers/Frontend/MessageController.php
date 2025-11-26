@@ -300,7 +300,9 @@ class MessageController extends Controller
                             ->latest()
                             ->get();
         
-        return view('agent.message.inbox', compact('messages'));
+        $stats = $this->agentMessageStats();
+        
+        return view('agent.message.inbox', compact('messages', 'stats'));
     }
     
     /**
@@ -316,7 +318,9 @@ class MessageController extends Controller
                             ->latest()
                             ->get();
         
-        return view('agent.message.sent', compact('messages'));
+        $stats = $this->agentMessageStats();
+        
+        return view('agent.message.sent', compact('messages', 'stats'));
     }
     
     /**
@@ -352,7 +356,9 @@ class MessageController extends Controller
                         ->orderBy('created_at', 'asc')
                         ->get();
         
-        return view('agent.message.view_message', compact('message', 'replies'));
+        $stats = $this->agentMessageStats();
+        
+        return view('agent.message.view_message', compact('message', 'replies', 'stats'));
     }
     
     /**
@@ -425,5 +431,21 @@ class MessageController extends Controller
         ];
         
         return redirect()->back()->with($notification);
+    }
+
+    /**
+     * Statistiques rapides messagerie agent.
+     *
+     * @return array<string,int>
+     */
+    private function agentMessageStats(): array
+    {
+        $agentId = Auth::id();
+
+        return [
+            'inbox_total' => Message::where('receiver_id', $agentId)->count(),
+            'inbox_unread' => Message::where('receiver_id', $agentId)->where('read', false)->count(),
+            'sent_total' => Message::where('sender_id', $agentId)->count(),
+        ];
     }
 }

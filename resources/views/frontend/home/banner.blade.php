@@ -22,20 +22,20 @@
                                         <div class="row clearfix">
                                             <div class="col-lg-4 col-md-12 col-sm-12 column">
                                                 <div class="form-group">
-                                                    <label>{{ __('messages.search_property') }}</label>
+                                                    <label>Rechercher une propriété</label>
                                                     <div class="field-input">
                                                         <i class="fas fa-search"></i>
-                                                        <input type="search" name="search" placeholder="{{ __('messages.search_placeholder') }}">
+                                                        <input type="search" name="search" placeholder="Ville, quartier, référence...">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6 col-sm-12 column">
                                                 <div class="form-group">
-                                                    <label>{{ __('messages.property_type') }}</label>
+                                                    <label>Type de propriété</label>
                                                     <div class="select-box">
                                                         <i class="far fa-building"></i>
                                                         <select class="wide" name="ptype_id">
-                                                            <option value="">{{ __('messages.all_types') }}</option>
+                                                            <option value="">Tous les types</option>
                                                             @foreach($propertyTypes as $type)
                                                             <option value="{{ $type->id }}">{{ $type->type_name }}</option>
                                                             @endforeach
@@ -45,10 +45,10 @@
                                             </div>
                                             <div class="col-lg-4 col-md-6 col-sm-12 column">
                                                 <div class="form-group">
-                                                    <label>{{ __('messages.bedrooms') }}</label>
+                                                    <label>Chambres</label>
                                                     <div class="select-box">
                                                         <select class="wide" name="bedrooms">
-                                                            <option value="">{{ __('messages.any') }}</option>
+                                                            <option value="">Indifférent</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
@@ -60,7 +60,7 @@
                                             </div>
                                         </div>
                                         <div class="search-btn">
-                                            <button type="submit"><i class="fas fa-search"></i> {{ __('messages.search') }}</button>
+                                            <button type="submit"><i class="fas fa-search"></i> Rechercher</button>
                                         </div>
                                     </form>
                                 </div>

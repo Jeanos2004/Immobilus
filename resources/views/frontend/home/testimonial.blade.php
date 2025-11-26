@@ -2,8 +2,8 @@
     <div class="pattern-layer" style="background-image: url({{ asset('frontend/assets') }}/images/shape/shape-1.png);"></div>
     <div class="auto-container">
         <div class="sec-title">
-            <h5>{{ __('messages.testimonials') }}</h5>
-            <h2>{{ __('messages.what_they_say') }}</h2>
+            <h5>Témoignages</h5>
+            <h2>Ce que disent nos clients</h2>
         </div>
         <div class="single-item-carousel owl-carousel owl-theme owl-dots-none nav-style-one">
             @php
@@ -45,11 +45,11 @@
                     <div class="inner-box">
                         <figure class="thumb-box"><img src="{{ asset('frontend/assets/images/resource/testimonial-1.jpg') }}" alt=""></figure>
                         <div class="text">
-                            <p>{{ __('messages.no_testimonials') }}</p>
+                            <p>Aucun témoignage disponible pour le moment.</p>
                         </div>
                         <div class="author-info">
                             <h4>Immobilus</h4>
-                            <span class="designation">{{ __('messages.real_estate_agency') }}</span>
+                            <span class="designation">Agence immobilière</span>
                         </div>
                     </div>
                 </div>

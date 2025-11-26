@@ -17,8 +17,8 @@
 
 <div class="row">
     <div class="col-12 col-xl-12 stretch-card">
-        <div class="row flex-grow-1">
-            <div class="col-md-3 grid-margin stretch-card">
+        <div class="row flex-grow-1 justify-content-center">
+            <div class="col-md-4 col-xl-3 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-baseline">
@@ -52,7 +52,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 grid-margin stretch-card">
+            <div class="col-md-4 col-xl-3 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-baseline">
@@ -86,7 +86,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 grid-margin stretch-card">
+            <div class="col-md-4 col-xl-3 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-baseline">
@@ -112,40 +112,6 @@
                                     <div class="d-flex align-items-center">
                                         <span class="bg-danger-transparent icon-md rounded-circle text-danger">
                                             <i data-feather="message-square"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-baseline">
-                            <h6 class="card-title mb-0">{{ __('agent.payments') }}</h6>
-                            <div class="dropdown mb-2">
-                                <a class="btn btn-sm btn-outline-light dropdown-toggle" href="#" role="button">
-                                    <i data-feather="eye"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6 col-md-12 col-xl-5">
-                                <h3 class="mb-2">{{ number_format($totalRevenue, 0, ',', ' ') }} €</h3>
-                                <div class="d-flex align-items-baseline">
-                                    <p class="text-success">
-                                        <span>{{ $paymentsThisMonth }} {{ __('agent.this_month') }}</span>
-                                        <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-12 col-xl-7">
-                                <div class="mt-md-3 mt-xl-0">
-                                    <div class="d-flex align-items-center">
-                                        <span class="bg-success-transparent icon-md rounded-circle text-success">
-                                            <i data-feather="dollar-sign"></i>
                                         </span>
                                     </div>
                                 </div>

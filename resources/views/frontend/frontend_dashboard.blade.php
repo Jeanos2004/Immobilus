@@ -41,9 +41,7 @@
 
     <div class="boxed_wrapper">
 
-        <!-- preloader -->
-        @include('frontend.home.preload')
-        <!-- preloader end -->
+        {{-- preloader désactivé pour améliorer la rapidité de navigation --}}
 
         <!-- switcher menu -->
         <!-- end switcher menu -->

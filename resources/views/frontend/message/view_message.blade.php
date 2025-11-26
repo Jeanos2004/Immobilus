@@ -152,9 +152,8 @@
                         @endif
                     </div>
                     
-                    <div class="actions-box d-flex justify-content-between">
+                    <div class="actions-box d-flex justify-content-start">
                         <a href="{{ URL::previous() }}" class="theme-btn btn-one">Retour</a>
-                        <a href="{{ route('message.delete', $message->id) }}" class="theme-btn btn-two" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce message ?')">Supprimer</a>
                     </div>
                 </div>
             </div>

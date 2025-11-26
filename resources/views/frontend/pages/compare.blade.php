@@ -42,7 +42,7 @@
                                             </div>
                                         </div>
                                         <h4><a href="{{ route('property.details', [$property->id, $property->property_slug]) }}">{{ $property->property_name }}</a></h4>
-                                        <div class="price">{{ $property->property_status == 'rent' ? __('À louer') : __('À vendre') }}: <span>{{ number_format($property->lowest_price, 0, ',', ' ') }} €</span></div>
+                                        <div class="price">{{ $property->property_status == 'rent' ? __('À louer') : __('À vendre') }}: <span>{{ currency_gnf($property->lowest_price) }}</span></div>
                                     </th>
                                 @endforeach
                                 @for($i = count($properties); $i < 3; $i++)
@@ -164,7 +164,7 @@
                             <tr>
                                 <td>{{ __('Prix') }}</td>
                                 @foreach($properties as $property)
-                                    <td>{{ number_format($property->lowest_price, 0, ',', ' ') }} €</td>
+                                    <td>{{ currency_gnf($property->lowest_price) }}</td>
                                 @endforeach
                                 @for($i = count($properties); $i < 3; $i++)
                                     <td>-</td>
@@ -173,7 +173,7 @@
                             <tr>
                                 <td>{{ __('Prix au m²') }}</td>
                                 @foreach($properties as $property)
-                                    <td>{{ number_format($property->lowest_price / $property->property_size, 0, ',', ' ') }} €/m²</td>
+                                    <td>{{ currency_gnf($property->lowest_price / $property->property_size) }}/m²</td>
                                 @endforeach
                                 @for($i = count($properties); $i < 3; $i++)
                                     <td>-</td>

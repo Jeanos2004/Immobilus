@@ -197,7 +197,7 @@ class AppointmentStatsController extends Controller
                     $query->where('status', 'completed');
                 }
             ])
-            ->with('propertyType');
+            ->with('type');
         
         // Si un agent spécifique est demandé
         if ($agentId) {

@@ -13,14 +13,14 @@
         <span class="input-group-text input-group-addon bg-transparent border-primary" data-toggle><i data-feather="calendar" class="text-primary"></i></span>
         <input type="text" class="form-control bg-transparent border-primary" placeholder="Sélectionner une date" data-input>
       </div>
-      <button type="button" class="btn btn-outline-primary btn-icon-text me-2 mb-2 mb-md-0">
+      <button type="button" class="btn btn-outline-primary btn-icon-text me-2 mb-2 mb-md-0" onclick="window.print()">
         <i class="btn-icon-prepend" data-feather="printer"></i>
         Imprimer
       </button>
-      <button type="button" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
+      <a href="{{ route('admin.dashboard.report') }}" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
         <i class="btn-icon-prepend" data-feather="download-cloud"></i>
         Télécharger le rapport
-      </button>
+      </a>
     </div>
   </div>
 
@@ -146,8 +146,8 @@
   <!-- Deuxième rangée de statistiques -->
   <div class="row">
     <div class="col-12 col-xl-12 stretch-card">
-      <div class="row flex-grow-1">
-        <div class="col-md-3 grid-margin stretch-card">
+      <div class="row flex-grow-1 justify-content-center">
+        <div class="col-md-4 col-xl-3 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-baseline">
@@ -175,7 +175,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3 grid-margin stretch-card">
+        <div class="col-md-4 col-xl-3 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-baseline">
@@ -196,54 +196,6 @@
                     <p class="text-danger">
                       <span>Équipements</span>
                       <i data-feather="check-square" class="icon-sm mb-1"></i>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 grid-margin stretch-card">
-          <div class="card">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-baseline">
-                <h6 class="card-title mb-0">Témoignages</h6>
-                <div class="dropdown mb-2">
-                  <a type="button" id="dropdownMenuButton6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton6">
-                    <a class="dropdown-item d-flex align-items-center" href="{{ route('all.testimonials') }}"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">Voir tout</span></a>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <h3 class="mb-2">{{ $totalTestimonials }}</h3>
-                  <div class="d-flex align-items-baseline">
-                    <p class="text-success">
-                      <span>Avis clients</span>
-                      <i data-feather="message-square" class="icon-sm mb-1"></i>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 grid-margin stretch-card">
-          <div class="card bg-primary text-white">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-baseline">
-                <h6 class="card-title mb-0 text-white">Immobilus</h6>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <h3 class="mb-2 text-white">Statistiques</h3>
-                  <div class="d-flex align-items-baseline">
-                    <p class="text-white">
-                      <span>Tableau de bord</span>
-                      <i data-feather="activity" class="icon-sm mb-1"></i>
                     </p>
                   </div>
                 </div>
@@ -283,29 +235,8 @@
                   <th class="pt-0">Agent</th>
                 </tr>
               </thead>
-              <tbody>
-                @forelse($recentProperties as $property)
-                <tr>
-                  <td>{{ $property->id }}</td>
-                  <td>
-                    <a href="{{ route('property.details', [$property->id, Str::slug($property->property_name)]) }}" target="_blank">{{ $property->property_name }}</a>
-                  </td>
-                  <td>{{ $property->type->type_name ?? 'N/A' }}</td>
-                  <td>{{ number_format($property->lowest_price, 0, ',', ' ') }} €</td>
-                  <td>
-                    @if($property->status == 'active')
-                    <span class="badge bg-success">Actif</span>
-                    @else
-                    <span class="badge bg-danger">Inactif</span>
-                    @endif
-                  </td>
-                  <td>{{ $property->user->name ?? 'N/A' }}</td>
-                </tr>
-                @empty
-                <tr>
-                  <td colspan="6" class="text-center">Aucune propriété disponible</td>
-                </tr>
-                @endforelse
+              <tbody id="recent-properties-tbody">
+                @include('admin.partials.recent_properties_rows')
               </tbody>
             </table>
           </div>
@@ -470,3 +401,28 @@
     </div>
   </div> <!-- row -->
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const tbody = document.getElementById('recent-properties-tbody');
+  if (!tbody) return;
+
+  async function refreshRecentProperties() {
+    try {
+      const response = await fetch("{{ route('admin.dashboard.recent-properties') }}", {
+        headers: {'X-Requested-With': 'XMLHttpRequest'}
+      });
+      if (!response.ok) return;
+      const html = await response.text();
+      tbody.innerHTML = html;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  // Rafraîchir toutes les 15 secondes
+  setInterval(refreshRecentProperties, 15000);
+});
+</script>
+@endpush

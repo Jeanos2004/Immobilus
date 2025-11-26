@@ -52,11 +52,12 @@
                                     <label>Fourchette de prix</label>
                                     <select name="price_range" class="wide">
                                         <option value="">Tous les prix</option>
-                                        <option value="100000-300000">100 000€ - 300 000€</option>
-                                        <option value="300000-500000">300 000€ - 500 000€</option>
-                                        <option value="500000-800000">500 000€ - 800 000€</option>
-                                        <option value="800000-1000000">800 000€ - 1 000 000€</option>
-                                        <option value="1000000-0">Plus de 1 000 000€</option>
+                                        {{-- Plages en GNF --}}
+                                        <option value="0-150000000">0 – 150 000 000 GNF</option>
+                                        <option value="150000000-300000000">150 000 000 – 300 000 000 GNF</option>
+                                        <option value="300000000-500000000">300 000 000 – 500 000 000 GNF</option>
+                                        <option value="500000000-1000000000">500 000 000 – 1 000 000 000 GNF</option>
+                                        <option value="1000000000-0">Plus de 1 000 000 000 GNF</option>
                                     </select>
                                 </div>
                                 <div class="select-box">
@@ -101,6 +102,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                 <div class="property-content-side">
                     <div class="item-shorting clearfix">
@@ -124,6 +126,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="wrapper list">
                         @if(count($properties) > 0)
                             @foreach($properties as $property)
@@ -131,24 +134,28 @@
                                 <div class="deals-block-one">
                                     <div class="inner-box">
                                         <div class="image-box">
-                                            <figure class="image"><img src="{{ asset($property->property_thumbnail) }}" alt="" style="width:300px; height:350px;"></figure>
+                                            <figure class="image">
+                                                <img src="{{ asset($property->property_thumbnail) }}" alt="{{ $property->property_name }}" style="width:300px; height:350px;">
+                                            </figure>
                                             <div class="batch"><i class="icon-11"></i></div>
                                             @if($property->featured == 1)
-                                            <span class="category">En vedette</span>
+                                                <span class="category">En vedette</span>
                                             @endif
                                             <div class="buy-btn"><a href="{{ route('property.details', [$property->id, $property->property_slug]) }}">{{ $property->property_status }}</a></div>
                                         </div>
                                         <div class="lower-content">
-                                            <div class="title-text"><h4><a href="{{ route('property.details', [$property->id, $property->property_slug]) }}">{{ $property->property_name }}</a></h4></div>
+                                            <div class="title-text">
+                                                <h4><a href="{{ route('property.details', [$property->id, $property->property_slug]) }}">{{ $property->property_name }}</a></h4>
+                                            </div>
                                             <div class="price-box clearfix">
                                                 <div class="price-info pull-left">
                                                     <h6>Prix</h6>
-                                                    <h4>{{ number_format($property->lowest_price, 0, ',', ' ') }}€</h4>
+                                                    <h4>{{ currency_gnf($property->lowest_price) }}</h4>
                                                 </div>
                                                 <div class="author-box pull-right">
                                                     <h6>Agent</h6>
                                                     <figure class="author-thumb">
-                                                        <img src="{{ !empty($property->user->photo) ? asset($property->user->photo) : url('upload/no_image.jpg') }}" alt="">
+                                                        <img src="{{ !empty($property->user->photo) ? asset($property->user->photo) : url('upload/no_image.jpg') }}" alt="{{ $property->user->name }}">
                                                         <span>{{ $property->user->name }}</span>
                                                     </figure>
                                                 </div>
@@ -160,7 +167,9 @@
                                                 <li><i class="icon-16"></i>{{ $property->property_size }} m²</li>
                                             </ul>
                                             <div class="other-info-box clearfix">
-                                                <div class="btn-box pull-left"><a href="{{ route('property.details', [$property->id, $property->property_slug]) }}" class="theme-btn btn-two">Détails</a></div>
+                                                <div class="btn-box pull-left">
+                                                    <a href="{{ route('property.details', [$property->id, $property->property_slug]) }}" class="theme-btn btn-two">Détails</a>
+                                                </div>
                                                 <ul class="other-option pull-right clearfix">
                                                     <li><a href="#"><i class="icon-12"></i></a></li>
                                                     <li><a href="#"><i class="icon-13"></i></a></li>
@@ -171,6 +180,7 @@
                                 </div>
                             </div>
                             @endforeach
+
                             <div class="pagination-wrapper">
                                 {{ $properties->links('vendor.pagination.custom') }}
                             </div>
@@ -181,6 +191,7 @@
                             </div>
                         @endif
                     </div>
+
                 </div>
             </div>
         </div>

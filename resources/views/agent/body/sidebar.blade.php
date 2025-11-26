@@ -2,7 +2,7 @@
 <nav class="sidebar">
   <div class="sidebar-header">
     <a href="{{ route('agent.dashboard') }}" class="sidebar-brand">
-      <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="logo" height="40">
+      <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="Immobilus" height="40">
     </a>
     <div class="sidebar-toggler not-active">
       <span></span>
@@ -72,23 +72,6 @@
             </li>
             <li class="nav-item">
               <a href="{{ route('agent.sent') }}" class="nav-link">Messages envoyés</a>
-            </li>
-          </ul>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#payments" role="button" aria-expanded="false" aria-controls="payments">
-          <i class="link-icon" data-feather="credit-card"></i>
-          <span class="link-title">Paiements</span>
-          <i class="link-arrow" data-feather="chevron-down"></i>
-        </a>
-        <div class="collapse" id="payments">
-          <ul class="nav sub-menu">
-            <li class="nav-item">
-              <a href="#" class="nav-link">Historique des paiements</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Paiements en attente</a>
             </li>
           </ul>
         </div>

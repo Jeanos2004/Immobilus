@@ -3,8 +3,8 @@
         <div class="inner-container bg-color-2">
             <div class="upper-box clearfix">
                 <div class="sec-title light">
-                    <h5>{{ __('messages.why_choose_us') }}</h5>
-                    <h2>{{ __('messages.reasons_to_choose_us') }}</h2>
+                    <h5>Pourquoi choisir Immobilus ?</h5>
+                    <h2>Les raisons de nous faire confiance</h2>
                 </div>
                 <div class="btn-box">
                     <a href="{{ route('property.list') }}" class="theme-btn btn-one">{{ __('messages.all_categories') }}</a>
@@ -16,8 +16,8 @@
                         <div class="chooseus-block-one">
                             <div class="inner-box">
                                 <div class="icon-box"><i class="icon-19"></i></div>
-                                <h4>{{ __('messages.excellent_reputation') }}</h4>
-                                <p>{{ __('messages.excellent_reputation_desc') }}</p>
+                                <h4>Excellente réputation</h4>
+                                <p>Notre agence est reconnue pour son sérieux et sa transparence dans toutes les transactions.</p>
                             </div>
                         </div>
                     </div>
@@ -25,8 +25,8 @@
                         <div class="chooseus-block-one">
                             <div class="inner-box">
                                 <div class="icon-box"><i class="icon-26"></i></div>
-                                <h4>{{ __('messages.best_local_agents') }}</h4>
-                                <p>{{ __('messages.best_local_agents_desc') }}</p>
+                                <h4>Agents locaux expérimentés</h4>
+                                <p>Nos agents connaissent parfaitement le marché guinéen et vous accompagnent à chaque étape.</p>
                             </div>
                         </div>
                     </div>
@@ -34,8 +34,8 @@
                         <div class="chooseus-block-one">
                             <div class="inner-box">
                                 <div class="icon-box"><i class="icon-21"></i></div>
-                                <h4>{{ __('messages.personalized_service') }}</h4>
-                                <p>{{ __('messages.personalized_service_desc') }}</p>
+                                <h4>Service personnalisé</h4>
+                                <p>Nous adaptons nos conseils à votre projet : achat, vente ou location, en toute sérénité.</p>
                             </div>
                         </div>
                     </div>

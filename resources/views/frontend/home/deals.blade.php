@@ -34,8 +34,9 @@
                                 <div class="price-box clearfix">
                                     <div class="price-info pull-left">
                                         <h6>À partir de</h6>
-                                        <h4>{{ number_format($property->lowest_price, 0, ',', ' ') }} €</h4>
+                                        <h4>{{ currency_gnf($property->lowest_price) }}</h4>
                                     </div>
+                                    
                                     <ul class="other-option pull-right clearfix">
                                         <li><a href="javascript:void(0)" onclick="addToFavorite({{ $property->id }})" data-favorite="{{ $property->id }}" class="favorite-btn"><i class="icon-12"></i></a></li>
                                         <li><a href="{{ route('property.details', [$property->id, $property->property_slug]) }}"><i class="icon-13"></i></a></li>

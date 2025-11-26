@@ -9,6 +9,9 @@ use App\Models\PropertyType;
 use App\Models\Amenities;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class PropertyController extends Controller
 {
@@ -172,18 +175,138 @@ class PropertyController extends Controller
     /**
      * Affiche les propriétés d'un agent spécifique
      */
-    public function AgentProperties($id)
+    public function AgentProperties($id = null)
     {
-        // Récupérer l'agent
-        $agent = User::findOrFail($id);
-        
-        // Récupérer les propriétés de l'agent
-        $properties = Property::with(['type'])
-                        ->where('agent_id', $id)
-                        ->where('status', 1)
-                        ->latest()
-                        ->paginate(9);
-        
-        return view('frontend.property.agent_properties', compact('properties', 'agent'));
+        // Vue publique des propriétés d'un agent spécifique
+        if ($id) {
+            $agent = User::where('role', 'agent')->findOrFail($id);
+
+            $properties = Property::with(['type'])
+                ->where('agent_id', $agent->id)
+                ->where('status', 1)
+                ->latest()
+                ->paginate(9);
+
+            return view('frontend.property.agent_properties', compact('properties', 'agent'));
+        }
+
+        // Vue du tableau de bord agent
+        $agent = $this->currentAgent();
+
+        $propertiesQuery = Property::with('type')
+            ->where('agent_id', $agent->id)
+            ->latest();
+
+        $properties = $propertiesQuery->paginate(25);
+        $statsCollection = Property::where('agent_id', $agent->id)->get();
+
+        $stats = [
+            'total' => $statsCollection->count(),
+            'sell' => $statsCollection->where('property_status', 'à vendre')->count(),
+            'rent' => $statsCollection->where('property_status', 'à louer')->count(),
+            'views' => $statsCollection->sum('views'),
+        ];
+
+        return view('agent.properties.all_properties', compact('properties', 'stats'));
+    }
+
+    /**
+     * Formulaire d'ajout d'une propriété pour l'agent connecté
+     */
+    public function AgentAddProperty()
+    {
+        $agent = $this->currentAgent();
+
+        $propertyTypes = PropertyType::latest()->get();
+        $amenities = Amenities::latest()->get();
+
+        return view('agent.properties.add_property', compact('propertyTypes', 'amenities'));
+    }
+
+    /**
+     * Enregistrement d'une nouvelle propriété par l'agent connecté
+     */
+    public function AgentStoreProperty(Request $request)
+    {
+        $agent = $this->currentAgent();
+
+        $request->validate([
+            'ptype_id' => 'required|exists:property_types,id',
+            'property_name' => 'required|string|max:255',
+            'property_status' => 'required|string',
+            'lowest_price' => 'required',
+            'property_thumbnail' => 'required|image|mimes:jpeg,jpg,png,gif|max:2048',
+            'short_description' => 'required|string',
+            'long_description' => 'required|string',
+            'bedrooms' => 'required|numeric',
+            'bathrooms' => 'required|numeric',
+            'garage' => 'nullable|numeric',
+            'property_size' => 'required|string',
+            'address' => 'required|string',
+            'city' => 'required|string',
+            'postal_code' => 'required|string',
+        ]);
+
+        $propertyCode = 'PC' . mt_rand(1000000, 9999999);
+
+        $image = $request->file('property_thumbnail');
+        $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+        $image->move('upload/property/thumbnail/', $name_gen);
+        $save_url = 'upload/property/thumbnail/' . $name_gen;
+
+        $property = Property::create([
+            'ptype_id' => $request->ptype_id,
+            'agent_id' => $agent->id,
+            'property_name' => $request->property_name,
+            'property_slug' => Str::slug($request->property_name),
+            'property_code' => $propertyCode,
+            'property_status' => $request->property_status,
+            'lowest_price' => $request->lowest_price,
+            'max_price' => $request->max_price,
+            'property_thumbnail' => $save_url,
+            'short_description' => $request->short_description,
+            'long_description' => $request->long_description,
+            'bedrooms' => $request->bedrooms,
+            'bathrooms' => $request->bathrooms,
+            'garage' => $request->garage,
+            'garage_size' => $request->garage_size,
+            'property_size' => $request->property_size,
+            'property_video' => $request->property_video,
+            'address' => $request->address,
+            'city' => $request->city,
+            'state' => $request->state,
+            'postal_code' => $request->postal_code,
+            'neighborhood' => $request->neighborhood,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'featured' => $request->featured,
+            'hot' => $request->hot,
+            'status' => 1,
+            'created_at' => Carbon::now(),
+        ]);
+
+        if ($request->amenities_id) {
+            $property->amenities()->sync($request->amenities_id);
+        }
+
+        $notification = [
+            'message' => 'Propriété ajoutée avec succès',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('agent.properties.all')->with($notification);
+    }
+    /**
+     * Retourne l'agent connecté ou lance une exception si non autorisé.
+     */
+    private function currentAgent()
+    {
+        $agent = Auth::user();
+
+        if (!$agent || $agent->role !== 'agent') {
+            abort(403, 'Accès non autorisé');
+        }
+
+        return $agent;
     }
 }

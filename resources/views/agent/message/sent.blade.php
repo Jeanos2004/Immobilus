@@ -1,5 +1,5 @@
 @extends('agent.agent_dashboard')
-@section('agent')
+@section('content')
 
 <div class="page-content">
     <div class="container-fluid">
@@ -18,20 +18,38 @@
             </div>
         </div>
         
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mail-list">
-                            <a href="{{ route('agent.inbox') }}"><i class="fas fa-inbox me-2"></i> Boîte de réception</a>
-                            <a href="{{ route('agent.sent') }}" class="active"><i class="fas fa-paper-plane me-2"></i> Messages envoyés</a>
+        <div class="row mb-4 g-3">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href="{{ route('agent.inbox') }}" class="text-decoration-none text-dark">
+                    <div class="card h-100 border {{ request()->routeIs('agent.inbox') ? 'border-primary shadow-sm' : '' }}">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="text-muted mb-1">Boîte de réception</p>
+                                <h4 class="mb-0">{{ $stats['inbox_total'] ?? 0 }}</h4>
+                            </div>
+                            <span class="badge bg-primary">{{ $stats['inbox_unread'] ?? 0 }} non lus</span>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
-            
-            <div class="col-md-9">
-                <div class="card">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href="{{ route('agent.sent') }}" class="text-decoration-none text-dark">
+                    <div class="card h-100 border {{ request()->routeIs('agent.sent') ? 'border-primary shadow-sm' : '' }}">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="text-muted mb-1">Messages envoyés</p>
+                                <h4 class="mb-0">{{ $stats['sent_total'] ?? $messages->count() }}</h4>
+                            </div>
+                            <span class="badge bg-secondary"><i class="fas fa-paper-plane me-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-sm">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Mes messages envoyés</h4>
                         

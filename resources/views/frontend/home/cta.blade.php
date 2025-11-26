@@ -3,11 +3,11 @@
     <div class="auto-container">
         <div class="inner-box clearfix">
             <div class="text pull-left">
-                <h2>Looking to Buy a New Property or <br />Sell an Existing One?</h2>
+                <h2>Vous souhaitez acheter un nouveau bien ou <br />vendre un bien existant&nbsp;?</h2>
             </div>
             <div class="btn-box pull-right">
-                <a href="property-details.html" class="theme-btn btn-three">Rent Properties</a>
-                <a href="index.html" class="theme-btn btn-one">Buy Properties</a>
+                <a href="property-details.html" class="theme-btn btn-three">Louer un bien</a>
+                <a href="index.html" class="theme-btn btn-one">Acheter un bien</a>
             </div>
         </div>
     </div>

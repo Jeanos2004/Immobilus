@@ -11,8 +11,8 @@
         <div class="content-box clearfix">
             <h1>{{ $propertyType->type_name }}</h1>
             <ul class="bread-crumb clearfix">
-                <li><a href="/">{{ __('messages.home') }}</a></li>
-                <li><a href="{{ route('property.list') }}">{{ __('messages.properties') }}</a></li>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="{{ route('property.list') }}">Propriétés</a></li>
                 <li>{{ $propertyType->type_name }}</li>
             </ul>
         </div>

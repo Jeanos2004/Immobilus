@@ -73,19 +73,19 @@
           </div>
           <ul class="list-unstyled p-1">
             <li class="dropdown-item py-2">
-              <a href="#" class="text-body ms-0">
+              <a href="{{ route('user.profile') }}" class="text-body ms-0">
                 <i class="me-2 icon-md" data-feather="user"></i>
                 <span>Profil</span>
               </a>
             </li>
             <li class="dropdown-item py-2">
-              <a href="#" class="text-body ms-0">
+              <a href="{{ route('user.profile') }}" class="text-body ms-0">
                 <i class="me-2 icon-md" data-feather="edit"></i>
                 <span>Modifier profil</span>
               </a>
             </li>
             <li class="dropdown-item py-2">
-              <a href="#" class="text-body ms-0">
+              <a href="{{ route('user.change.passwore') }}" class="text-body ms-0">
                 <i class="me-2 icon-md" data-feather="repeat"></i>
                 <span>Changer mot de passe</span>
               </a>

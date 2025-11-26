@@ -17,10 +17,9 @@ class LanguageController extends Controller
      */
     public function switchLang($locale)
     {
-        // Vérifier si la langue est prise en charge
-        if (!in_array($locale, ['en', 'fr'])) {
-            $locale = 'fr'; // Langue par défaut (français)
-        }
+        // Pour l'instant, l'application est entièrement traduite en FR uniquement.
+        // Quel que soit le paramètre reçu, on force le français.
+        $locale = 'fr';
         
         // Stocker la langue dans la session
         Session::put('locale', $locale);

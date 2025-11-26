@@ -734,6 +734,11 @@ img {
   display: inline-block;
   font-size: 15px;
   color: rgba(255,255,255,0.6);
+  margin-left: 18px;
+}
+
+.header-top .sign-box a:first-child{
+  margin-left: 0;
 }
 
 .header-top .sign-box a:hover{
@@ -2856,7 +2861,7 @@ div#mCSB_1_container{
 }
 
 .chooseus-block:nth-child(2) .chooseus-block-one .inner-box .icon-box{
-  color: #2dbe6c;
+  color: #6571ff;
 }
 
 .chooseus-block:last-child .chooseus-block-one .inner-box .icon-box{
@@ -3755,6 +3760,11 @@ div#mCSB_1_container{
   display: inline-block;
   font-size: 15px;
   color: rgba(255,255,255,1);
+  margin-left: 18px;
+}
+
+.main-header .menu-right-content .sign-box a:first-child{
+  margin-left: 0;
 }
 
 .main-header .menu-right-content .sign-box a:hover{
@@ -8481,7 +8491,7 @@ div#mCSB_1_container{
 }
 
 .properties-section tbody tr td p i.yes{
-  color: #2dbe6c;
+  color: #6571ff;
 }
 
 .properties-section tbody tr td p i.no{
@@ -8927,11 +8937,11 @@ div#mCSB_1_container{
 }
 
 .myprofile-section .other-option .radio-box input[type="checkbox"]:checked + label:before {
-  border: 2px solid #2dbe6c;
+  border: 2px solid #6571ff;
 }
 
 .myprofile-section .other-option .radio-box input[type="checkbox"]:checked + label:after {
-  background-color: #2dbe6c;
+  background-color: #6571ff;
 }
 
 .myprofile-section .property-details h6{

@@ -1,4 +1,5 @@
 @extends('agent.agent_dashboard')
+@php use Illuminate\Support\Str; @endphp
 @section('content')
 
 <div class="page-content">
@@ -29,7 +30,7 @@
                         <div class="d-flex align-items-center mb-4">
                             <h4 class="card-title">{{ __('Liste des propriétés') }}</h4>
                             <div class="ms-auto">
-                                <a href="{{ route('agent.property.create') }}" class="btn btn-primary">
+                                <a href="{{ route('agent.property.add') }}" class="btn btn-primary">
                                     <i class="ri-add-line me-1"></i> {{ __('Ajouter une propriété') }}
                                 </a>
                             </div>
@@ -42,7 +43,7 @@
                                         <div class="d-flex">
                                             <div class="flex-grow-1">
                                                 <p class="text-muted fw-medium">{{ __('Total') }}</p>
-                                                <h4 class="mb-0">{{ $properties->total() }}</h4>
+                                                <h4 class="mb-0">{{ $stats['total'] }}</h4>
                                             </div>
 
                                             <div class="flex-shrink-0 align-self-center">
@@ -62,7 +63,7 @@
                                         <div class="d-flex">
                                             <div class="flex-grow-1">
                                                 <p class="text-muted fw-medium">{{ __('À vendre') }}</p>
-                                                <h4 class="mb-0">{{ $properties->where('property_status', 'buy')->count() }}</h4>
+                                                <h4 class="mb-0">{{ $stats['sell'] }}</h4>
                                             </div>
 
                                             <div class="flex-shrink-0 align-self-center">
@@ -82,7 +83,7 @@
                                         <div class="d-flex">
                                             <div class="flex-grow-1">
                                                 <p class="text-muted fw-medium">{{ __('À louer') }}</p>
-                                                <h4 class="mb-0">{{ $properties->where('property_status', 'rent')->count() }}</h4>
+                                                <h4 class="mb-0">{{ $stats['rent'] }}</h4>
                                             </div>
 
                                             <div class="flex-shrink-0 align-self-center">
@@ -102,7 +103,7 @@
                                         <div class="d-flex">
                                             <div class="flex-grow-1">
                                                 <p class="text-muted fw-medium">{{ __('Vues totales') }}</p>
-                                                <h4 class="mb-0">{{ $properties->sum('views') }}</h4>
+                                                <h4 class="mb-0">{{ $stats['views'] }}</h4>
                                             </div>
 
                                             <div class="flex-shrink-0 align-self-center">
@@ -152,10 +153,10 @@
                                             @endif
                                             <br>
                                             <span class="badge badge-soft-info mt-1">
-                                                {{ $property->property_status == 'rent' ? __('À louer') : __('À vendre') }}
+                                                {{ $property->property_status == 'à louer' ? __('À louer') : __('À vendre') }}
                                             </span>
                                         </td>
-                                        <td>{{ number_format($property->lowest_price, 0, ',', ' ') }} €</td>
+                                        <td>{{ currency_gnf($property->lowest_price) }}</td>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <i class="ri-eye-line text-muted me-1"></i>
@@ -163,24 +164,18 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="d-flex gap-2">
-                                                <a href="{{ route('property.details', [$property->id, Str::slug($property->property_name)]) }}" target="_blank" class="btn btn-sm btn-info" title="{{ __('Voir') }}">
-                                                    <i class="ri-eye-line"></i>
+                                            <div class="d-flex flex-wrap gap-2">
+                                                <a href="{{ route('property.details', [$property->id, Str::slug($property->property_name)]) }}" target="_blank" class="btn btn-sm btn-info d-inline-flex align-items-center gap-1 px-2 py-1" title="{{ __('Voir') }}">
+                                                    <i class="ri-eye-line"></i><span class="text-uppercase fw-semibold">{{ __('Voir') }}</span>
                                                 </a>
-                                                <a href="{{ route('agent.property.edit', $property->id) }}" class="btn btn-sm btn-primary" title="{{ __('Modifier') }}">
-                                                    <i class="ri-pencil-line"></i>
+                                                <a href="{{ route('agent.property.edit', $property->id) }}" class="btn btn-sm btn-primary d-inline-flex align-items-center gap-1 px-2 py-1" title="{{ __('Modifier') }}">
+                                                    <i class="ri-pencil-line"></i><span class="text-uppercase fw-semibold">{{ __('Modifier') }}</span>
                                                 </a>
-                                                @if($property->status == 1)
-                                                    <a href="{{ route('agent.property.inactive', $property->id) }}" class="btn btn-sm btn-warning" title="{{ __('Désactiver') }}">
-                                                        <i class="ri-eye-off-line"></i>
-                                                    </a>
-                                                @else
-                                                    <a href="{{ route('agent.property.active', $property->id) }}" class="btn btn-sm btn-success" title="{{ __('Activer') }}">
-                                                        <i class="ri-eye-line"></i>
-                                                    </a>
-                                                @endif
-                                                <a href="{{ route('agent.property.delete', $property->id) }}" class="btn btn-sm btn-danger" title="{{ __('Supprimer') }}" onclick="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer cette propriété ?') }}')">
-                                                    <i class="ri-delete-bin-line"></i>
+                                                <a href="{{ route('agent.property.toggle', $property->id) }}" class="btn btn-sm {{ $property->status == 1 ? 'btn-warning' : 'btn-success' }} d-inline-flex align-items-center gap-1 px-2 py-1" title="{{ $property->status == 1 ? __('Désactiver') : __('Activer') }}">
+                                                    <i class="{{ $property->status == 1 ? 'ri-eye-off-line' : 'ri-eye-line' }}"></i><span class="text-uppercase fw-semibold">{{ $property->status == 1 ? __('Désactiver') : __('Activer') }}</span>
+                                                </a>
+                                                <a href="{{ route('agent.property.delete', $property->id) }}" class="btn btn-sm btn-danger d-inline-flex align-items-center gap-1 px-2 py-1" title="{{ __('Supprimer') }}" onclick="return confirm('{{ __('Êtes-vous sûr de vouloir supprimer cette propriété ?') }}')">
+                                                    <i class="ri-delete-bin-line"></i><span class="text-uppercase fw-semibold">{{ __('Supprimer') }}</span>
                                                 </a>
                                             </div>
                                         </td>

@@ -71,7 +71,7 @@ Route::controller(\App\Http\Controllers\Frontend\PropertyController::class)->gro
     Route::get('/property/details/{id}/{slug}', 'PropertyDetails')->name('property.details');
     Route::get('/property/search', 'PropertySearch')->name('property.search');
     Route::get('/property/type/{id}', 'PropertyByType')->name('property.type');
-    Route::get('/agent/properties/{id}', 'AgentProperties')->name('agent.properties');
+    Route::get('/agent/properties/{id}', [PropertyController::class, 'AgentProperties'])->name('agent.properties');
 });
 
 // Routes pour la comparaison de propriétés
@@ -199,6 +199,8 @@ Route::middleware(['auth'])->group(function () {
 // Start Group Admin Middleware
 Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
+    Route::get('/admin/dashboard/recent-properties', [AdminController::class, 'RecentPropertiesPartial'])->name('admin.dashboard.recent-properties');
+    Route::get('/admin/dashboard/report', [AdminController::class, 'DownloadDashboardReport'])->name('admin.dashboard.report');
     Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
     Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
     Route::post('/admin/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
@@ -427,7 +429,13 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
         Route::post('/change/role/user/{id}', 'ChangeUserRole')->name('change.role.user');
     });
 
+    // Liste de toutes les propriétés favorites des utilisateurs (admin)
+    Route::get('/favorites', [\App\Http\Controllers\Backend\FavoriteController::class, 'index'])->name('admin.favorites');
+
 }); // End Group Admin Middleware
+
+// Route directe pour la messagerie interne admin (évite les erreurs de route manquante)
+Route::middleware(['auth', 'role:admin'])->get('/admin/messages', [\App\Http\Controllers\Frontend\MessageController::class, 'AdminAllMessages'])->name('admin.all.messages');
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
 
@@ -481,6 +489,8 @@ Route::middleware(['auth', 'role:agent'])->group(function(){
         Route::get('/agent/property/delete/{id}', 'AgentDeleteProperty')->name('agent.property.delete');
         // Détails d'une propriété
         Route::get('/agent/property/view/{id}', 'AgentViewProperty')->name('agent.property.view');
+        // Activer/Désactiver une propriété
+        Route::get('/agent/property/toggle/{id}', 'AgentTogglePropertyStatus')->name('agent.property.toggle');
     });
 
 }); // End Group Agent Middleware 
